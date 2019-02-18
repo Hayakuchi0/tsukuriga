@@ -1,0 +1,21 @@
+<aside class="box">
+  サイトの説明文サイトの説明文サイトの説明文サイトの説明文サイトの説明文サイトの説明文サイトの説明文
+  サイトの説明文サイトの説明文サイトの説明文サイトの説明文サイトの説明文サイトの説明文サイトの説明文
+  サイトの説明文サイトの説明文サイトの説明文サイトの説明文サイトの説明文サイトの説明文サイトの説明文
+</aside>
+<aside class="box menu">
+  <p class="menu-label">お知らせ一覧</p>
+  <ul class="menu-list">
+    {% for page in pages %}
+      <li>
+        <a href="/pages/{{ page.slug }}">
+          {% if page.is_new %}
+            <span class="tag is-danger">new!</span>
+          {% endif %}
+          {{ page.title }}
+          <span class="is-pulled-right">{{ page.date_str }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</aside>

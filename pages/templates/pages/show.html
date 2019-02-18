@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load core_tags %}
+
+{% block page_title %}{{ page.title }}{% endblock %}
+{% block ogp_title %}{{ page.title }}{% endblock %}
+{% block description %}{% endblock %}
+{% block ogp_description %}{% endblock %}
+{% block ogp_image %}{{ page.ogp_image|to_absolute_path:request }}{% endblock %}
+{% block ogp_twitter_creator %}@ugo_compeito{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content_2col %}
+  <div class="column">
+    <aside id="pagesTextBox" class="box">
+      <h1 class="title is-4">{{ page.title }}</h1>
+      <h2 class="subtitle is-5">{{ page.created_at }}</h2>
+      <div class="mb5">
+        {% autoescape off %}
+          {{ page.text|linebreaks }}
+        {% endautoescape %}
+      </div>
+      {% include 'core/components/tweetButton.html' %}
+    </aside>
+  </div>
+{% endblock %}
