@@ -1,3 +1,4 @@
+import * as toastr from 'toastr'
 import './styles.scss'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -13,4 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
     $('.navbar-menu')[0].classList.toggle('is-active')
   })
 
+  /**
+   * toastr.js用
+   */
+  toastr.options = {
+    'positionClass': 'toast-bottom-right',
+  }
+  $('.toastr-data').forEach(data => {
+    toastr[data.dataset.tags](data.dataset.message)
+  })
 })

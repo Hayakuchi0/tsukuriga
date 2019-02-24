@@ -27,7 +27,8 @@ $input-shadow: none;
 $box-radius: 0;
 
 // Import only what you need from Bulma
-@import "../../node_modules/bulma/bulma";
+@import "~bulma/bulma";
+@import "~toastr/toastr";
 
 // Original
 .field:not(:last-child) {

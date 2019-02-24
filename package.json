@@ -35,6 +35,6 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "hyperapp": "^1.2.9"
+    "toastr": "^2.1.4"
   }
 }

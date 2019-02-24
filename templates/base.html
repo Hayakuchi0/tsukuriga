@@ -22,7 +22,6 @@
     <meta name="twitter:creator" content="{% block ogp_twitter_creator %}@ugo_compeito{% endblock %}"/>
   {% endblock %}
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
   {% block head %}{% endblock %}
   {% render_bundle 'js/app' %}
 </head>
@@ -46,21 +45,13 @@
       </div>
     </div>
   </footer>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-  <script>
-  toastr.options = {
-    'positionClass': 'toast-bottom-right',
-  }
-  </script>
   {% for message in messages %}
-    <script>
-    $(() => {
-      toastr['{{ message.tags }}']('{{ message }}')
-    })
-    </script>
+    <div class="toastr-data" data-tags="{{ message.tags }}" data-message="{{ message }}"></div>
   {% endfor %}
+  {% comment %}
   <link href="https://cdnjs.cloudflare.com/ajax/libs/lity/2.3.1/lity.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lity/2.3.1/lity.min.js"></script>
+  {% endcomment %}
   {% block scripts %}{% endblock %}
 </body>
 </html>
