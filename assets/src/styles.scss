@@ -52,3 +52,22 @@ input.input, textarea.textarea, select.control {
     padding-bottom: #{$i * 5}px;
   }
 }
+
+.tabs:not(:last-child) {
+  margin-bottom: 0;
+}
+
+.columns {
+  margin: 0 !important;
+}
+
+// ナビゲーションバー下に陰をつける
+.navbar.has-shadow {
+  box-shadow: 0 8px 8px rgba(10, 10, 10, 0.1);
+}
+
+// モバイル画面のときの上下の隙間を消す
+// columnを継承して別のクラスにすることで、columnの連結で発生するpaddingを回避
+.side-margin {
+  @extend .column.is-2
+}
