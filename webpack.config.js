@@ -4,15 +4,21 @@ const BundleTracker = require('webpack-bundle-tracker')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const glob = require('glob')
 
-let entries = {}
-glob.sync('./assets/src/*.js').map(file => {
-  const filename = path.basename(file).split('.')[0]
-  entries['js/' + filename] = file
-})
+function getEntries() {
+  let entries = {}
+  glob.sync(`./assets/src/*/*.js`).forEach(filepath => {
+    const file = filepath.split('/')
+    const folder = file.slice(-2, -1)[0]
+    const filename = file.slice(-1)[0]
+    console.log(filename)
+    entries[`${folder}/${filename.split('.')[0]}`] = filepath
+  })
+  return entries
+}
 
 module.exports = {
   context: __dirname,
-  entry: entries,
+  entry: getEntries(),
   output: {
     path: path.resolve('./assets/bundles/'),
     filename: '[name]-[hash].js'
@@ -37,6 +43,6 @@ module.exports = {
   },
   plugins: [
     new BundleTracker({filename: './webpack-stats.json'}),
-    new ExtractTextPlugin('css/styles-[hash].css'),
+    new ExtractTextPlugin('[name]-[hash].css'),
   ]
 }
