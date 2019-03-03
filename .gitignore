@@ -1,19 +1,27 @@
+# IDE
 .idea
 .vscode
 
+# Python
 __pycache__
 /venv/
 /.venv/
 
+# Django
+db.sqlite3
+local_settings.py
+dump.json
+
+# Nodejs
 /node_modules/
 webpack-stats.json
 /assets/bundles/
 
+# Firebase
+serviceAccountKey.json
+
+# Other
 Thumbs.db
 *.exe
 *.bat
 *.wsgi
-
-db.sqlite3
-local_settings.py
-dump.json

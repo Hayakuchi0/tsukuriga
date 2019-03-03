@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import socket
+
+from google.oauth2 import service_account
+
 from . import local_settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -31,7 +34,6 @@ else:
     DEBUG = True
 
 ALLOWED_HOSTS = local_settings.ALLOWED_HOST
-
 
 # Application definition
 
@@ -53,6 +55,8 @@ INSTALLED_APPS = [
     # django-ckeditor
     'ckeditor',
     'ckeditor_uploader',
+    # django-storages
+    'storages',
     # original apps
     'core.apps.CoreConfig',
     'account.apps.AccountConfig',
@@ -92,7 +96,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'munikis.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -102,7 +105,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -122,7 +124,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -135,7 +136,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
@@ -183,7 +183,6 @@ SOCIAL_AUTH_TWITTER_SECRET = local_settings.TWITTER_SECRET
 
 AUTH_USER_MODEL = 'account.User'
 
-
 # django-webpack-loader
 # https://github.com/owais/django-webpack-loader
 WEBPACK_LOADER = {
@@ -205,3 +204,11 @@ REMOVE_SLASH = True
 # django-ckeditor
 CKEDITOR_UPLOAD_PATH = 'pages/'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
+
+# django-storages
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BUCKET_NAME = 'testproject-b9158.appspot.com'
+
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    os.path.join(BASE_DIR, 'serviceAccountKey.json')
+)
