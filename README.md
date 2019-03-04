@@ -1,10 +1,2 @@
-# {{ project_name }}
-
-## やることリスト
-### core
-
-### account
-
-### その他
-
-## メモ
+# Munikis
+Altwugを継承する自主制作動画専用の投稿サイト
