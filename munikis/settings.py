@@ -210,5 +210,5 @@ DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 GS_BUCKET_NAME = 'testproject-b9158.appspot.com'
 
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    os.path.join(BASE_DIR, 'serviceAccountKey.json')
+    os.path.join(BASE_DIR, 'munikis', 'serviceAccountKey.json')
 )
