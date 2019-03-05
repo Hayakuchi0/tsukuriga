@@ -5,9 +5,7 @@ from .utils import load_credentials, get_container_and_filename
 
 class ObjectStorageApi:
     def __init__(self):
-        self._credentials = load_credentials()
-        self.token_id = self._credentials['access']['token']['id']
-        self.tenant_id = self._credentials['access']['token']['tenant']['id']
+        self.tenant_id, self.token_id = load_credentials()
         self.endpoint = f'https://object-storage.tyo1.conoha.io/v1/nc_{self.tenant_id}'
 
     def _request(self, method, name, **kwargs):
