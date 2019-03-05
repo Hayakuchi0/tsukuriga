@@ -12,6 +12,7 @@ db.sqlite3
 local_settings.py
 dump.json
 conoha.json
+conoha
 
 # Nodejs
 /node_modules/
