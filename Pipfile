@@ -14,7 +14,6 @@ django-unslashed = {git = "https://github.com/Compeito/django-unslashed"}
 pillow = "*"
 python-twitter = "*"
 django-ckeditor = "*"
-django-storages = {extras = ["google"],version = "*"}
 
 [dev-packages]
 

@@ -207,13 +207,6 @@ REMOVE_SLASH = True
 CKEDITOR_UPLOAD_PATH = 'pages/'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
 
-# django-storages
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-GS_BUCKET_NAME = 'testproject-b9158.appspot.com'
-
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    os.path.join(BASE_DIR, 'munikis', 'serviceAccountKey.json')
-)
-
 # django-conoha
-CONOHA_ACCESS_FILE_PATH = os.path.join(BASE_DIR, 'conoha.json')
+DEFAULT_FILE_STORAGE = 'conoha.storage.backend.ConohaObjectStorage'
+CONOHA_ACCESS_FILE_PATH = os.path.join(BASE_DIR, 'munikis', 'conoha.json')
