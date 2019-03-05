@@ -16,6 +16,7 @@ class User(AbstractUser):
 
     objects = UserManager()
 
+    @property
     def api(self):
         social_auth_obj = UserSocialAuth.objects.get(user=self)
         api = twitter.Api(consumer_key=settings.SOCIAL_AUTH_TWITTER_KEY,
