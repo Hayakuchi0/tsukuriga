@@ -12,9 +12,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import socket
-
-from google.oauth2 import service_account
-
 from . import local_settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -55,8 +52,6 @@ INSTALLED_APPS = [
     # django-ckeditor
     'ckeditor',
     'ckeditor_uploader',
-    # django-storages
-    'storages',
     # django-conoha
     'conoha',
     # original apps

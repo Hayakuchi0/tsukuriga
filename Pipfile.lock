@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "443c7f1797705c1d4071a23f3a12586469a16a79e24a4d84cccb657c53e3e9e3"
+            "sha256": "da1292cdd822f6eff1f5ffbbed0b663409da1123bf7d28677ab71cdce9a61604"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -74,10 +74,6 @@
                 "sha256:c163ae80d2e0b22d8fb598047cd0dcef31f81830e127cfecae278ad574167260"
             ],
             "version": "==1.2.2"
-        },
-        "django-unslashed": {
-            "git": "https://github.com/Compeito/django-unslashed",
-            "ref": "7be945ab4efd1ed40de86e05cf68302c904e0010"
         },
         "django-webpack-loader": {
             "hashes": [
@@ -210,6 +206,10 @@
                 "sha256:f9f36dfa6af2823efb35a5ef65dfd02f66c944f389c33c25dd9621f8bb75a7da"
             ],
             "version": "==3.1.0"
+        },
+        "tocka-django-unslashed": {
+            "git": "https://github.com/Compeito/django-unslashed",
+            "ref": "7be945ab4efd1ed40de86e05cf68302c904e0010"
         },
         "urllib3": {
             "hashes": [

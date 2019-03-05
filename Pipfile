@@ -10,7 +10,7 @@ django-extensions = "*"
 werkzeug = "*"
 django-webpack-loader = "*"
 django-bulma = "*"
-django-unslashed = {git = "https://github.com/Compeito/django-unslashed"}
+tocka-django-unslashed = {git = "https://github.com/Compeito/django-unslashed"}
 pillow = "*"
 python-twitter = "*"
 django-ckeditor = "*"
