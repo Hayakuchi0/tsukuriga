@@ -14,7 +14,8 @@ class ObjectStorageApi:
             'X-Auth-Token': self.token_id,
             'X-Container-Read': '.r:*',
         }
-        return requests.request(method, f'{self.endpoint}/{name}', headers=headers, **kwargs)
+        url = f'{self.endpoint}/{name}'
+        return requests.request(method, url, headers=headers, **kwargs)
 
     def get(self, name):
         return self._request('get', name)
@@ -24,6 +25,13 @@ class ObjectStorageApi:
 
     def put(self, name, f=None):
         return self._request('put', name, data=f)
+
+    def create(self, name, f=None):
+        container, filename = get_container_and_filename(name)
+        if not self.exists(container):
+            self.put(container)
+            self.post(container)
+        return self.put(name, f)
 
     def delete(self, name):
         return self._request('delete', name)

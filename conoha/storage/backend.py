@@ -17,7 +17,7 @@ class ConohaObjectStorage(Storage):
         return File(io.BytesIO(response.content))
 
     def _save(self, name, content):
-        response = self.api.put(name, content)
+        response = self.api.create(name, content)
         response.raise_for_status()
         return name
 
