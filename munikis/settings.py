@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'conoha',
     # original apps
     'core.apps.CoreConfig',
+    'upload.apps.UploadConfig',
     'account.apps.AccountConfig',
     'pages.apps.PagesConfig',
 ]
