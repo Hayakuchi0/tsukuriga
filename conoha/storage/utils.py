@@ -1,4 +1,6 @@
 import json
+import posixpath
+
 from django.conf import settings
 
 
@@ -27,3 +29,19 @@ def get_container_and_filename(name):
 def is_container(name):
     container, filename = get_container_and_filename(name)
     return filename == ''
+
+
+def clean_name(name):
+    """
+    Cleans the name so that Windows style paths work
+    https://github.com/jschneier/django-storages/blob/master/storages/utils.py
+    """
+    name = posixpath.normpath(name).replace('\\', '/')
+
+    if name.endswith('/') and not name.endswith('/'):
+        name = name + '/'
+
+    if name == '.':
+        name = ''
+
+    return name

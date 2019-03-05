@@ -3,7 +3,7 @@ import io
 from django.core.files import File
 from django.core.files.storage import Storage
 
-from .utils import is_container
+from .utils import is_container, clean_name
 from .api import ObjectStorageApi
 
 
@@ -19,6 +19,7 @@ class ConohaObjectStorage(Storage):
     def _save(self, name, content):
         response = self.api.put(name, content)
         response.raise_for_status()
+        return name
 
     def delete(self, name):
         self.api.delete(name)
@@ -48,4 +49,4 @@ class ConohaObjectStorage(Storage):
         return self.api.info(name, 'last_modified')
 
     def generate_filename(self, filename):
-        return filename
+        return clean_name(filename)
