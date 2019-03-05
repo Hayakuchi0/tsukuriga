@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     # django-storages
     'storages',
+    # django-conoha
+    'conoha',
     # original apps
     'core.apps.CoreConfig',
     'account.apps.AccountConfig',
@@ -212,3 +214,6 @@ GS_BUCKET_NAME = 'testproject-b9158.appspot.com'
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
     os.path.join(BASE_DIR, 'munikis', 'serviceAccountKey.json')
 )
+
+# django-conoha
+CONOHA_ACCESS_FILE_PATH = os.path.join(BASE_DIR, 'conoha.json')
