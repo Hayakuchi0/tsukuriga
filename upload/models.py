@@ -18,17 +18,17 @@ def thumbnail_upload_to(instance: 'Video', filename):
 
 
 class Video(models.Model):
-    user = models.ForeignKey('account.User', on_delete=models.CASCADE)
-    slug = models.CharField(max_length=5, default=default_video_slug)
-    file = models.FileField(upload_to=video_upload_to)
-    fps = models.PositiveIntegerField()
-    duration = models.FloatField()
-    thumbnail = models.ImageField(upload_to=thumbnail_upload_to)
+    user = models.ForeignKey('account.User', verbose_name='投稿者', on_delete=models.CASCADE)
+    slug = models.CharField('動画ID', max_length=5, default=default_video_slug)
+    file = models.FileField('動画ファイル', upload_to=video_upload_to)
+    fps = models.PositiveIntegerField('FPS')
+    duration = models.FloatField('動画時間')
 
 
 class VideoProfile(CustomModel):
-    video = models.OneToOneField(Video, on_delete=models.CASCADE, related_name='profile')
-    title = models.CharField(max_length=50)
-    description = models.TextField(max_length=200)
+    video = models.OneToOneField(Video, verbose_name='動画', on_delete=models.CASCADE, related_name='profile')
+    title = models.CharField('タイトル', max_length=50)
+    description = models.TextField('動画説明', max_length=200)
+    thumbnail = models.ImageField('サムネイル', upload_to=thumbnail_upload_to)
     # channel = models.PositiveIntegerField
     # tags = models.PositiveIntegerField
