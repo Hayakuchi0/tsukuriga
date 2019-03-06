@@ -1,8 +1,8 @@
 from django import forms
-from .models import Video
+from .models import UploadedPureVideo
 
 
 class VideoFileUploadForm(forms.ModelForm):
     class Meta:
-        model = Video
+        model = UploadedPureVideo
         fields = ('file', )
