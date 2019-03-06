@@ -9,16 +9,19 @@
 {% block ogp_image %}{% endblock %}
 {% block ogp_twitter_creator %}{% endblock %}
 
-{% block header %}{% endblock %}
+{% block header %}
+  {% include 'upload/components/header.html' %}
+{% endblock %}
 
 {% block content %}
   <div class="column">
-    <aside class="box">
-      <h1 class="title">アップロード</h1>
-      <template id="v-upload-form">
-        <p>[[ mes ]]</p>
-      </template>
-    </aside>
+    <section class="section">
+      {% include 'upload/components/process-list.html' %}
+      <div class="box">
+        <form id="v-upload-form" method="post">
+        </form>
+      </div>
+    </section>
   </div>
 {% endblock %}
 

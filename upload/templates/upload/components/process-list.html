@@ -1,0 +1,10 @@
+{% load core_tags %}
+<div class="level">
+  <div class="level-item tabs">
+    <ul>
+      {% for action in process %}
+      <li class="{{ 'is-active'|show_if:action.is_active }}"><a>{{ action.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
