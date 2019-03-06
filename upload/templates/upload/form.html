@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load render_bundle from webpack_loader %}
+
+
+{% block page_title %}{% endblock %}
+{% block ogp_title %}{% endblock %}
+{% block description %}{% endblock %}
+{% block ogp_description %}{% endblock %}
+{% block ogp_image %}{% endblock %}
+{% block ogp_twitter_creator %}{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+  <div class="column">
+    <aside class="box">
+      <h1 class="title">アップロード</h1>
+      <template id="v-upload-form">
+        <p>[[ mes ]]</p>
+      </template>
+    </aside>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  {% render_bundle 'upload/form' %}
+{% endblock %}
