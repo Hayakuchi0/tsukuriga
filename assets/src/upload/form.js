@@ -1,11 +1,9 @@
-import { vue_component } from '../utils'
+import { doc } from '../utils'
 
-vue_component({
-  el: '#v-upload-form',
-  delimiters: ['[[', ']]'],
-  data() {
-    return {
-      mes: 'test!!'
-    }
-  }
+const $fileField = doc('#id_file')[0]
+$fileField.addEventListener('change', () => {
+  const file = $fileField.files[0]
+  const $fileFieldLabel = doc('span.file-label')[0]
+  $fileFieldLabel.textContent = file.name
+  $fileFieldLabel.insertAdjacentHTML('afterend','<i class="fas fa-spin fa-spinner"></i>');
 })

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load render_bundle from webpack_loader %}
+{% load bulma_tags %}
 
 
 {% block page_title %}{% endblock %}
@@ -18,7 +19,8 @@
     <section class="section">
       {% include 'upload/components/process-list.html' %}
       <div class="box">
-        <form id="v-upload-form" method="post">
+        <form id="upload-form" method="post">
+          {{ form|bulma }}
         </form>
       </div>
     </section>

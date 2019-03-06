@@ -1,7 +1,9 @@
 import Vue from 'vue/dist/vue'
 
+export const ready = callback => document.addEventListener('DOMContentLoaded', callback)
+
 export const vue_component = options => {
-  document.addEventListener('DOMContentLoaded', () => {
+  ready(() => {
     options.delimiters = ['[[', ']]']
     new Vue(options)
   })
