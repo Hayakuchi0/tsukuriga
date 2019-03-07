@@ -36,6 +36,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "toastr": "^2.1.4",
+    "video.js": "^7.4.1",
     "vue": "^2.6.7"
   }
 }

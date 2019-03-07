@@ -1,0 +1,16 @@
+<video
+  id='video-player'
+  class='video-js'
+  controls
+  preload='auto'
+  width='640'
+  height='264'
+  poster='{{ video.data.thumbnail.url }}'
+  data-setup='{}'
+>
+  <source src='{{ video.data.file.url }}' type='video/mp4'>
+  <p class='vjs-no-js'>
+    この動画を見るためにはJavaScriptを有効にして、ブラウザを最新版にして再度試してみてください
+    <a href='https://videojs.com/html5-video-support/' target='_blank'>HTML5動画のサポート</a>
+  </p>
+</video>
