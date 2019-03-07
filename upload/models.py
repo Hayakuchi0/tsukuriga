@@ -11,7 +11,7 @@ def default_video_slug():
 
 
 def video_upload_to(instance: 'VideoData', filename):
-    return Path(instance.profile.user.username) / 'videos' / instance.profile.slug / f'{uuid4().hex}.mp4'
+    return Path(instance.video.user.username) / 'videos' / instance.video.slug / f'{uuid4().hex}.mp4'
 
 
 def temp_upload_to(instance, filename):
@@ -20,30 +20,31 @@ def temp_upload_to(instance, filename):
 
 
 def thumbnail_upload_to(instance: 'VideoData', filename):
-    return Path(instance.profile.user.username) / 'videos' / instance.profile.slug / f'{uuid4().hex}.jpg'
+    return Path(instance.video.user.username) / 'videos' / instance.video.slug / f'{uuid4().hex}.jpg'
+
+
+class Video(models.Model):
+    """
+    関連モデルを統括する基礎モデル
+    """
+    user = models.ForeignKey('account.User', verbose_name='投稿者', on_delete=models.CASCADE)
+    slug = models.CharField('動画ID', max_length=5, default=default_video_slug)
 
 
 class UploadedPureVideo(CustomModel):
     """
     エンコード前の未処理ファイルが保持されるモデル
-    UploadPureVideo -> VideoProfileの順に作成するため、それぞれの同一性はslugで保持する
     """
-    slug = models.CharField('動画ID', max_length=5, default=default_video_slug)
-    user = models.ForeignKey('account.User', verbose_name='投稿者', on_delete=models.CASCADE)
-    file = models.FileField('未処理動画ファイル', upload_to=temp_upload_to, storage=FileSystemStorage())
-
-    def encode(self):
-        """slugをもとにVideoProfileを特定し、"""
-        pass
+    video = models.OneToOneField(Video, verbose_name='動画', on_delete=models.CASCADE, related_name='pure')
+    file = models.FileField('動画ファイル', upload_to=temp_upload_to, storage=FileSystemStorage())
 
 
 class VideoProfile(CustomModel):
     """
-    アップロード直後の情報が保持されるモデル
-    slugはUploadedPureVideoから受け取る
+    アップロード直後に情報が保持されるモデル
+    基本的にユーザーが編集可
     """
-    user = models.ForeignKey('account.User', verbose_name='投稿者', on_delete=models.CASCADE)
-    slug = models.CharField('動画ID', max_length=5)
+    video = models.OneToOneField(Video, verbose_name='動画', on_delete=models.CASCADE, related_name='profile')
     title = models.CharField('タイトル', max_length=50)
     description = models.TextField('動画説明', max_length=200)
     # channel = models.PositiveIntegerField
@@ -53,8 +54,9 @@ class VideoProfile(CustomModel):
 class VideoData(models.Model):
     """
     エンコード後に作成され、情報が保持されるモデル
+    基本的にユーザーが編集不可
     """
-    profile = models.OneToOneField(VideoProfile, verbose_name='動画', on_delete=models.CASCADE, related_name='data')
+    video = models.OneToOneField(Video, verbose_name='動画', on_delete=models.CASCADE, related_name='data')
     thumbnail = models.ImageField('サムネイル', upload_to=thumbnail_upload_to)
     file = models.FileField('動画ファイル', upload_to=video_upload_to)
     fps = models.PositiveIntegerField('FPS')
