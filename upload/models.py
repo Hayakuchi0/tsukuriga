@@ -83,11 +83,11 @@ class UploadedPureVideo(CustomModel):
                 fps=self.clip.fps,
                 duration=self.clip.duration
             )
+        self.delete()
 
         self.clip.close()
         os.remove(encoded_filepath)
         os.remove(thumbnail_filepath)
-        self.delete()
 
     def delete(self, **kwargs):
         if os.path.exists(self.file.path):
