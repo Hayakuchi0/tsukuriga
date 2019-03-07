@@ -1,3 +1,4 @@
+import os
 from uuid import uuid4
 from pathlib import Path
 
@@ -37,6 +38,10 @@ class UploadedPureVideo(CustomModel):
     """
     video = models.OneToOneField(Video, verbose_name='動画', on_delete=models.CASCADE, related_name='pure')
     file = models.FileField('動画ファイル', upload_to=temp_upload_to, storage=FileSystemStorage())
+
+    def delete(self, **kwargs):
+        os.remove(self.file.path)
+        return super().delete(**kwargs)
 
 
 class VideoProfile(CustomModel):
