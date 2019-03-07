@@ -15,7 +15,7 @@ from core.utils import CustomModel, gen_unique_slug
 
 
 def default_video_slug():
-    return gen_unique_slug(5, VideoProfile)
+    return gen_unique_slug(5, Video)
 
 
 def video_upload_to(instance: 'VideoData', filename):
