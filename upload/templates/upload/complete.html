@@ -19,16 +19,8 @@
     <section class="section">
       {% include 'upload/components/process-list.html' %}
       <div class="box">
-        <form id="upload-form" class="form-submit" method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          {{ form|bulma }}
-          <button type="submit" class="button is-info form-submit-button">送信</button>
-        </form>
+        <h2>完了！</h2>
       </div>
     </section>
   </div>
-{% endblock %}
-
-{% block scripts %}
-  {% render_bundle 'upload/form' %}
 {% endblock %}
