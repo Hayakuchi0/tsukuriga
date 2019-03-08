@@ -28,9 +28,9 @@ $box-radius: 0;
 
 // Import only what you need from Bulma
 @import "~bulma/bulma";
-@import "~toastr/toastr";
 
-// Original
+/* Original */
+
 .field:not(:last-child) {
   margin-bottom: 20px;
 }
@@ -44,22 +44,9 @@ input.input, textarea.textarea, select.control {
   word-wrap: break-word;
 }
 
-@for $i from 1 through 10 {
-  .mb#{$i * 5} {
-    margin-bottom: #{$i * 5}px;
-  }
-  .pb#{$i * 5} {
-    padding-bottom: #{$i * 5}px;
-  }
-}
-
 .tabs:not(:last-child) {
   margin-bottom: 0;
 }
-
-//.columns {
-//  margin: 0 !important;
-//}
 
 // ナビゲーションバー下に陰をつける
 .navbar.has-shadow {
