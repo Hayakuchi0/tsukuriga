@@ -1,9 +1,9 @@
 import * as toastr from 'toastr'
 
-import { doc } from '../utils'
+import { doc, ready } from '../utils'
 import './styles.scss'
 
-document.addEventListener('DOMContentLoaded', () => {
+ready(() => {
   /**
    * メニュー開閉
    * https://bulma.io/documentation/components/navbar/#navbar-menu

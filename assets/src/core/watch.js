@@ -1,4 +1,8 @@
 import videojs from 'video.js'
+
+import { ready } from '../utils'
 import './styles.scss'
 
-const player = videojs('video-player')
+ready(() => {
+  const player = videojs('video-player')
+})

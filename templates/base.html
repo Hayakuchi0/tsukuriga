@@ -29,18 +29,16 @@
 <body>
   {% include 'base/components/navbar.html' %}
   {% block header %}{% endblock %}
-  <section class="section">
-    <div class="container">
-      <div class="columns">
-        {% block content %}
-          {% block content_2col %}{% endblock %}
-          <div class="submenu column is-3">
-            {% include 'base/components/submenu.html' %}
-          </div>
-        {% endblock %}
-      </div>
+  <div class="container">
+    <div class="columns">
+      {% block content %}
+        {% block content_2col %}{% endblock %}
+        <div class="submenu column is-3">
+          {% include 'base/components/submenu.html' %}
+        </div>
+      {% endblock %}
     </div>
-  </section>
+  </div>
   <footer class="footer">
     <div class="container">
       <div class="content has-text-centered">
