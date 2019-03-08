@@ -9,6 +9,8 @@
 
 {% block content_2col %}
   <div class="column">
-
+    {% for video in videos %}
+      <a href="/watch/{{ video.slug }}">{{ video.profile.title }}</a>
+    {% endfor %}
   </div>
 {% endblock %}

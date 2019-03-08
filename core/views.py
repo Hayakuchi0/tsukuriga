@@ -3,7 +3,8 @@ from upload.models import Video
 
 
 def top(request):
-    return render(request, 'core/top.html')
+    videos = Video.objects.all().order_by('-profile__created_at')
+    return render(request, 'core/top.html', {'videos': videos})
 
 
 def watch(request, slug):
