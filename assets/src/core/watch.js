@@ -1,3 +1,4 @@
 import videojs from 'video.js'
+import './styles.scss'
 
-videojs('video-player')
+const player = videojs('video-player')
