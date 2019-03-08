@@ -17,9 +17,9 @@ class VideoDataInline(ReadOnlyMixin, admin.StackedInline):
 
 class VideoAdmin(ReadOnlyMixin, admin.ModelAdmin):
     list_display_custom = [
-        ('動画ID', 'slug'),
-        ('タイトル', 'profile__title'),
-        ('エンコード待ち', 'is_encoded')
+        ('動画ID', 'slug', str),
+        ('タイトル', 'profile__title', str),
+        ('エンコード済み', 'is_encoded', bool)
     ]
     inlines = (VideoProfileInline, VideoDataInline)
 
@@ -41,10 +41,12 @@ class VideoAdmin(ReadOnlyMixin, admin.ModelAdmin):
             return attrs[-1], field_func
 
         list_display = []
-        for field_title, field_attr in self.list_display_custom:
+        for field_title, field_attr, field_type in self.list_display_custom:
             field, field_function = get_field_and_function(field_attr)
 
             field_function.short_description = field_title
+            if field_type == bool:
+                field_function.boolean = True
             setattr(self, field, field_function)
 
             list_display.append(field)
