@@ -1,6 +1,7 @@
-import * as toastr from 'toastr'
-
 import { doc, ready } from '../utils'
+import Notyf from 'notyf'
+
+import 'notyf/dist/notyf.min.css'
 import './styles.scss'
 
 ready(() => {
@@ -15,13 +16,15 @@ ready(() => {
   })
 
   /**
-   * toastr.js用
-   * 廃止予定
+   * Notyf
+   * https://github.com/caroso1222/notyf
    */
-  toastr.options = {
-    'positionClass': 'toast-bottom-right',
+  const notyf = new Notyf()
+  const notyf_key = {
+    success: 'confirm',
+    error: 'alert'
   }
-  doc('.toastr-data').forEach(data => {
-    toastr[data.dataset.tags](data.dataset.message)
+  doc('.notyf-data').forEach(data => {
+    notyf[notyf_key[data.dataset.tags]](data.dataset.message)
   })
 })
