@@ -42,6 +42,9 @@ class Video(models.Model):
     user = models.ForeignKey('account.User', verbose_name='投稿者', on_delete=models.CASCADE)
     slug = models.CharField('動画ID', max_length=5, default=default_video_slug, editable=False)
 
+    def is_encoded(self):
+        return VideoData.objects.filter(video=self).exists()
+
 
 class UploadedPureVideo(CustomModel):
     """
