@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "fe69d26ef565e7c2ffe9fec71f0f5702a25eca8ac9e3c21aaba17eb24c92dd27"
+            "sha256": "f7d82111ed82f4fa2b68f70f3bc063381dd81a48c6734a3f5ecfab86a950620a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -81,6 +81,10 @@
                 "sha256:c163ae80d2e0b22d8fb598047cd0dcef31f81830e127cfecae278ad574167260"
             ],
             "version": "==1.2.2"
+        },
+        "django-storage-swift": {
+            "git": "https://github.com/Compeito/django-storage-swift",
+            "ref": "c1515f44e54d23beae0f406848ee40b7900b803a"
         },
         "django-webpack-loader": {
             "hashes": [

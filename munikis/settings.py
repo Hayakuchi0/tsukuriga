@@ -52,8 +52,6 @@ INSTALLED_APPS = [
     # django-ckeditor
     'ckeditor',
     'ckeditor_uploader',
-    # django-conoha
-    'conoha',
     # original apps
     'core.apps.CoreConfig',
     'upload.apps.UploadConfig',
@@ -203,6 +201,12 @@ REMOVE_SLASH = True
 CKEDITOR_UPLOAD_PATH = 'pages/'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
 
-# django-conoha
-DEFAULT_FILE_STORAGE = 'conoha.storage.backend.ConohaObjectStorage'
-CONOHA_ACCESS_FILE_PATH = os.path.join(BASE_DIR, 'munikis', 'conoha.json')
+# django-storage-swift
+DEFAULT_FILE_STORAGE = 'swift.storage.SwiftStorage'
+SWIFT_AUTH_URL = 'https://identity.tyo1.conoha.io/v2.0'
+SWIFT_TENANT_NAME = local_settings.SWIFT_TENANT_NAME
+SWIFT_USERNAME = local_settings.SWIFT_USERNAME
+SWIFT_PASSWORD = local_settings.SWIFT_PASSWORD
+SWIFT_AUTO_CREATE_CONTAINER_PUBLIC = True
+SWIFT_AUTO_CREATE_CONTAINER = True
+SWIFT_CONTAINER_NAME = 'media'
