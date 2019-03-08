@@ -18,27 +18,36 @@ class VideoDataInline(ReadOnlyMixin, admin.StackedInline):
 class VideoAdmin(ReadOnlyMixin, admin.ModelAdmin):
     list_display_custom = [
         ('動画ID', 'slug'),
-        ('タイトル', 'profile__title')
+        ('タイトル', 'profile__title'),
+        ('エンコード待ち', 'is_encoded')
     ]
     inlines = (VideoProfileInline, VideoDataInline)
 
     def get_list_display(self, request):
 
-        def display_func(attr_path, field_title):
+        def get_field_and_function(attr_path):
             attrs = attr_path.split('__')
-            r = self.get_queryset(request)[0]
-            for attr in attrs:
-                r = getattr(r, attr)
 
-            f = lambda x: r
-            f.short_description = field_title
-            return f, attrs[-1]
+            def field_func(instance):
+                r = instance
+                for attr in attrs:
+                    if hasattr(r, attr):
+                        r = getattr(r, attr)
+                    else:
+                        r = None
+                        break
+                return r if not callable(r) else r()
+
+            return attrs[-1], field_func
 
         list_display = []
-        for field_title, field in self.list_display_custom:
-            func, title = display_func(field, field_title)
-            setattr(self, title, func)
-            list_display.append(title)
+        for field_title, field_attr in self.list_display_custom:
+            field, field_function = get_field_and_function(field_attr)
+
+            field_function.short_description = field_title
+            setattr(self, field, field_function)
+
+            list_display.append(field)
 
         return list_display
 
