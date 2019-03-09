@@ -23,7 +23,6 @@
   "devDependencies": {
     "@babel/core": "^7.2.0",
     "babel-loader": "^8.0.4",
-    "bulma": "^0.7.2",
     "css-loader": "^2.0.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "node-sass": "^4.11.0",
@@ -35,6 +34,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bulma": "^0.7.4",
+    "bulmaswatch": "^0.7.2",
     "notyf": "^2.0.1",
     "video.js": "^7.4.1",
     "vue": "^2.6.7"
