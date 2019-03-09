@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     # original apps
     'core.apps.CoreConfig',
     'upload.apps.UploadConfig',
+    'browse.apps.BrowseConfig',
     'account.apps.AccountConfig',
     'pages.apps.PagesConfig',
 ]

@@ -26,6 +26,7 @@ urlpatterns = [
     path('ck/', include('ckeditor_uploader.urls')),
     path('', include('social_django.urls', namespace='social')),
     path('', include('core.urls')),
+    path('', include('browse.urls')),
     path('upload', include('upload.urls')),
 ]
 

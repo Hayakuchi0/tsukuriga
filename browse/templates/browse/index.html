@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block page_title %}{% endblock %}
+{% block ogp_page_title %}{% endblock %}
+{% block description %}{% endblock %}
+{% block ogp_description %}{% endblock %}
+{% block ogp_image %}{% endblock %}
+{% block ogp_twitter_creator %}{% endblock %}
+
+{% block content_2col %}
+  <div class="column">
+    {% for video in videos %}
+      <a href="/watch/{{ video.slug }}">{{ video.profile.title }}</a>
+    {% endfor %}
+  </div>
+{% endblock %}
