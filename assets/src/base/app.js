@@ -27,4 +27,21 @@ ready(() => {
   doc('.notyf-data').forEach(data => {
     notyf[notyf_key[data.dataset.tags]](data.dataset.message)
   })
+
+  /**
+   * 2重サブミット対策
+   *
+   */
+  const isSubmitting =  false;
+  const $submitForm = doc('form')
+  $submitForm.forEach($form => {
+    const $submitButton = $form.querySelector('button[type=submit]')
+    $form.addEventListener('submit', e => {
+      if (isSubmitting) {
+        e.preventDefault()
+      } else {
+        $submitButton.classList.add('is-loading')
+      }
+    })
+  })
 })
