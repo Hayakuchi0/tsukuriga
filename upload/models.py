@@ -11,6 +11,7 @@ from django.utils.functional import cached_property
 from django.utils import timezone
 from moviepy.editor import VideoFileClip
 
+from .validators import FileValidator
 from core.utils import CustomModel, gen_unique_slug
 
 
@@ -51,7 +52,10 @@ class UploadedPureVideo(CustomModel):
     エンコード前の未処理ファイルが保持されるモデル
     """
     video = models.OneToOneField(Video, verbose_name='動画', on_delete=models.CASCADE, related_name='pure')
-    file = models.FileField('動画ファイル', upload_to=temp_upload_to, storage=FileSystemStorage())
+
+    file_validator = FileValidator(allowed_extensions=['mp4'], max_size=100 * 1024 * 1024)
+    file = models.FileField('動画ファイル', upload_to=temp_upload_to, storage=FileSystemStorage(),
+                            validators=[file_validator])
 
     @cached_property
     def clip(self):
