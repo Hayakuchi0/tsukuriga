@@ -16,11 +16,9 @@
 
 {% block content %}
   <div class="column">
-    <section class="section">
-      {% include 'upload/components/process-list.html' %}
-      <div class="box">
-        <h2>完了！</h2>
-      </div>
-    </section>
+    {% include 'upload/components/process-list.html' %}
+    <div class="box">
+      <h2>完了！</h2>
+    </div>
   </div>
 {% endblock %}

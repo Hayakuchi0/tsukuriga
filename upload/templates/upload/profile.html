@@ -16,15 +16,13 @@
 
 {% block content %}
   <div class="column">
-    <section class="section">
-      {% include 'upload/components/process-list.html' %}
-      <div class="box">
-        <form method="post" class="form-submit">
-          {% csrf_token %}
-          {{ form|bulma }}
-          <button type="submit" class="button is-info form-submit-button">送信</button>
-        </form>
-      </div>
-    </section>
+    {% include 'upload/components/process-list.html' %}
+    <div class="box">
+      <form method="post" class="form-submit">
+        {% csrf_token %}
+        {{ form|bulma }}
+        <button type="submit" class="button is-info form-submit-button">送信</button>
+      </form>
+    </div>
   </div>
 {% endblock %}

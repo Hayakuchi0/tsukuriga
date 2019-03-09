@@ -9,8 +9,7 @@
 
 {% block content_2col %}
   <div class="column">
-    {% for video in videos %}
-      <a href="/watch/{{ video.slug }}">{{ video.profile.title }}</a>
-    {% endfor %}
+    <a class="button is-primary" href="/upload">upload</a>
+    <a class="button is-primary" href="/browse">browse</a>
   </div>
 {% endblock %}
