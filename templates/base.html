@@ -1,6 +1,6 @@
 {% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
-<html lang="ja" class="has-navbar-fixed-top">
+<html lang="ja">
 <head prefix="og: http://ogp.me/ns# website: http://ogp.me/ns/website#">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -26,7 +26,7 @@
   {% block head %}{% endblock %}
   {% render_bundle 'base/app' %}
 </head>
-<body>
+<body class="has-navbar-fixed-top">
   {% include 'base/components/navbar.html' %}
   {% block header %}{% endblock %}
   <main class="section">

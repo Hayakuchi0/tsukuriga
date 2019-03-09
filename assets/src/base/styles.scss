@@ -16,24 +16,12 @@ $navbar-height: 4rem;
 
 /* Original */
 
-.field:not(:last-child) {
-  margin-bottom: 20px;
-}
-
-input.input, textarea.textarea, select.control {
-  border-color: #afafaf;
-}
-
 .box {
-  // word-break: keep-all;
   word-wrap: break-word;
-}
-
-.tabs:not(:last-child) {
-  margin-bottom: 0;
 }
 
 // ナビゲーションバー下に陰をつける
 .navbar.has-shadow {
   box-shadow: 0 8px 8px rgba(10, 10, 10, 0.1);
 }
+
