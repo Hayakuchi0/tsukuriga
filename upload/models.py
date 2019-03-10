@@ -11,7 +11,7 @@ from django.utils.functional import cached_property
 from django.utils import timezone
 from moviepy.editor import VideoFileClip
 
-from .validators import FileValidator
+from .validators import FileValidator, video_file_validator
 from core.utils import CustomModel, gen_unique_slug
 
 
@@ -55,7 +55,7 @@ class UploadedPureVideo(CustomModel):
 
     file_validator = FileValidator(allowed_extensions=['mp4'], max_size=100 * 1024 * 1024)
     file = models.FileField('動画ファイル', upload_to=temp_upload_to, storage=FileSystemStorage(),
-                            validators=[file_validator])
+                            validators=[file_validator, video_file_validator])
 
     @cached_property
     def clip(self):
@@ -90,11 +90,12 @@ class UploadedPureVideo(CustomModel):
                 fps=self.clip.fps,
                 duration=self.clip.duration
             )
-        self.delete()
 
         self.clip.close()
         os.remove(encoded_filepath)
         os.remove(thumbnail_filepath)
+
+        self.delete()
 
     def delete(self, **kwargs):
         if os.path.exists(self.file.path):
@@ -124,6 +125,19 @@ class VideoData(models.Model):
     file = models.FileField('動画ファイル', upload_to=video_upload_to)
     fps = models.PositiveIntegerField('FPS')
     duration = models.FloatField('動画時間')
+
+    def duration_str(self):
+        hour = int((self.duration / 3600))
+        minute = int((self.duration % 3600) / 60)
+        second = int((self.duration % 3600) % 60)
+
+        if hour == 0:
+            hour = ''
+        else:
+            hour = str(hour) + ':'
+
+        result = hour + '%02d:%02d' % (minute, second)
+        return result
 
     def delete(self, **kwargs):
         self.file.delete(False)

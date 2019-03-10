@@ -1,7 +1,10 @@
 # https://gist.github.com/jrosebr1/2140738
 
+import os
+import tempfile
 import mimetypes
-from os.path import splitext
+
+from moviepy.editor import VideoFileClip
 
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import filesizeformat
@@ -45,7 +48,7 @@ class FileValidator:
         """
 
         # Check the extension
-        ext = splitext(value.name)[1][1:].lower()
+        ext = os.path.splitext(value.name)[1][1:].lower()
         if self.allowed_extensions and ext not in self.allowed_extensions:
             message = self.extension_message % {
                 'extension': ext,
@@ -81,3 +84,24 @@ class FileValidator:
             }
 
             raise ValidationError(message)
+
+
+def video_file_validator(value):
+    """
+    Windowsではdelete=Falseを指定したtempfileは権限エラーでアクセスできない
+    https://stackoverflow.com/questions/23212435/permission-denied-to-write-to-my-temporary-file
+    """
+    delete_option = not os.name == 'nt'
+
+    temp_file = tempfile.NamedTemporaryFile(suffix='.mp4', delete=delete_option)
+    temp_file_path = temp_file.name
+
+    with open(temp_file_path, 'wb+') as f:
+        for chunk in value.chunks():
+            f.write(chunk)
+
+    try:
+        clip = VideoFileClip(temp_file_path)
+        clip.close()
+    except:
+        raise ValidationError('ファイル形式が不正です。動画ファイルとして読み込むことが出来ませんでした')
