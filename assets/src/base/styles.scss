@@ -25,3 +25,33 @@ $navbar-height: 4rem;
   box-shadow: 0 8px 8px rgba(10, 10, 10, 0.1);
 }
 
+.video {
+
+  .video-thumbnail {
+    @extend .card;
+    position: relative;
+
+    .video-thumbnail-display {
+      display: none;
+    }
+
+    &:hover {
+      .video-thumbnail-display {
+        @extend .level;
+        position: absolute;
+        right: 2px;
+        bottom: 2px;
+
+        .video-thumbnail-display-item {
+          @extend .level-item;
+          margin-left: 5px;
+          padding: 2px 3px;
+          background-color: black;
+          color: #eeeeee;
+          opacity: 0.8;
+          border-radius: 0.3rem;
+        }
+      }
+    }
+  }
+}

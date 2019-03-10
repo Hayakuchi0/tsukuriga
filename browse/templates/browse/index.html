@@ -9,8 +9,25 @@
 
 {% block content_2col %}
   <div class="column">
-    {% for video in videos %}
-      <a href="/watch/{{ video.slug }}">{{ video.profile.title }}</a>
-    {% endfor %}
+    <div class="row columns is-multiline">
+      {% for data in video_data %}
+        <div class="column is-one-quarter-desktop is-one-third-tablet">
+          <a href="/watch/{{ data.video.slug }}">
+            <div class="video">
+              <div class="video-thumbnail">
+                <img class="video-thumbnail-image" src="{{ data.thumbnail.url }}" alt="{{ data.video.profile.title }}">
+                <div class="video-thumbnail-display">
+                  <span class="video-thumbnail-display-item">{{ data.fps }}fps</span>
+                  <span class="video-thumbnail-display-item">{{ data.duration_str }}</span>
+                </div>
+              </div>
+              <div class="video-footer">
+                <p>{{ data.video.profile.title }}</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
   </div>
 {% endblock %}
