@@ -1,13 +1,14 @@
 # https://gist.github.com/jrosebr1/2140738
 
 import os
-import tempfile
 import mimetypes
 
 from moviepy.editor import VideoFileClip
 
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import filesizeformat
+
+from .utils import get_tempfile
 
 
 class FileValidator:
@@ -86,19 +87,8 @@ class FileValidator:
             raise ValidationError(message)
 
 
-def video_file_validator(value):
-    """
-    Windowsではdelete=Falseを指定したtempfileは権限エラーでアクセスできない
-    https://stackoverflow.com/questions/23212435/permission-denied-to-write-to-my-temporary-file
-    """
-    delete_option = not os.name == 'nt'
-
-    temp_file = tempfile.NamedTemporaryFile(suffix='.mp4', delete=delete_option)
-    temp_file_path = temp_file.name
-
-    with open(temp_file_path, 'wb+') as f:
-        for chunk in value.chunks():
-            f.write(chunk)
+def video_file_validator(file):
+    temp_file_path = get_tempfile('.mp4', file)
 
     try:
         clip = VideoFileClip(temp_file_path)
