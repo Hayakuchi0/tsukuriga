@@ -29,10 +29,24 @@ ready(() => {
   })
 
   /**
+   * ファイル入力フィールド用処理
+   *
+   */
+  const $fileField = doc('input[type=file]')
+  $fileField.forEach($field => {
+    $field.addEventListener('change', () => {
+      const file = $field.files[0]
+      const $fieldLabel = $field.nextElementSibling.querySelector('span.file-label')
+      $fieldLabel.textContent = file.name
+    })
+  })
+
+
+  /**
    * 2重サブミット対策
    *
    */
-  const isSubmitting =  false;
+  const isSubmitting = false
   const $submitForm = doc('form')
   $submitForm.forEach($form => {
     const $submitButton = $form.querySelector('button[type=submit]')
