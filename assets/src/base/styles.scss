@@ -4,6 +4,7 @@
 
 $bulmaswatch-import-font: false;
 $family-sans-serif: "Nunito", sans-serif;
+$body-background-color: #eeeeee;
 $section-padding: 1.5rem 0.8rem;
 //$control-border-width: 2px;
 //$input-border-color: transparent;
@@ -36,8 +37,11 @@ $navbar-height: 4rem;
 .video {
 
   .video-thumbnail {
-    @extend .card;
     position: relative;
+
+    .video-thumbnail-image {
+      box-shadow: 0 8px 8px rgba(10, 10, 10, 0.1);
+    }
 
     .video-thumbnail-display {
       display: none;
@@ -48,7 +52,7 @@ $navbar-height: 4rem;
         @include flex;
         position: absolute;
         right: 2px;
-        bottom: 2px;
+        bottom: 8px;
 
         .video-thumbnail-display-item {
           margin-left: 5px;
