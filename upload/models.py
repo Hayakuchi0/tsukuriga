@@ -12,6 +12,7 @@ from django.utils import timezone
 from moviepy.editor import VideoFileClip
 
 from .validators import FileValidator, video_file_validator
+from .utils import get_tempfile
 from core.utils import CustomModel, gen_unique_slug
 
 
@@ -125,6 +126,19 @@ class VideoData(models.Model):
     file = models.FileField('動画ファイル', upload_to=video_upload_to)
     fps = models.PositiveIntegerField('FPS')
     duration = models.FloatField('動画時間')
+
+    def update_thumbnail(self, t):
+        temp_file_path = get_tempfile('.mp4', self.file)
+        clip = VideoFileClip(temp_file_path)
+
+        next_thumbnail_path = get_tempfile('.jpg')
+        clip.save_frame(next_thumbnail_path, t=t)
+        clip.close()
+
+        self.thumbnail.delete(False)
+        with open(next_thumbnail_path, 'rb') as f:
+            self.thumbnail = File(f)
+            self.save()
 
     def duration_str(self):
         hour = int((self.duration / 3600))
