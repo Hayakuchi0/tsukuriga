@@ -15,7 +15,16 @@
 {% block header %}{% endblock %}
 
 {% block content %}
-  <div class="column">
+  <div class="column is-two-thirds">
     {% include 'core/components/video.html' %}
+    {% if video.user == request.user %}
+      <div class="level">
+        <div class="level-left"></div>
+        <div class="level-right">
+          <a href="/edit/{{ video.slug }}" class="button is-primary level-item">動画情報の編集</a>
+          <a href="/thumbnail/{{ video.slug }}" class="button is-primary level-item">サムネイル編集</a>
+        </div>
+      </div>
+    {% endif %}
   </div>
 {% endblock %}
