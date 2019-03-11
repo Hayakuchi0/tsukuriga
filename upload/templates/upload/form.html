@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load render_bundle from webpack_loader %}
 {% load bulma_tags %}
 
 
@@ -18,15 +17,11 @@
   <div class="column">
     {% include 'upload/components/process-list.html' %}
     <div class="box">
-      <form id="upload-form" class="form-submit" method="post" enctype="multipart/form-data">
+      <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|bulma }}
-        <button type="submit" class="button is-info form-submit-button">送信</button>
+        <button type="submit" class="button is-info">送信</button>
       </form>
     </div>
   </div>
-{% endblock %}
-
-{% block scripts %}
-  {% render_bundle 'upload/form' %}
 {% endblock %}
