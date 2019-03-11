@@ -19,7 +19,9 @@ ready(() => {
    * Notyf
    * https://github.com/caroso1222/notyf
    */
-  const notyf = new Notyf()
+  const notyf = new Notyf({
+    delay: 5000
+  })
   const notyf_key = {
     success: 'confirm',
     error: 'alert'
