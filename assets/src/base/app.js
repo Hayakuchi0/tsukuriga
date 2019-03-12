@@ -48,16 +48,12 @@ ready(() => {
    * 2重サブミット対策
    *
    */
-  const isSubmitting = false
   const $submitForm = doc('form.submit-form')
   $submitForm.forEach($form => {
     const $submitButton = $form.querySelector('button[type=submit]')
     $form.addEventListener('submit', e => {
-      if (isSubmitting) {
-        e.preventDefault()
-      } else {
-        $submitButton.classList.add('is-loading')
-      }
+      $submitButton.classList.add('is-loading')
+      $submitButton.disabled = true
     })
   })
 })
