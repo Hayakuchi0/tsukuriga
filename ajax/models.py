@@ -12,6 +12,7 @@ class Comment(models.Model):
 
     def json(self):
         return {
+            'id': self.id,
             'user': self.user.json(),
             'text': self.text,
             'createdAt': created_at2str(self.created_at)

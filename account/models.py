@@ -30,7 +30,7 @@ class User(AbstractUser):
         return {
             'username': self.username,
             'name': self.name,
-            'profile_icon': self.profile_icon_url
+            'profile_icon': self.profile_icon_url_medium()
         }
 
     def profile_icon_url_medium(self):
