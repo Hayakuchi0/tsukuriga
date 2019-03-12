@@ -17,7 +17,7 @@
   <div class="column">
     {% include 'upload/components/process-list.html' %}
     <div class="box">
-      <form method="post" enctype="multipart/form-data">
+      <form class="submit-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|bulma }}
         <button type="submit" class="button is-info">送信</button>

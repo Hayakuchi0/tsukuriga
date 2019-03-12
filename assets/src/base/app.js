@@ -49,7 +49,7 @@ ready(() => {
    *
    */
   const isSubmitting = false
-  const $submitForm = doc('form')
+  const $submitForm = doc('form.submit-form')
   $submitForm.forEach($form => {
     const $submitButton = $form.querySelector('button[type=submit]')
     $form.addEventListener('submit', e => {

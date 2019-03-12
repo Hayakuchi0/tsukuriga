@@ -19,7 +19,7 @@
     <div class="box">
       {% include 'core/components/video.html' %}
       <p>サムネイルとして設定したいところで決定ボタンを押してください</p>
-      <form method="post">
+      <form class="submit-form" method="post">
         {% csrf_token %}
         <input type="number" name="time" step="any" required id="id_time" style="display: none">
         <button type="button" class="button is-info" @click="submitThumbnail">決定</button>
