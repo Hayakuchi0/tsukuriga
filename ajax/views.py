@@ -1,11 +1,19 @@
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET, require_POST
 
 from upload.models import Video
 from .models import Comment
 from .forms import CommentForm
 from .utils import json_response
+
+
+def login_required(view):
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return json_response([{'message': 'ログインが必要です'}], status=401)
+        return view(request, *args, **kwargs)
+
+    return wrapper
 
 
 @require_POST
