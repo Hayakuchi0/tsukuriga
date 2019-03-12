@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load render_bundle from webpack_loader %}
+{% load bulma_tags %}
 
 {% block page_title %}{% endblock %}
 {% block ogp_page_title %}{% endblock %}
@@ -26,5 +27,10 @@
         </div>
       </div>
     {% endif %}
+    <form method="/ajax/comments/add/{{ video.slug }}" class="ajax-form">
+      {% csrf_token %}
+      {{ form|bulma }}
+      <button type="button" class="button is-info">送信</button>
+    </form>
   </div>
 {% endblock %}

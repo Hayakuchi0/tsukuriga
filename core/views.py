@@ -3,6 +3,7 @@ from django.http import HttpResponseBadRequest
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+from ajax.forms import CommentForm
 from upload.models import Video
 from upload.forms import VideoProfileForm
 from .forms import ThumbnailForm
@@ -15,7 +16,8 @@ def top(request):
 
 def watch(request, slug):
     video = get_object_or_404(Video, slug=slug)
-    return render(request, 'core/watch.html', {'video': video})
+    form = CommentForm()
+    return render(request, 'core/watch.html', {'video': video, 'form': form})
 
 
 @login_required
