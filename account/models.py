@@ -26,6 +26,13 @@ class User(AbstractUser):
                           tweet_mode='extended')
         return api
 
+    def json(self):
+        return {
+            'username': self.username,
+            'name': self.name,
+            'profile_icon': self.profile_icon_url
+        }
+
     def profile_icon_url_medium(self):
         if self.profile_icon_url:
             return self.profile_icon_url.replace('normal', '200x200')
