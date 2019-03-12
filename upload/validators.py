@@ -1,16 +1,17 @@
 # https://gist.github.com/jrosebr1/2140738
 
-import os
 import mimetypes
-
-from moviepy.editor import VideoFileClip
+import os
 
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import filesizeformat
+from django.utils.deconstruct import deconstructible
+from moviepy.editor import VideoFileClip
 
 from .utils import get_tempfile
 
 
+@deconstructible
 class FileValidator:
     """
     Validator for files, checking the size, extension and mimetype.

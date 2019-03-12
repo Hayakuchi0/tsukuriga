@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import socket
+
 from . import local_settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -56,6 +57,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'upload.apps.UploadConfig',
     'browse.apps.BrowseConfig',
+    'ajax.apps.AjaxConfig',
     'account.apps.AccountConfig',
     'pages.apps.PagesConfig',
 ]
