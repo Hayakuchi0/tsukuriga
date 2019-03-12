@@ -15,7 +15,9 @@ $navbar-height: 4rem;
 @import "~bulma/bulma";
 @import "~bulmaswatch/lux/overrides";
 
-/* Original */
+textarea[rows] {
+  resize: none;
+}
 
 .box {
   word-wrap: break-word;
