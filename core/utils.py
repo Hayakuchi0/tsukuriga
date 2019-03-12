@@ -1,14 +1,12 @@
-from django.db import models
-from django.conf import settings
-from django.views import generic
-from django.utils import timezone
-from django.utils.crypto import get_random_string
-from django.http.response import JsonResponse
-
-import os
 import math
+import os
 
 import twitter
+from django.conf import settings
+from django.db import models
+from django.utils import timezone
+from django.utils.crypto import get_random_string
+from django.views import generic
 
 
 def get_ip(request):
@@ -112,15 +110,6 @@ def gen_unique_slug(x, obj, slug_name='slug'):
         id_str = get_random_string(x)
         if id_str not in already_ids:
             return id_str
-
-
-def json_response(data, indent=2, status=200, *args, **kwargs):
-    response_key = 'data' if status == 200 else 'errors'
-    return JsonResponse(
-        data={response_key: data},
-        json_dumps_params={'indent': indent, 'ensure_ascii': False},
-        status=status, *args, **kwargs
-    )
 
 
 class CustomModel(models.Model):
