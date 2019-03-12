@@ -34,7 +34,10 @@
     </form>
     <section class="section">
       <div id="v-comment-list" class="box">
-        <template v-for="comment in comments">
+        <template v-if="isEmpty">
+          <p>コメントはありません</p>
+        </template>
+        <template v-for="comment in comments" v-else>
           <v-comment-item :comment="comment"></v-comment-item>
         </template>
       </div>

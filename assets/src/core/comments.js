@@ -25,6 +25,11 @@ ready(() => {
         comments: []
       }
     },
+    computed: {
+      isEmpty() {
+        return this.comments.length === 0
+      }
+    },
     mounted() {
       this.getComments()
     },
