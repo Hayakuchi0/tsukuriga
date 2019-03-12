@@ -27,10 +27,14 @@
         </div>
       </div>
     {% endif %}
-    <form method="/ajax/comments/add/{{ video.slug }}" class="ajax-form">
+    <form target="/ajax/comments/add/{{ video.slug }}" class="ajax-form">
       {% csrf_token %}
       {{ form|bulma }}
-      <button type="button" class="button is-info">送信</button>
+      <button type="submit" class="button is-info">送信</button>
     </form>
   </div>
+{% endblock %}
+
+{% block scripts %}
+  {% render_bundle 'core/comments' %}
 {% endblock %}
