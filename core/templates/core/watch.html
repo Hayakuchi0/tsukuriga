@@ -32,6 +32,14 @@
       {{ form|bulma }}
       <button type="submit" class="button is-info">送信</button>
     </form>
+    <section class="section">
+      <div id="v-comment-list" class="box">
+        <template v-for="comment in comments">
+          <v-comment-item :comment="comment"></v-comment-item>
+        </template>
+      </div>
+    </section>
+    {% include 'core/components/v-comment-item.html' %}
   </div>
 {% endblock %}
 
