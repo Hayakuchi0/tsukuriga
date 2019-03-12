@@ -27,5 +27,5 @@ def add_comment(request, slug):
 @require_GET
 def list_comments(request, slug):
     video = get_object_or_404(Video, slug=slug)
-    comments = Comment.objects.filter(video=video)
+    comments = Comment.objects.filter(video=video).order_by('-created_at')
     return json_response([comment.json() for comment in comments])
