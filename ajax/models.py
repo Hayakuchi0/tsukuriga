@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
+from notify.models import Notification
 from core.utils import created_at2str
 
 
@@ -17,3 +18,7 @@ class Comment(models.Model):
             'text': self.text,
             'createdAt': created_at2str(self.created_at)
         }
+
+    def save(self, **kwargs):
+        super().save(**kwargs)
+        Notification.objects.create(user=self.user, target=self)
