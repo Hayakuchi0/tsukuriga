@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'upload.apps.UploadConfig',
     'browse.apps.BrowseConfig',
     'ajax.apps.AjaxConfig',
+    'notify.apps.NotifyConfig',
     'account.apps.AccountConfig',
     'pages.apps.PagesConfig',
 ]
