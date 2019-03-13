@@ -1,0 +1,13 @@
+{% load core_tags %}
+<article class="media">
+  <figure class="media-left">
+    <p class="image is-32x32">
+      <img src="{{ notification.target.user.profile_icon_url }}" alt="{{ notification.target.user.name }}">
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      {% include notification.component_path %}
+    </div>
+  </div>
+</article>

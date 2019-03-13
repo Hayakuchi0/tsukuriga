@@ -9,8 +9,13 @@
 
 {% block header %}{% endblock %}
 
-{% block content %}
+{% block content_2col %}
   <div class="column">
-
+    <div class="box">
+      {% for notification in notifications %}
+        {% include 'notify/components/notification-item.html' %}
+      {% endfor %}
+    </div>
+    {% include 'base/components/pagination.html' %}
   </div>
 {% endblock %}

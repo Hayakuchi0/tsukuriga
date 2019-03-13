@@ -16,7 +16,17 @@ class Notification(models.Model):
     def text(self):
         # targetの型から文章を生成
         text = ''
+        if type(self.target).__name__ == 'Comment':
+            text = f'{self.target.user.name}さんがコメントしました'
         return text
+
+    @property
+    def type(self):
+        return type(self.target).__name__
+
+    @property
+    def component_path(self):
+        return f'notify/components/types/{self.type}.html'
 
     def save(self, *args, **kwargs):
         # ここでメール送信
