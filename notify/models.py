@@ -1,14 +1,16 @@
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.utils import timezone
 
 
 class Notification(models.Model):
     user = models.ForeignKey('account.User', verbose_name='受診者', on_delete=models.CASCADE)
-    target_content_type = models.ForeignKey(ContentType, null=True, blank=True, on_delete=models.CASCADE)
-    target_object_id = models.CharField(max_length=255, null=True, blank=True)
+    target_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    target_object_id = models.IntegerField()
     target = GenericForeignKey('target_content_type', 'target_object_id')
     is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField('作成日', default=timezone.now)
 
     @property
     def text(self):
