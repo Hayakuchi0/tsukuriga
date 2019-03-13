@@ -23,6 +23,7 @@
     <meta name="twitter:creator" content="{% block ogp_twitter_creator %}@ugo_compeito{% endblock %}"/>
   {% endblock %}
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+  <link rel="stylesheet" href="/assets/libs/notyf.min.css">
   {% block head %}{% endblock %}
   {% render_bundle 'base/app' %}
 </head>
@@ -51,10 +52,7 @@
   {% for message in messages %}
     <div class="notyf-data" data-tags="{{ message.tags }}" data-message="{{ message }}"></div>
   {% endfor %}
-  {% comment %}
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/lity/2.3.1/lity.min.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lity/2.3.1/lity.min.js"></script>
-  {% endcomment %}
+  <script src="/assets/libs/notyf.min.js"></script>
   {% block scripts %}{% endblock %}
 </body>
 </html>

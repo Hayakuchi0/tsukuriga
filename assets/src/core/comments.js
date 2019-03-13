@@ -1,5 +1,4 @@
 import axios from 'axios'
-import Notyf from 'notyf'
 import Vue from 'vue/dist/vue'
 
 import { doc, ready } from '../utils'

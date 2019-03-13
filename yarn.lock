@@ -2728,11 +2728,6 @@ normalize-path@^2.1.1:
   dependencies:
     remove-trailing-separator "^1.0.1"
 
-notyf@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/notyf/-/notyf-2.0.1.tgz#0cbab48e9c9851805d70ba575891145c0840a32c"
-  integrity sha1-DLq0jpyYUYBdcLpXWJEUXAhAoyw=
-
 npm-bundled@^1.0.1:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/npm-bundled/-/npm-bundled-1.0.5.tgz#3c1732b7ba936b3a10325aef616467c0ccbcc979"

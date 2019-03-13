@@ -1,8 +1,6 @@
 import { doc, ready } from '../utils'
-import Notyf from 'notyf'
-
-import 'notyf/dist/notyf.min.css'
 import './styles.scss'
+
 
 ready(() => {
   /**
