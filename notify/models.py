@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 
-from ajax.models import Comment
-
 
 class Notification(models.Model):
     user = models.ForeignKey('account.User', verbose_name='受診者', on_delete=models.CASCADE)
