@@ -68,3 +68,9 @@ textarea[rows] {
     }
   }
 }
+
+.navbar-center {
+  @extend .navbar-brand;
+  flex-grow: 1;
+  justify-content: center;
+}
