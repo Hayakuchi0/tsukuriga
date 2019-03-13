@@ -28,6 +28,7 @@ urlpatterns = [
     path('', include('core.urls')),
     path('', include('browse.urls')),
     path('upload', include('upload.urls')),
+    path('notifications', include('notify.urls')),
     path('ajax/', include('ajax.urls'))
 ]
 
