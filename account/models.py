@@ -12,7 +12,9 @@ class User(AbstractUser):
     username_validator = ASCIIUsernameValidator()
 
     name = models.CharField('表示名', max_length=50, null=True, blank=True)
+    description = models.TextField('プロフィール文', max_length=500, null=True, blank=True)
     profile_icon_url = models.URLField('プロフィール画像URL', null=True, blank=True)
+    profile_banner_url = models.URLField('プロフィール背景画像URL', null=True, blank=True)
 
     objects = UserManager()
 
