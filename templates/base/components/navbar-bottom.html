@@ -18,8 +18,8 @@
     </a>
     {% if user.is_authenticated %}
       <a class="navbar-item is-expanded is-block has-text-centered" href="/u/{{ user.username }}">
-        <i class="fas fa-cog"></i>
-        <p class="is-size-7">設定</p>
+        <i class="fas fa-user"></i>
+        <p class="is-size-7">アカウント</p>
       </a>
     {% else %}
       <a class="navbar-item is-expanded is-block has-text-centered has-text-info" href="/login/twitter/">
