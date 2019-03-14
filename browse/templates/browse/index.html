@@ -10,12 +10,6 @@
 
 {% block content_2col %}
   <div class="column">
-    <div class="row columns is-multiline">
-      {% for video in videos %}
-        <div class="column is-one-quarter-desktop is-one-third-tablet">
-          {% include 'browse/components/video.html' %}
-        </div>
-      {% endfor %}
-    </div>
+    {% include 'browse/components/video-list.html' %}
   </div>
 {% endblock %}
