@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     # django-ckeditor
     'ckeditor',
     'ckeditor_uploader',
+    # django-debug-toolbar
+    'debug_toolbar',
     # original apps
     'core.apps.CoreConfig',
     'upload.apps.UploadConfig',
@@ -72,6 +74,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # django-debug-toolbar
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'munikis.urls'
@@ -214,3 +218,6 @@ SWIFT_PASSWORD = local_settings.SWIFT_PASSWORD
 SWIFT_AUTO_CREATE_CONTAINER_PUBLIC = True
 SWIFT_AUTO_CREATE_CONTAINER = True
 SWIFT_CONTAINER_NAME = 'media'
+
+# django-debug-toolbar
+INTERNAL_IPS = ['127.0.0.1']
