@@ -58,6 +58,10 @@ class UploadedPureVideo(CustomModel):
     file = models.FileField('動画ファイル', upload_to=temp_upload_to, storage=FileSystemStorage(),
                             validators=[file_validator, video_file_validator])
 
+    is_encoding = models.BooleanField('エンコード開始済み', default=False)
+    is_failed = models.BooleanField('エンコード失敗', default=False)
+    traceback = models.TextField('トレースバック', blank=True, null=True)
+
     @cached_property
     def clip(self):
         return VideoFileClip(self.file.path)
@@ -80,6 +84,9 @@ class UploadedPureVideo(CustomModel):
         return encoded_path
 
     def make(self):
+        self.is_encoding = True
+        self.save()
+
         thumbnail_filepath = self.create_thumbnail()
         encoded_filepath = self.encode_file()
 

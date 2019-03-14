@@ -19,7 +19,8 @@ class VideoAdmin(ReadOnlyMixin, admin.ModelAdmin):
     list_display_custom = [
         ('動画ID', 'slug', str),
         ('タイトル', 'profile__title', str),
-        ('エンコード済み', 'is_encoded', bool)
+        ('エンコード済み', 'is_encoded', bool),
+        ('エンコード失敗', 'pure__is_failed', bool),
     ]
     inlines = (VideoProfileInline, VideoDataInline)
 
