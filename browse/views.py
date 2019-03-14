@@ -1,4 +1,4 @@
-from upload.models import VideoData
+from upload.models import Video
 from core.utils import AltPaginationListView
 
 
@@ -7,7 +7,7 @@ class Browse(AltPaginationListView):
     context_object_name = 'videos'
 
     def get_queryset(self):
-        return [v.video for v in VideoData.objects.all().order_by('-video__profile__created_at')]
+        return Video.objects.filter(profile__isnull=False, data__isnull=False).order_by('-profile__created_at')
 
 
 browse = Browse.as_view()
