@@ -22,4 +22,4 @@ class Comment(models.Model):
     def save(self, **kwargs):
         super().save(**kwargs)
         if not self.user == self.video.user:
-            Notification.objects.create(user=self.user, target=self)
+            Notification.objects.create(user=self.video.user, target=self)
