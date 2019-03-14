@@ -1,4 +1,4 @@
-<nav class="navbar is-fixed-bottom" role="navigation">
+<nav class="navbar is-fixed-bottom is-hidden-desktop" role="navigation">
   <div class="navbar-center">
     <a class="navbar-item is-expanded is-block has-text-centered" href="/">
       <i class="fas fa-home"></i>
@@ -8,7 +8,7 @@
       <i class="fas fa-search-plus"></i>
       <p class="is-size-7">探す</p>
     </a>
-    <a class="navbar-item is-expanded is-block has-text-centered" href="/upload">
+    <a class="navbar-item is-expanded is-block has-text-centered has-text-white" href="/upload">
       <i class="fas fa-upload"></i>
       <p class="is-size-7">投稿</p>
     </a>
@@ -16,9 +16,16 @@
       <i class="fas fa-bell"></i>
       <p class="is-size-7">通知</p>
     </a>
-    <a class="navbar-item is-expanded is-block has-text-centered" href="/u/{{ user.username }}">
-      <i class="fas fa-cog"></i>
-      <p class="is-size-7">設定</p>
-    </a>
+    {% if user.is_authenticated %}
+      <a class="navbar-item is-expanded is-block has-text-centered" href="/u/{{ user.username }}">
+        <i class="fas fa-cog"></i>
+        <p class="is-size-7">設定</p>
+      </a>
+    {% else %}
+      <a class="navbar-item is-expanded is-block has-text-centered has-text-info" href="/login/twitter/">
+        <i class="fab fa-twitter"></i>
+        <p class="is-size-7">ログイン</p>
+      </a>
+    {% endif %}
   </div>
 </nav>
