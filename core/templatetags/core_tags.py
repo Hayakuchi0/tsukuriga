@@ -8,7 +8,8 @@ register = template.Library()
 
 @register.filter
 def dt2str(arg):
-    return created_at2str(arg)
+    if arg:
+        return created_at2str(arg)
 
 
 @register.filter

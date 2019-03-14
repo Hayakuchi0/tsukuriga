@@ -1,4 +1,5 @@
 from django.views import generic
+from django.contrib.auth.decorators import login_required
 
 from .models import Notification
 
@@ -12,4 +13,4 @@ class NotificationListView(generic.ListView):
         return Notification.objects.filter(user=self.request.user)
 
 
-notifications_list = NotificationListView.as_view()
+notifications_list = login_required(NotificationListView.as_view())
