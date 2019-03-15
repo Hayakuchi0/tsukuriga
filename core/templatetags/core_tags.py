@@ -1,3 +1,5 @@
+import re
+
 from django import template
 from django.core.handlers.wsgi import WSGIRequest
 
@@ -42,3 +44,10 @@ def to_absolute_path(path: str, request: WSGIRequest):
         return path
     scheme = 'https' if request.is_secure() else 'http'
     return scheme + '://' + request.get_host() + path
+
+
+@register.filter
+def activate_url(text):
+    result = re.sub(r'(https?://\S+)', r'<a href="\1" target="_blank">\1</a>', text)
+    result = re.sub(r'(\A|\s)#(\S+)', r'<a href="/search?q=%23\2">#\2</a>', result)
+    return result

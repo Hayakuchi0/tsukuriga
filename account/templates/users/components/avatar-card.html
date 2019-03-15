@@ -1,3 +1,4 @@
+{% load core_tags %}
 <div class="card">
   <div class="card-image">
     <figure class="image is-3by1">
@@ -14,6 +15,8 @@
       <h1><a href="/u/{{ account.username }}">{{ account.name }}</a></h1>
       <small><a href="/u/{{ account.username }}">@{{ account.username }}</a></small>
     </div>
-    <p>{{ account.description|linebreaksbr }}</p>
+    {% autoescape off %}
+      <p>{{ account.description|linebreaksbr|activate_url }}</p>
+    {% endautoescape %}
   </div>
 </div>
