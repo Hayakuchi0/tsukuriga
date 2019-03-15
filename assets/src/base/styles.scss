@@ -5,7 +5,7 @@
 $bulmaswatch-import-font: false;
 $family-sans-serif: "Nunito", sans-serif;
 $body-background-color: #eeeeee;
-$section-padding: 1.5rem 0.8rem;
+$section-padding: 1.5rem 0.2rem;
 //$control-border-width: 2px;
 //$input-border-color: transparent;
 //$input-shadow: none;
@@ -104,4 +104,8 @@ textarea[rows] {
       }
     }
   }
+}
+
+hr {
+  background-color: #cccccc;
 }
