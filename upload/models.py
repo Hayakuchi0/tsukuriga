@@ -47,6 +47,13 @@ class Video(models.Model):
     def is_encoded(self):
         return VideoData.objects.filter(video=self).exists()
 
+    def delete(self, **kwargs):
+        if hasattr(self, 'profile'):
+            self.profile.delete()
+        if hasattr(self, 'data'):
+            self.data.delete()
+        return super().delete(**kwargs)
+
 
 class UploadedPureVideo(CustomModel):
     """
