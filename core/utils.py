@@ -1,8 +1,6 @@
 import math
-import os
 
 import twitter
-from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.crypto import get_random_string
@@ -21,12 +19,6 @@ def get_ip(request):
     except:
         ip = None
     return ip
-
-
-def get_temp_path(filename=None):
-    path = os.path.join(settings.MEDIA_ROOT, 'temp', filename)
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    return path
 
 
 class AltPaginationListView(generic.ListView):
@@ -61,11 +53,10 @@ class AltPaginationListView(generic.ListView):
         return page
 
 
-def mf2str(division):
-    return str(math.floor(division))
-
-
 def created_at2str(datetime_obj):
+    def mf2str(division):
+        return str(math.floor(division))
+
     elapsed = timezone.now() - datetime_obj
     if elapsed.days >= 365:
         return mf2str(elapsed.days/365) + '年前'
