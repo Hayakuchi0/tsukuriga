@@ -16,16 +16,10 @@
 
 {% block content %}
   <div class="column">
-    {% include 'core/components/video.html' %}
-    {% if video.user == request.user %}
-      <div class="level">
-        <div class="level-left"></div>
-        <div class="level-right">
-          <a href="/edit/{{ video.slug }}" class="button is-primary level-item">動画情報の編集</a>
-          <a href="/thumbnail/{{ video.slug }}" class="button is-primary level-item">サムネイル編集</a>
-        </div>
-      </div>
-    {% endif %}
+    {% include 'core/components/video-player.html' %}
+    <section class="section">
+      {% include 'core/components/video-footer.html' %}
+    </section>
   </div>
   <div class="column is-one-third">
     {% include 'users/components/avatar-card.html' with account=video.user %}
