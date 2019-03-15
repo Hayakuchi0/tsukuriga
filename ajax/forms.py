@@ -5,8 +5,7 @@ from .models import Comment
 
 class CommentForm(forms.ModelForm):
     text = forms.CharField(
-        label='', widget=forms.Textarea(attrs={'rows': 3, 'placeholder': 'コメントを入力'}),
-        help_text='200文字まで'
+        label='', widget=forms.Textarea(attrs={'rows': 3, 'placeholder': 'コメントを入力(200文字まで)'}),
     )
 
     class Meta:
