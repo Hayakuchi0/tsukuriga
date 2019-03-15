@@ -11,5 +11,7 @@
 {% endif %}
 <hr>
 <p>
-  {{ video.profile.description|linebreaksbr|activate_url }}
+  {% autoescape off %}
+    {{ video.profile.description|activate_url|linebreaksbr }}
+  {% endautoescape %}
 </p>

@@ -16,7 +16,7 @@
       <small><a href="/u/{{ account.username }}">@{{ account.username }}</a></small>
     </div>
     {% autoescape off %}
-      <p>{{ account.description|linebreaksbr|activate_url }}</p>
+      <p>{{ account.description|activate_url|linebreaksbr }}</p>
     {% endautoescape %}
   </div>
 </div>
