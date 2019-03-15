@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load core_tags %}
+
+{% block page_title %}{% endblock %}
+{% block ogp_page_title %}{% endblock %}
+{% block description %}{% endblock %}
+{% block ogp_description %}{% endblock %}
+{% block ogp_image %}{% endblock %}
+{% block ogp_twitter_creator %}{% endblock %}
+
+{% block header %}
+  <div class="hero is-info is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">{{ request.GET.q }}の検索結果</h1>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content_2col %}
+  <div class="column">
+    {% include 'browse/components/video-list.html' %}
+  </div>
+{% endblock %}
