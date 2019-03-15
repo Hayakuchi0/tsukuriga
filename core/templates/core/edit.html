@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load render_bundle from webpack_loader %}
 {% load bulma_tags %}
 
 {% block page_title %}{% endblock %}
@@ -17,7 +18,13 @@
         {% csrf_token %}
         {{ form|bulma }}
         <button type="submit" class="button is-info">送信</button>
+        <button id="delete-button" type="button" class="button is-danger">削除する</button>
       </form>
     </div>
+    {% include 'core/components/v-delete-modal.html' %}
   </div>
+{% endblock %}
+
+{% block scripts %}
+  {% render_bundle 'core/edit' %}
 {% endblock %}

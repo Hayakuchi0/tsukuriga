@@ -2,11 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseBadRequest
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 
 from ajax.forms import CommentForm
 from upload.models import Video
 from upload.forms import VideoProfileForm
-from .forms import ThumbnailForm
+from .forms import ThumbnailForm, DeleteVideoForm
 
 
 def top(request):
@@ -35,7 +36,7 @@ def edit(request, slug):
             messages.success(request, '保存されました')
             return redirect(f'/watch/{video.slug}')
 
-    return render(request, 'core/edit.html', {'video': video, 'form': form})
+    return render(request, 'core/edit.html', {'video': video, 'form': form, 'modal_form': DeleteVideoForm()})
 
 
 @login_required
@@ -59,3 +60,21 @@ def edit_thumbnail(request, slug):
             messages.error(request, '指定した秒数が不正です')
 
     return render(request, 'core/edit-thumbnail.html', {'video': video, 'form': form})
+
+
+@require_POST
+@login_required
+def delete(request, slug):
+    video = get_object_or_404(Video, slug=slug)
+    if not video.user == request.user:
+        return HttpResponseBadRequest('ユーザー情報が投稿者と一致しません')
+
+    form = DeleteVideoForm(request.POST)
+    if form.is_valid():
+        if form.cleaned_data['slug'] == video.slug:
+            video.delete()
+            messages.success(request, '削除しました')
+            return redirect(f'/u/{request.user.username}')
+
+    messages.error(request, '送信した値が不正です')
+    return redirect(f'/edit/{slug}')
