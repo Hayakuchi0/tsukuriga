@@ -1,0 +1,10 @@
+{% load bulma_tags %}
+<form target="/ajax/comments/add/{{ video.slug }}" class="ajax-form">
+  {% csrf_token %}
+  {{ form|bulma }}
+  {% if user.is_authenticated %}
+    <button type="submit" class="button is-info">送信</button>
+  {% else %}
+    <button type="button" class="button is-primary" disabled>コメントするにはログインが必要です</button>
+  {% endif %}
+</form>

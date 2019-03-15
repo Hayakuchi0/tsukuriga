@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load render_bundle from webpack_loader %}
-{% load bulma_tags %}
 
 {% block page_title %}{% endblock %}
 {% block ogp_page_title %}{% endblock %}
@@ -16,7 +15,7 @@
 {% block header %}{% endblock %}
 
 {% block content %}
-  <div class="column is-two-thirds">
+  <div class="column">
     {% include 'core/components/video.html' %}
     {% if video.user == request.user %}
       <div class="level">
@@ -27,28 +26,15 @@
         </div>
       </div>
     {% endif %}
+  </div>
+  <div class="column is-one-third">
+    {% include 'users/components/avatar-card.html' with account=video.user %}
     <section class="section">
-      <form target="/ajax/comments/add/{{ video.slug }}" class="ajax-form">
-        {% csrf_token %}
-        {{ form|bulma }}
-        {% if user.is_authenticated %}
-          <button type="submit" class="button is-info">送信</button>
-        {% else %}
-          <button type="button" class="button is-primary" disabled>コメントするにはログインが必要です</button>
-        {% endif %}
-      </form>
+      {% include 'core/components/comment-form.html' %}
     </section>
     <section class="section">
-      <div id="v-comment-list" class="box">
-        <template v-if="isEmpty">
-          <p>コメントはありません</p>
-        </template>
-        <template v-for="comment in comments" v-else>
-          <v-comment-item :comment="comment"></v-comment-item>
-        </template>
-      </div>
+      {% include 'core/components/v-comment-list.html' %}
     </section>
-    {% include 'core/components/v-comment-item.html' %}
   </div>
 {% endblock %}
 
