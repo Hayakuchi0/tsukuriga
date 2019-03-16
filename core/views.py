@@ -10,11 +10,6 @@ from upload.forms import VideoProfileForm
 from .forms import ThumbnailForm, DeleteVideoForm
 
 
-def top(request):
-    videos = Video.objects.all().order_by('-profile__created_at')
-    return render(request, 'core/top.html', {'videos': videos})
-
-
 def watch(request, slug):
     video = get_object_or_404(Video, slug=slug)
     video.views_count += 1

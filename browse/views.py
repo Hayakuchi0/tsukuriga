@@ -7,7 +7,7 @@ from .utils import safe_videos
 from core.utils import AltPaginationListView
 
 
-class Browse(AltPaginationListView):
+class Home(AltPaginationListView):
     template_name = 'browse/index.html'
     context_object_name = 'videos'
 
@@ -15,7 +15,7 @@ class Browse(AltPaginationListView):
         return safe_videos().order_by('-profile__created_at')
 
 
-browse = Browse.as_view()
+home = Home.as_view()
 
 
 class Search(AltPaginationListView):
@@ -30,7 +30,7 @@ class Search(AltPaginationListView):
         return safe_videos().filter(
             functools.reduce(operator.and_, (Q(profile__title__contains=item) for item in q_list)) |
             functools.reduce(operator.and_, (Q(profile__description__contains=item) for item in q_list))
-        )
+        ).order_by('-profile__created_at')
 
 
 search = Search.as_view()
