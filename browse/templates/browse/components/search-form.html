@@ -1,0 +1,12 @@
+<form method="get" action="/search">
+  <div class="field has-addons">
+    <p class="control is-expanded">
+      <input class="input" type="text" name="q" value="{{ request.GET.q }}" placeholder="検索" required>
+    </p>
+    <p class="control">
+      <a class="button is-info">
+        <i class="fas fa-search"></i>
+      </a>
+    </p>
+  </div>
+</form>
