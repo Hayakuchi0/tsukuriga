@@ -61,7 +61,7 @@ def edit_thumbnail(request, slug):
 
             messages.error(request, '指定した秒数が不正です')
 
-    return render(request, 'core/edit-thumbnail.html', {'video': video, 'form': form})
+    return render(request, 'core/thumbnail.html', {'video': video, 'form': form})
 
 
 @require_POST
