@@ -2,7 +2,7 @@ from django import forms
 
 
 class ThumbnailForm(forms.Form):
-    time = forms.FloatField()
+    time = forms.FloatField(label='', widget=forms.NumberInput(attrs={'style': 'display: none;'}))
 
 
 class DeleteVideoForm(forms.Form):
