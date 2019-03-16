@@ -17,6 +17,8 @@ def top(request):
 
 def watch(request, slug):
     video = get_object_or_404(Video, slug=slug)
+    video.views_count += 1
+    video.save()
     form = CommentForm()
     return render(request, 'core/watch.html', {'video': video, 'form': form})
 

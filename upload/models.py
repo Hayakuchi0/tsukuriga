@@ -43,6 +43,7 @@ class Video(models.Model):
     """
     user = models.ForeignKey('account.User', verbose_name='投稿者', on_delete=models.CASCADE)
     slug = models.CharField('動画ID', max_length=5, default=default_video_slug, editable=False)
+    views_count = models.PositiveIntegerField('再生回数', default=0)
 
     def is_encoded(self):
         return VideoData.objects.filter(video=self).exists()
