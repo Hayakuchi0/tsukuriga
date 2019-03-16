@@ -1,3 +1,7 @@
-<p>
-  {{ notification.text }}
-</p>
+<strong>
+  <a href="/u/{{ target.user.username }}">{{ target.user.name }}(@{{ target.user.username }})</a>さんが
+  <a href="/watch/{{ target.video.slug }}">{{ target.video.profile.title }}</a>にコメントしました
+</strong>
+<blockquote>
+  {{ target.text|linebreaksbr }}
+</blockquote>
