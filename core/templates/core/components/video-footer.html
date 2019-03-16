@@ -1,17 +1,17 @@
 {% load core_tags %}
 <h1 class="title">{{ video.profile.title }}</h1>
-{% if video.user == request.user %}
-  <div class="level">
-    <div class="level-left">
-      <button id="prev-frame" type="button" class="button is-primary level-item"><</button>
-      <button id="next-frame" type="button" class="button is-primary level-item">></button>
-    </div>
-    <div class="level-right">
+<div class="level is-mobile">
+  <div class="level-left">
+    <button id="prev-frame" type="button" class="button is-primary level-item"><</button>
+    <button id="next-frame" type="button" class="button is-primary level-item">></button>
+  </div>
+  <div class="level-right">
+    {% if video.user == request.user %}
       <a href="/edit/{{ video.slug }}" class="button is-primary level-item">動画情報の編集</a>
       <a href="/thumbnail/{{ video.slug }}" class="button is-primary level-item">サムネイル編集</a>
-    </div>
+    {% endif %}
   </div>
-{% endif %}
+</div>
 <hr>
 <p>
   {% autoescape off %}
