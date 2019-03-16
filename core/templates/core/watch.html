@@ -9,7 +9,7 @@
 {% block ogp_twitter_creator %}{% endblock %}
 
 {% block head %}
-  {% render_bundle 'core/watch' %}
+  {% render_bundle 'core/videojs-setup' %}
 {% endblock %}
 
 {% block header %}{% endblock %}
@@ -33,5 +33,6 @@
 {% endblock %}
 
 {% block scripts %}
+  {% render_bundle 'core/watch' %}
   {% render_bundle 'core/comments' %}
 {% endblock %}
