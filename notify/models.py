@@ -13,14 +13,6 @@ class Notification(models.Model):
     created_at = models.DateTimeField('作成日', default=timezone.now)
 
     @property
-    def text(self):
-        # targetの型から文章を生成
-        text = ''
-        if type(self.target).__name__ == 'Comment':
-            text = f'{self.target.user.name}さんがコメントしました'
-        return text
-
-    @property
     def type(self):
         return type(self.target).__name__
 
