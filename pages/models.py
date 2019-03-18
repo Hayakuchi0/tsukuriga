@@ -4,13 +4,11 @@ from django.utils import timezone
 import re
 
 from markdownx.models import MarkdownxField
-from account.models import User
 from core.utils import CustomModel
 
 
 class Page(CustomModel):
-    author = models.ForeignKey(User, verbose_name='筆者', null=True,
-                               blank=True, on_delete=models.SET_NULL, editable=False)
+    author = models.ForeignKey('account.User', verbose_name='筆者', null=True, on_delete=models.SET_NULL)
     title = models.CharField('タイトル', max_length=255)
     text = MarkdownxField('本文')
     slug = models.SlugField('スラッグ')
