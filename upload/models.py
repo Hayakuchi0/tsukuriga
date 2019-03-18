@@ -21,7 +21,7 @@ def default_video_slug():
 
 
 def video_upload_to(instance: 'VideoData', filename):
-    return os.path.join(instance.video.user.username, 'videos', instance.video.slug, f'{uuid4().hex}.mp4')
+    return os.path.join('u', instance.video.user.username, 'videos', instance.video.slug, f'{uuid4().hex}.mp4')
 
 
 def temp_upload_to(instance: 'UploadedPureVideo', filename):
@@ -30,7 +30,7 @@ def temp_upload_to(instance: 'UploadedPureVideo', filename):
 
 
 def thumbnail_upload_to(instance: 'VideoData', filename):
-    return os.path.join(instance.video.user.username, 'videos', instance.video.slug, f'{uuid4().hex}.jpg')
+    return os.path.join('u', instance.video.user.username, 'videos', instance.video.slug, f'{uuid4().hex}.jpg')
 
 
 def get_temp_path(instance, filename):
