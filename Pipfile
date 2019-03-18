@@ -13,7 +13,6 @@ django-bulma = "*"
 tocka-django-unslashed = {git = "https://github.com/Compeito/django-unslashed"}
 pillow = "*"
 python-twitter = "*"
-django-ckeditor = "*"
 moviepy = "*"
 django-storage-swift = {git = "https://github.com/Compeito/django-storage-swift"}
 django-debug-toolbar = "*"

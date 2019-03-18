@@ -50,9 +50,6 @@ INSTALLED_APPS = [
     'webpack_loader',
     # django-bulma
     'bulma',
-    # django-ckeditor
-    'ckeditor',
-    'ckeditor_uploader',
     # django-markdownx
     'markdownx',
     # django-debug-toolbar
@@ -206,10 +203,6 @@ WEBPACK_LOADER = {
 # https://github.com/frnhr/django-unslashed
 APPEND_SLASH = False
 REMOVE_SLASH = True
-
-# django-ckeditor
-CKEDITOR_UPLOAD_PATH = 'pages/'
-CKEDITOR_IMAGE_BACKEND = 'pillow'
 
 # django-storage-swift
 DEFAULT_FILE_STORAGE = 'swift.storage.SwiftStorage'
