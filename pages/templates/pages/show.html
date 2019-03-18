@@ -12,15 +12,14 @@
 
 {% block content_2col %}
   <div class="column">
-    <aside id="pagesTextBox" class="box">
+    <div class="box">
       <h1 class="title is-4">{{ page.title }}</h1>
       <h2 class="subtitle is-5">{{ page.created_at }}</h2>
-      <div class="mb5">
+      <div class="content">
         {% autoescape off %}
           {{ page.text|linebreaks }}
         {% endautoescape %}
       </div>
-      {% include 'core/components/tweetButton.html' %}
-    </aside>
+    </div>
   </div>
 {% endblock %}

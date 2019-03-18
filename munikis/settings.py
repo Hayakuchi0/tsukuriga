@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     # django-ckeditor
     'ckeditor',
     'ckeditor_uploader',
+    # django-markdownx
+    'markdownx',
     # django-debug-toolbar
     'debug_toolbar',
     # original apps

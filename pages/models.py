@@ -3,7 +3,7 @@ from django.utils import timezone
 
 import re
 
-from ckeditor_uploader import fields as ck_fields
+from markdownx.models import MarkdownxField
 from account.models import User
 from core.utils import CustomModel
 
@@ -12,7 +12,7 @@ class Page(CustomModel):
     author = models.ForeignKey(User, verbose_name='筆者', null=True,
                                blank=True, on_delete=models.SET_NULL, editable=False)
     title = models.CharField('タイトル', max_length=255)
-    text = ck_fields.RichTextUploadingField('本文')
+    text = MarkdownxField('本文')
     slug = models.SlugField('スラッグ')
     is_published = models.BooleanField('公開する', default=True)
 

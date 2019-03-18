@@ -27,6 +27,7 @@ urlpatterns = [
     path('u/', include('account.users_urls')),
     path('pages/', include('pages.urls')),
     path('ck/', include('ckeditor_uploader.urls')),
+    path('markdownx/', include('markdownx.urls')),
     path('', include('social_django.urls', namespace='social')),
     path('', include('core.urls')),
     path('', include('browse.urls')),
