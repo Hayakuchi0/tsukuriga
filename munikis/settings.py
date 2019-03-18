@@ -218,4 +218,4 @@ SWIFT_CONTAINER_NAME = 'media'
 INTERNAL_IPS = ['127.0.0.1']
 
 # django-markdownx
-MARKDOWNX_MEDIA_PATH = '/pages'
+MARKDOWNX_MEDIA_PATH = 'pages/'
