@@ -14,10 +14,16 @@
   <div class="column">
     <div class="box">
       <h1 class="title is-4">{{ page.title }}</h1>
-      <h2 class="subtitle is-5">{{ page.created_at }}</h2>
+      <div class="subtitle">
+        <div class="is-size-6">{{ page.created_at }}作成</div>
+        <div class="is-size-7">{{ page.updated_at }}更新</div>
+        {% if user.is_staff %}
+          <a class="button is-small is-pulled-right" href="/admin/pages/page/{{ page.id }}/change/">編集</a>
+        {% endif %}
+      </div>
       <div class="content">
         {% autoescape off %}
-          {{ page.text|linebreaks }}
+          {{ page.body|linebreaks }}
         {% endautoescape %}
       </div>
     </div>

@@ -4,6 +4,7 @@ from django.utils import timezone
 import re
 
 from markdownx.models import MarkdownxField
+from markdownx.utils import markdownify
 from core.utils import CustomModel
 
 
@@ -14,12 +15,19 @@ class Page(CustomModel):
     slug = models.SlugField('スラッグ')
     is_published = models.BooleanField('公開する', default=True)
 
+    @property
+    def body(self):
+        return markdownify(self.text)
+
+    @property
     def is_new(self):
         return (timezone.now() - self.created_at).days < 7
 
+    @property
     def date_str(self):
-        return self.created_at.strftime('%y/%m/%d')
+        return self.created_at.strftime('%m/%d')
 
+    @property
     def ogp_image(self):
         imgs = re.findall('img.+src=".*', self.text)
         if imgs:
