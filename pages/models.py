@@ -29,7 +29,7 @@ class Page(CustomModel):
 
     @property
     def ogp_image(self):
-        img = re.search(r'!\[.+\]\((?P<uri>.+)\)', p.text)
+        img = re.search(r'!\[.+\]\((?P<uri>.+)\)', self.text)
         if img:
             return img.group('uri')
         return 'http://placehold.it/1200x630'
