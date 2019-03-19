@@ -10,9 +10,22 @@ ready(() => {
       return {
         pointInput: 1
       }
+    },
+    methods: {
+      add() {
+        this.pointInput++
+      },
+      minus() {
+        if (this.pointInput > 1) {
+          this.pointInput--
+        }
+      },
+      hideModal() {
+        this.$refs.pointModal.classList.remove('is-active')
+      }
     }
   })
   ajaxForm(() => {
-    pointForm.$refs.pointModal.classList.remove('is-active')
+    pointForm.hideModal()
   })
 })
