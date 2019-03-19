@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 from notify.models import Notification
-from core.utils import created_at2str
+from core.utils import created_at2str, CustomModel
 
 
 class Comment(models.Model):
@@ -23,3 +23,17 @@ class Comment(models.Model):
         super().save(**kwargs)
         if not self.user == self.video.user:
             Notification.objects.create(user=self.video.user, target=self)
+
+
+class Point(CustomModel):
+    user = models.ForeignKey('account.User', verbose_name='ユーザー', on_delete=models.CASCADE)
+    video = models.ForeignKey('upload.Video', verbose_name='動画', on_delete=models.CASCADE)
+    count = models.PositiveIntegerField('ポイント')
+
+    def json(self):
+        return {
+            'id': self.id,
+            'user': self.user.json(),
+            'count': self.count,
+            'createdAt': created_at2str(self.created_at)
+        }

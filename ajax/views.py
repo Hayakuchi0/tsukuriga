@@ -2,8 +2,7 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_GET, require_POST
 
 from upload.models import Video
-from .models import Comment
-from .forms import CommentForm
+from .forms import CommentForm, AddPointForm
 from .utils import json_response
 
 
@@ -35,5 +34,26 @@ def add_comment(request, slug):
 @require_GET
 def list_comments(request, slug):
     video = get_object_or_404(Video, slug=slug)
-    comments = Comment.objects.filter(video=video).order_by('-created_at')
-    return json_response([comment.json() for comment in comments])
+    return json_response([c.json() for c in video.comment_set.all().order_by('-created_at')])
+
+
+@require_POST
+@login_required
+def add_point(request, slug):
+    video = get_object_or_404(Video, slug=slug)
+
+    form = AddPointForm(request.POST)
+    if form.is_valid():
+        point = form.save(commit=False)
+        point.user = request.user
+        point.video = video
+        point.save()
+        return json_response([{'message': '評価が送信されました！'}], status=200)
+
+    return json_response(form.errors, status=400)
+
+
+@require_GET
+def list_points(request, slug):
+    video = get_object_or_404(Video, slug=slug)
+    return json_response([p.json() for p in video.point_set.all().order_by('-created_at')], status=200)
