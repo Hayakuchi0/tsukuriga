@@ -23,7 +23,11 @@ ready(() => {
         this.isLoading = true
         axios.get(`/ajax/points/list/${videoId}`)
           .then(response => {
-            this.pointSum = response.data.results[0].count
+            let pointSum = 0
+            response.data.results.forEach(point => {
+              pointSum += point.count
+            })
+            this.pointSum = pointSum
           })
           .finally(() => {
             this.isLoading = false
