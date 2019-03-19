@@ -1,9 +1,36 @@
 import Vue from 'vue/dist/vue'
+import axios from 'axios'
 
-import { doc, ready, ajaxForm } from '../utils'
+import { ready, ajaxForm, doc } from '../utils'
 
 
 ready(() => {
+  const pointText = new Vue({
+    el: '#v-point-text',
+    delimiters: ['[[', ']]'],
+    data() {
+      return {
+        isLoading: false,
+        pointSum: 0
+      }
+    },
+    mounted() {
+      this.updatePointSum()
+    },
+    methods: {
+      updatePointSum() {
+        const videoId = doc('video')[0].dataset.videoId
+        this.isLoading = true
+        axios.get(`/ajax/points/list/${videoId}`)
+          .then(response => {
+            this.pointSum = response.data.results[0].count
+          })
+          .finally(() => {
+            this.isLoading = false
+          })
+      }
+    }
+  })
   const pointForm = new Vue({
     el: '#v-point-modal',
     data() {
@@ -28,5 +55,6 @@ ready(() => {
   ajaxForm(() => {
     pointForm.hideModal()
     pointForm.pointInput = 1
+    pointText.updatePointSum()
   })
 })
