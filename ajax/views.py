@@ -3,7 +3,7 @@ from django.views.decorators.http import require_GET, require_POST
 
 from upload.models import Video
 from .forms import CommentForm, AddPointForm
-from .utils import json_response
+from .utils import json_response, get_ip
 
 
 def login_required(view):
@@ -43,9 +43,12 @@ def add_point(request, slug):
     video = get_object_or_404(Video, slug=slug)
 
     form = AddPointForm(request.POST)
-    if form.is_valid():
+    if form.is_valid() and not request.user == video.user:
         point = form.save(commit=False)
-        point.user = request.user
+        if request.user.is_authenticated:
+            point.user = request.user
+        else:
+            point.ip = get_ip(request)
         point.video = video
         point.save()
         return json_response([{'message': '評価が送信されました！'}], status=200)

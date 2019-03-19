@@ -26,7 +26,8 @@ class Comment(models.Model):
 
 
 class Point(CustomModel):
-    user = models.ForeignKey('account.User', verbose_name='ユーザー', on_delete=models.CASCADE)
+    user = models.ForeignKey('account.User', verbose_name='ユーザー', blank=True, null=True, on_delete=models.CASCADE)
+    ip = models.GenericIPAddressField('IPアドレス', blank=True, null=True)
     video = models.ForeignKey('upload.Video', verbose_name='動画', on_delete=models.CASCADE)
     count = models.PositiveIntegerField('ポイント')
 
