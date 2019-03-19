@@ -43,7 +43,7 @@ def add_point(request, slug):
     video = get_object_or_404(Video, slug=slug)
 
     form = AddPointForm(request.POST)
-    if form.is_valid() and not request.user == video.user:
+    if form.is_valid():
         point = form.save(commit=False)
         if request.user.is_authenticated:
             point.user = request.user
