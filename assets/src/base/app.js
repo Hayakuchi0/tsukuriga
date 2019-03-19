@@ -54,4 +54,15 @@ ready(() => {
       $submitButton.disabled = true
     })
   })
+
+  /**
+   * モーダル展開
+   */
+  const $modalButton = doc('.modal-opener')
+  $modalButton.forEach($button => {
+    const modalId = $button.dataset.target
+    $button.addEventListener('click', e => {
+      doc('#' + modalId)[0].classList.add('is-active')
+    })
+  })
 })
