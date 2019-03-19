@@ -12,14 +12,7 @@
     {% endif %}
     <button type="button" class="button is-info modal-opener" data-target="v-point-modal">
       <i class="fas fa-star"></i>
-      <span id="v-point-text">
-        <template v-if="!isLoading" v-cloak>
-          [[ pointSum ]]
-        </template>
-        <template v-else>
-          <i class="fas fa-spinner fa-spin"></i>
-        </template>
-      </span>
+      {% include 'core/components/v-point-text.html' %}
     </button>
   </div>
 </div>
