@@ -41,8 +41,12 @@ def list_comments(request, slug):
 @login_required
 def add_point(request, slug):
     video = get_object_or_404(Video, slug=slug)
-
     form = AddPointForm(request.POST)
+
+    old_point = video.point_set.filter(user=request.user).first()
+    if old_point:
+        form = AddPointForm(request.POST, instance=old_point)
+
     if form.is_valid():
         point = form.save(commit=False)
         if request.user.is_authenticated:
