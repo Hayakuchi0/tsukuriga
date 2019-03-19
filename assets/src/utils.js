@@ -6,7 +6,7 @@ export const doc = q => document.querySelectorAll(q)
 
 export const range = n => [...Array(n).keys()]
 
-export const ajaxForm = callback => {
+export const ajaxForm = (callback, reset) => {
   const $ajaxForm = doc('form.ajax-form')
   $ajaxForm.forEach($form => {
     const $submitButton = $form.querySelector('button[type=submit]')
@@ -17,7 +17,9 @@ export const ajaxForm = callback => {
       $submitButton.classList.add('is-loading')
 
       const formData = new FormData($form)
-      $form.reset()
+      if (reset) {
+        $form.reset()
+      }
 
       axios.post($form.action, formData)
         .then(response => {
