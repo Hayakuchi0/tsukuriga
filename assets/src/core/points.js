@@ -1,8 +1,18 @@
+import Vue from 'vue/dist/vue'
+
 import { doc, ready, ajaxForm } from '../utils'
 
 
 ready(() => {
+  const pointForm = new Vue({
+    el: '#v-point-modal',
+    data() {
+      return {
+        pointInput: 1
+      }
+    }
+  })
   ajaxForm(() => {
-    doc('#point-modal')[0].classList.remove('is-active')
+    pointForm.$refs.pointModal.classList.remove('is-active')
   })
 })

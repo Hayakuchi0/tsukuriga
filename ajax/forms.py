@@ -14,6 +14,10 @@ class CommentForm(forms.ModelForm):
 
 
 class AddPointForm(forms.ModelForm):
+    count = forms.IntegerField(
+        label='', widget=forms.NumberInput(attrs={'v-model': 'pointInput'})
+    )
+
     class Meta:
         model = Point
         fields = ('count',)
