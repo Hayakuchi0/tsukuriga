@@ -7,20 +7,6 @@ from django.utils.crypto import get_random_string
 from django.views import generic
 
 
-def get_ip(request):
-    # https://stackoverflow.com/questions/10382838/how-to-set-foreignkey-in-createview
-    # https://stackoverflow.com/questions/4581789/how-do-i-get-user-ip-address-in-django
-    try:
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0]
-        else:
-            ip = request.META.get('REMOTE_ADDR')
-    except:
-        ip = None
-    return ip
-
-
 class AltPaginationListView(generic.ListView):
 
     def paginate_queryset(self, queryset, page_size):
