@@ -27,5 +27,6 @@ ready(() => {
   })
   ajaxForm(() => {
     pointForm.hideModal()
+    pointForm.pointInput = 1
   })
 })
