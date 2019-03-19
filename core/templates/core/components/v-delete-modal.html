@@ -1,6 +1,6 @@
 {% load bulma_tags %}
 <div id="v-delete-modal" class="modal" data-video-id="{{ video.slug }}" ref="deleteModal">
-  <div class="modal-background" ref="background"></div>
+  <div class="modal-background" @click="hideModal"></div>
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">動画の削除</p>

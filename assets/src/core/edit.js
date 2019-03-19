@@ -15,13 +15,15 @@ ready(() => {
     mounted() {
       const $modal = this.$refs.deleteModal
       this.correctInput = $modal.dataset.videoId
-      this.$refs.background.addEventListener('click', e => {
-        $modal.classList.remove('is-active')
-      })
     },
     computed: {
       isDeletable() {
         return this.deleteInput === this.correctInput
+      }
+    },
+    methods: {
+      hideModal() {
+        this.$refs.deleteModal.classList.remove('is-active')
       }
     }
   })
