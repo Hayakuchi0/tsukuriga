@@ -30,9 +30,11 @@
       {% include 'core/components/v-comment-list.html' %}
     </section>
   </div>
+  {% include 'core/components/point-modal-form.html' %}
 {% endblock %}
 
 {% block scripts %}
   {% render_bundle 'core/watch' %}
   {% render_bundle 'core/comments' %}
+  {% render_bundle 'core/points' %}
 {% endblock %}

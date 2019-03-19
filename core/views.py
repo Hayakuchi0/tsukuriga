@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 
-from ajax.forms import CommentForm
+from ajax.forms import CommentForm, AddPointForm
 from upload.models import Video
 from upload.forms import VideoProfileForm
 from .forms import ThumbnailForm, DeleteVideoForm
@@ -14,8 +14,7 @@ def watch(request, slug):
     video = get_object_or_404(Video, slug=slug)
     video.views_count += 1
     video.save()
-    form = CommentForm()
-    return render(request, 'core/watch.html', {'video': video, 'form': form})
+    return render(request, 'core/watch.html', {'video': video, 'form': CommentForm(), 'modal_form': AddPointForm()})
 
 
 @login_required
