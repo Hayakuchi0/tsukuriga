@@ -1,5 +1,5 @@
 {% load bulma_tags %}
-<form target="/ajax/comments/add/{{ video.slug }}" class="ajax-form">
+<form action="/ajax/comments/add/{{ video.slug }}" class="ajax-form">
   {% csrf_token %}
   {{ form|bulma }}
   {% if user.is_authenticated %}
