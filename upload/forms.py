@@ -5,10 +5,14 @@ from .models import UploadedPureVideo, VideoProfile
 class VideoFileUploadForm(forms.ModelForm):
     class Meta:
         model = UploadedPureVideo
-        fields = ('file', )
+        fields = ('file',)
 
 
 class VideoProfileForm(forms.ModelForm):
     class Meta:
         model = VideoProfile
         fields = ('title', 'description')
+
+
+class VideoImportForm(forms.Form):
+    url = forms.URLField(label='URL')

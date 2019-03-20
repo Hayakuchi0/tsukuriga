@@ -17,12 +17,11 @@
   <div class="column">
     {% include 'upload/components/process-list.html' %}
     <div class="box">
-      <form class="submit-form" method="post" enctype="multipart/form-data">
+      <form class="submit-form" method="post">
         {% csrf_token %}
         {{ form|bulma }}
         <button type="submit" class="button is-info">送信</button>
       </form>
-      <a href="/upload/import">別の投稿サイトからインポートする</a>
     </div>
   </div>
 {% endblock %}
