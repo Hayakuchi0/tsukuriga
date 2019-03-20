@@ -12,7 +12,8 @@
       <i class="fas fa-upload"></i>
       <p class="is-size-7">投稿</p>
     </a>
-    <a class="navbar-item is-expanded is-block has-text-centered" href="/notify">
+    <a class="navbar-item is-expanded is-block has-text-centered {% if has_new_notification %}has-text-info{% endif %}"
+       href="/notify">
       <i class="fas fa-bell"></i>
       <p class="is-size-7">通知</p>
     </a>
