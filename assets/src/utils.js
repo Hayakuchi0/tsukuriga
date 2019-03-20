@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const ready = callback => document.addEventListener('DOMContentLoaded', callback)
 
-export const doc = q => document.querySelectorAll(q)
+export const doc = q => Array.from(document.querySelectorAll(q))
 
 export const range = n => [...Array(n).keys()]
 
