@@ -18,6 +18,18 @@
     </div>
 
     <div class="navbar-end">
+      <a class="navbar-item" href="/search">
+        <i class="fas fa-search-plus with-text"></i>
+        検索
+      </a>
+      <a class="navbar-item {% if has_new_notification %}has-text-info{% endif %}" href="/notify">
+        <i class="fas fa-bell with-text"></i>
+        通知
+      </a>
+      <a class="navbar-item has-text-white" href="/upload">
+        <i class="fas fa-upload with-text"></i>
+        アップロード
+      </a>
       {% if user.is_authenticated %}
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
