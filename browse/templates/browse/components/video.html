@@ -2,8 +2,13 @@
 <div class="video">
   <a href="/watch/{{ video.slug }}">
     <div class="video-thumbnail">
-      <img class="video-thumbnail-image" src="{{ video.data.thumbnail.url|default:"https://placehold.it/640x380" }}"
-           alt="{{ video.profile.title }}">
+      <figure class="image is-16by9">
+        <img
+          class="video-thumbnail-image"
+          src="{{ video.data.thumbnail.url|default:"https://placehold.it/640x360" }}"
+          alt="{{ video.profile.title }}"
+        >
+      </figure>
       <div class="video-thumbnail-display">
         <span class="video-thumbnail-display-item">{{ video.data.fps }}fps</span>
         <span class="video-thumbnail-display-item">{{ video.data.duration_str }}</span>

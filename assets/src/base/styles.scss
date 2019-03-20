@@ -42,6 +42,8 @@ textarea[rows] {
     position: relative;
 
     .video-thumbnail-image {
+      object-fit: contain;
+      background-color: $black;
       box-shadow: 0 8px 8px rgba(10, 10, 10, 0.1);
     }
 
