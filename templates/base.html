@@ -31,18 +31,16 @@
   {% include 'base/components/navbar-top.html' %}
   {% include 'base/components/navbar-bottom.html' %}
   {% block header %}{% endblock %}
-  <main class="section">
-    <div class="container">
-      <div class="columns is-centered">
-        {% block content %}
-          {% block content_2col %}{% endblock %}
-          <div class="submenu column is-3-desktop is-4-tablet">
-            {% include 'base/components/submenu.html' %}
-          </div>
-        {% endblock %}
-      </div>
+  <div class="container">
+    <div class="columns is-centered">
+      {% block content %}
+        {% block content_2col %}{% endblock %}
+        <div class="submenu column is-3-desktop is-4-tablet">
+          {% include 'base/components/submenu.html' %}
+        </div>
+      {% endblock %}
     </div>
-  </main>
+  </div>
   <footer class="footer">
     <div class="container">
       <div class="content has-text-centered">
