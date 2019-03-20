@@ -13,6 +13,13 @@ class Notification(models.Model):
     created_at = models.DateTimeField('作成日', default=timezone.now)
 
     @property
+    def is_new(self):
+        is_read = self.is_read
+        self.is_read = True
+        self.save()
+        return not is_read
+
+    @property
     def type(self):
         return type(self.target).__name__
 

@@ -7,8 +7,10 @@
   </figure>
   <div class="media-content">
     <div class="content">
+      {% if notification.is_new %}
+        <span class="tag is-danger">new!</span>
+      {% endif %}
       {% include notification.component_path with target=notification.target %}
     </div>
   </div>
 </article>
-
