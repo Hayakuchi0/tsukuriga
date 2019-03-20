@@ -2,7 +2,7 @@
   <article class="media">
     <figure class="media-left">
       <p class="image is-48x48">
-        <a :href="`/u/${comment.user.username}`">
+        <a :href="'/u/' + comment.user.username">
           <img :src="comment.user.profile_icon">
         </a>
       </p>
@@ -10,7 +10,7 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <a :href="`/u/${comment.user.username}`">
+          <a :href="'/u/' + comment.user.username">
             <strong class="has-text-black">[[ comment.user.name ]]</strong>
             <small>@[[ comment.user.username ]]</small>
           </a>
