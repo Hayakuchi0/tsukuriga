@@ -37,6 +37,7 @@ ready(() => {
   })
   const pointForm = new Vue({
     el: '#v-point-modal',
+    delimiters: ['[[', ']]'],
     data() {
       return {
         pointInput: 1
