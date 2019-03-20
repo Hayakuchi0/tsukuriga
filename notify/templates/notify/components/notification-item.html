@@ -6,10 +6,10 @@
     </p>
   </figure>
   <div class="media-content">
+    {% if notification.is_new %}
+      <span class="tag is-info is-rounded is-pulled-right">new!</span>
+    {% endif %}
     <div class="content">
-      {% if notification.is_new %}
-        <span class="tag is-danger">new!</span>
-      {% endif %}
       {% include notification.component_path with target=notification.target %}
     </div>
   </div>
