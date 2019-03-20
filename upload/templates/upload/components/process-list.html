@@ -1,10 +1,11 @@
 {% load core_tags %}
-<div class="level">
-  <div class="level-item tabs">
-    <ul>
-      {% for action in process %}
-      <li class="{{ 'is-active'|show_if:action.is_active }}"><a>{{ action.title }}</a></li>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
+<ul class="steps is-horizontal">
+  {% for action in process %}
+    <li class="steps-segment {{ 'is-active'|show_if:action.is_active }}">
+      <span class="steps-marker"></span>
+      <div class="steps-content">
+        <p class="is-size-6">{{ action.title }}</p>
+      </div>
+    </li>
+  {% endfor %}
+</ul>
