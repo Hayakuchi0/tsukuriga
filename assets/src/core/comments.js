@@ -47,7 +47,7 @@ ready(() => {
   /**
    * コメントフォーム
    */
-  ajaxForm(() => {
+  ajaxForm('#comment-form', () => {
     commentList.getComments()
-  }, true)
+  })
 })

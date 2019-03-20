@@ -9,7 +9,7 @@
       <div class="columns is-mobile">
         <div class="column">
           <div class="is-size-3 has-text-centered">[[ pointInput ]]</div>
-          <form method="post" action="/ajax/points/add/{{ video.slug }}" class="ajax-form">
+          <form id="point-form" method="post" action="/ajax/points/add/{{ video.slug }}">
             {% csrf_token %}
             {{ modal_form|bulma }}
             <button type="submit" class="button is-info is-fullwidth">送信</button>

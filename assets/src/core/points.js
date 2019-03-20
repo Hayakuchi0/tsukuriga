@@ -57,7 +57,7 @@ ready(() => {
       }
     }
   })
-  ajaxForm(() => {
+  ajaxForm('#point-form', () => {
     pointForm.hideModal()
     pointForm.pointInput = 1
     pointText.updatePointSum()
