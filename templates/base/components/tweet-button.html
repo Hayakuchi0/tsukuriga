@@ -1,0 +1,9 @@
+<a href="" rel="nofollow" class="tweet-button button is-info"
+  {% if video %}
+   data-text="{{ video.profile.title }}"
+   data-href="/watch/{{ video.slug }}"
+  {% endif %}
+>
+  <i class="fab fa-twitter with-text"></i>
+  {{ text|default:"ツイート" }}
+</a>

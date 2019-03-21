@@ -65,4 +65,21 @@ ready(() => {
       doc('#' + modalId)[0].classList.add('is-active')
     })
   })
+
+  /**
+   * ツイートボタン
+   */
+  doc('.tweet-button').forEach($button => {
+    const text = $button.dataset.text || document.title
+    const url = location.origin + $button.dataset.href || location.pathname
+    const hashtags = $button.dataset.hashtags || 'ハッシュタグ'
+    $button.href = `https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`
+    $button.onclick = e => {
+      window.open(
+        encodeURI(decodeURI($button.href)), 'ツイート',
+        'width=650, height=270, personalbar=0, toolbar=0, scrollbars=1, sizable=1'
+      )
+      return false
+    }
+  })
 })
