@@ -18,7 +18,14 @@
   <div class="column">
     {% include 'upload/components/process-list.html' %}
     <div class="box">
-      <h2>完了！</h2>
+      <h2 class="title">完了！</h2>
+      <p>
+        <a href="/watch/{{ video.slug }}">{{ video.profile.title }}のページリンク</a>
+        (エンコード終了までしばらくお待ち下さい)
+      </p>
+      <div class="section">
+        {% include 'base/components/tweet-button.html' with video=video %}
+      </div>
     </div>
   </div>
 {% endblock %}
