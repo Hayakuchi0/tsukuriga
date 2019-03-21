@@ -51,6 +51,14 @@ class Video(models.Model):
     views_count = models.PositiveIntegerField('再生回数', default=0)
     type = models.CharField('動画タイプ', max_length=20, choices=VIDEO_TYPES, default=VIDEO_TYPES[0][0])
 
+    @property
+    def type_icon(self):
+        icons = {
+            'twitter': 'fab fa-twitter',
+            'altwug': 'fas fa-frog',
+        }
+        return icons[self.type]
+
     def is_encoded(self):
         return VideoData.objects.filter(video=self).exists()
 

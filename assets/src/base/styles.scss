@@ -59,8 +59,16 @@ textarea[rows] {
       .video-thumbnail-display {
         @include flex;
         position: absolute;
-        right: 2px;
-        bottom: 2px;
+
+        &.is-bottom {
+          right: 2px;
+          bottom: 2px;
+        }
+
+        &.is-top {
+          right: 2px;
+          top: 2px;
+        }
 
         .video-thumbnail-display-item {
           margin-left: 5px;
@@ -69,6 +77,14 @@ textarea[rows] {
           color: #eeeeee;
           opacity: 0.8;
           border-radius: 0.3rem;
+
+          &.is-twitter {
+            background-color: $info;
+          }
+
+          &.is-altwug {
+            background-color: $purple;
+          }
         }
       }
     }

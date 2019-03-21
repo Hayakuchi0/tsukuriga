@@ -9,7 +9,14 @@
           alt="{{ video.profile.title }}"
         >
       </figure>
-      <div class="video-thumbnail-display">
+      {% if not video.type == 'normal' %}
+        <div class="video-thumbnail-display is-top">
+          <span class="video-thumbnail-display-item is-{{ video.type }}" title="{{ video.get_type_display }}">
+            <i class="{{ video.type_icon }}"></i>
+          </span>
+        </div>
+      {% endif %}
+      <div class="video-thumbnail-display is-bottom">
         <span class="video-thumbnail-display-item">{{ video.data.fps }}fps</span>
         <span class="video-thumbnail-display-item">{{ video.data.duration_str }}</span>
       </div>
