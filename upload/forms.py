@@ -10,7 +10,7 @@ class VideoFileUploadForm(forms.ModelForm):
 
 class VideoProfileForm(forms.ModelForm):
     description = forms.CharField(
-        label='動画説明', widget=forms.Textarea(),
+        label='動画説明', widget=forms.Textarea(), required=False,
         help_text='URLと@, #から始まる文字列はそれぞれリンク、ユーザーページへのリンク、ハッシュタグに置換されます'
     )
 
