@@ -3,7 +3,7 @@ from django.http.response import HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 from django.core.files import File
 
-from .models import Video, UploadedPureVideo
+from .models import Video, VideoProfile, UploadedPureVideo
 from .utils import ImportFile
 from .forms import VideoFileUploadForm, VideoProfileForm, VideoImportForm
 
@@ -31,6 +31,12 @@ def upload(request):
             pure_video = form.save(commit=False)
             pure_video.video = video
             pure_video.save()
+
+            VideoProfile.objects.create(
+                video=video,
+                title=request.user.name + 'さんの作品'
+            )
+
             return redirect(f'/upload/detail?slug={video.slug}')
 
     return render(request, 'upload/form.html', {'process': get_process(0), 'form': form})
@@ -57,6 +63,13 @@ def import_upload(request):
                         video=video,
                         file=File(f)
                     )
+
+                VideoProfile.objects.create(
+                    video=video,
+                    title=request.user.name + 'さんの作品',
+                    description=imported.text
+                )
+
                 return redirect(f'/upload/detail?slug={video.slug}')
 
     return render(request, 'upload/import.html', {'process': get_process(1), 'form': form})
@@ -70,9 +83,9 @@ def detail(request):
     except:
         return HttpResponseBadRequest()
 
-    form = VideoProfileForm()
+    form = VideoProfileForm(instance=video.profile)
     if request.method == 'POST':
-        form = VideoProfileForm(request.POST)
+        form = VideoProfileForm(request.POST, instance=video.profile)
 
         if form.is_valid():
             profile = form.save(commit=False)

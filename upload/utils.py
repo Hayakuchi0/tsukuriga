@@ -34,6 +34,7 @@ class ImportFile:
         self.user = user
         self.url = url
         self.path = get_tempfile('.mp4')
+        self.text = ''
         self.download_file()
 
     def open(self, mode='rb'):
@@ -54,6 +55,7 @@ class ImportFile:
 
     def _download_url_twitter(self, tweet_id):
         tweet = self.user.api.GetStatus(tweet_id)
+        self.text = tweet.full_text
         if tweet.media and tweet.media[0].video_info:
             variants = tweet.media[0].video_info['variants']
             sorted_variants = sorted(variants, key=lambda x: x['bitrate'] if x['content_type'] == 'video/mp4' else 0)
