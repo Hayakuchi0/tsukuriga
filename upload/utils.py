@@ -35,7 +35,7 @@ class ImportFile:
         self.url = url
         self.path = get_tempfile('.mp4')
         self.text = ''
-        self.download_file()
+        self.type = 'normal'
 
     def open(self, mode='rb'):
         return open(self.path, mode=mode)
@@ -44,8 +44,10 @@ class ImportFile:
         altwug_matched = re.search(r'altwug\.net/watch/(?P<id>.+)/?', self.url)
         twitter_matched = re.search(r'twitter\.com/\w+/status/(?P<id>\d+)/?', self.url)
         if altwug_matched:
+            self.type = 'altwug'
             return self._download_url_altwug(altwug_matched.group('id'))
         elif twitter_matched:
+            self.type = 'twitter'
             return self._download_url_twitter(twitter_matched.group('id'))
         else:
             raise ValueError('不正なURLです')

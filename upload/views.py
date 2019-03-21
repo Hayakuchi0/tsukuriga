@@ -54,11 +54,15 @@ def import_upload(request):
             imported = None
             try:
                 imported = ImportFile(user=request.user, url=form.cleaned_data['url'])
+                imported.download_file()
             except Exception as e:
                 form.add_error('url', e.args[0])
 
             if imported is not None:
                 video = Video.objects.create(user=request.user)
+                video.type = imported.type
+                video.save()
+
                 with imported.open() as f:
                     UploadedPureVideo.objects.create(
                         video=video,
