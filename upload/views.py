@@ -11,7 +11,7 @@ from .forms import VideoFileUploadForm, VideoProfileForm, VideoImportForm
 def get_process(active_index):
     process = [
         {'title': '1. ファイル選択', 'is_active': False},
-        {'title': '1-2.インポートURL入力', 'is_active': False},
+        {'title': '1-2. インポートURL入力', 'is_active': False},
         {'title': '2. 紹介文設定', 'is_active': False},
         {'title': '3. 完了！', 'is_active': False},
     ]
