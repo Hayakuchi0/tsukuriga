@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseBadRequest
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
@@ -7,6 +6,7 @@ from django.views.decorators.http import require_POST
 from ajax.forms import CommentForm, AddPointForm
 from upload.models import Video
 from upload.forms import VideoProfileForm
+from upload.decorators import users_video_required
 from .forms import ThumbnailForm, DeleteVideoForm
 
 
@@ -18,12 +18,11 @@ def watch(request, slug):
 
 
 @login_required
+@users_video_required
 def edit(request, slug):
-    video = get_object_or_404(Video, slug=slug)
-    if not video.user == request.user:
-        return HttpResponseBadRequest('ユーザー情報が投稿者と一致しません')
-
+    video = request.video
     form = VideoProfileForm(instance=video.profile)
+
     if request.method == 'POST':
         form = VideoProfileForm(request.POST, instance=video.profile)
 
@@ -36,12 +35,11 @@ def edit(request, slug):
 
 
 @login_required
+@users_video_required
 def edit_thumbnail(request, slug):
-    video = get_object_or_404(Video, slug=slug)
-    if not video.user == request.user:
-        return HttpResponseBadRequest('ユーザー情報が投稿者と一致しません')
-
+    video = request.video
     form = ThumbnailForm()
+
     if request.method == 'POST':
         form = ThumbnailForm(request.POST)
 
@@ -60,12 +58,11 @@ def edit_thumbnail(request, slug):
 
 @require_POST
 @login_required
+@users_video_required
 def delete(request, slug):
-    video = get_object_or_404(Video, slug=slug)
-    if not video.user == request.user:
-        return HttpResponseBadRequest('ユーザー情報が投稿者と一致しません')
-
+    video = request.video
     form = DeleteVideoForm(request.POST)
+
     if form.is_valid():
         if form.cleaned_data['slug'] == video.slug:
             video.delete()

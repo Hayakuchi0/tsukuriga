@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http.response import HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 from django.core.files import File
@@ -77,11 +77,9 @@ def import_upload(request):
 
 @login_required
 def detail(request):
-    slug = request.GET.get('slug')
-    try:
-        video = Video.objects.get(slug=slug)
-    except:
-        return HttpResponseBadRequest()
+    video = get_object_or_404(Video, slug=request.GET.get('slug', ''))
+    if not video.user == request.user:
+        return HttpResponseBadRequest('ユーザー情報が投稿者と一致しません')
 
     form = VideoProfileForm(instance=video.profile)
     if request.method == 'POST':
