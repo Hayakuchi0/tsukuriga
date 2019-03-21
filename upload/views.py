@@ -71,8 +71,8 @@ def import_upload(request):
 
                 VideoProfile.objects.create(
                     video=video,
-                    title=request.user.name + 'さんの作品',
-                    description=imported.text
+                    title=imported.title,
+                    description=imported.description
                 )
 
                 return redirect(f'/upload/detail/{video.slug}')
