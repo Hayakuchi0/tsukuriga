@@ -50,32 +50,31 @@ def import_upload(request):
     if request.method == 'POST':
         form = VideoImportForm(request.POST)
 
-        if form.is_valid():
-            imported = None
-            try:
-                imported = ImportFile(user=request.user, url=form.cleaned_data['url'])
-                imported.download_file()
-            except Exception as e:
-                form.add_error('url', e.args[0])
+        imported = None
+        try:
+            imported = ImportFile(user=request.user, url=form.data['url'])
+            imported.download_file()
+        except Exception as e:
+            form.add_error('url', e.args[0])
 
-            if imported is not None:
-                video = Video.objects.create(user=request.user)
-                video.type = imported.type
-                video.save()
+        if form.is_valid() and imported is not None:
+            video = Video.objects.create(user=request.user)
+            video.type = imported.type
+            video.save()
 
-                with imported.open() as f:
-                    UploadedPureVideo.objects.create(
-                        video=video,
-                        file=File(f)
-                    )
-
-                VideoProfile.objects.create(
+            with imported.open() as f:
+                UploadedPureVideo.objects.create(
                     video=video,
-                    title=imported.title,
-                    description=imported.description
+                    file=File(f)
                 )
 
-                return redirect(f'/upload/detail/{video.slug}')
+            VideoProfile.objects.create(
+                video=video,
+                title=imported.title,
+                description=imported.description
+            )
+
+            return redirect(f'/upload/detail/{video.slug}')
 
     return render(request, 'upload/import.html', {'process': get_process(1), 'form': form})
 
