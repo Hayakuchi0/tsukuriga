@@ -95,5 +95,6 @@ def detail(request, slug):
 
 
 @login_required
-def complete(request):
-    return render(request, 'upload/complete.html', {'process': get_process(3)})
+@users_video_required
+def complete(request, slug):
+    return render(request, 'upload/complete.html', {'process': get_process(3), 'video': request.video})

@@ -5,5 +5,5 @@ urlpatterns = [
     path('', views.upload),
     path('/import', views.import_upload),
     path('/detail/<slug:slug>', views.detail),
-    path('/complete', views.complete)
+    path('/complete/<slug:slug>', views.complete)
 ]
