@@ -78,7 +78,7 @@ class UploadedPureVideo(CustomModel):
         return mimetypes.guess_type(self.file.path)[0] == 'video/mp4'
 
     def create_thumbnail(self):
-        filepath = get_temp_path(self, '.jpg')
+        filepath = get_tempfile('.jpg')
         t = random.randint(0, int(self.clip.duration))
         self.clip.save_frame(filepath, t=t)
         return filepath
@@ -87,7 +87,7 @@ class UploadedPureVideo(CustomModel):
         if self.is_mp4():
             return self.file.path
 
-        encoded_path = get_temp_path(self, '.mp4')
+        encoded_path = get_tempfile('.mp4')
         self.clip.write_videofile(encoded_path)
         return encoded_path
 
@@ -108,9 +108,6 @@ class UploadedPureVideo(CustomModel):
             )
 
         self.clip.close()
-        os.remove(encoded_filepath)
-        os.remove(thumbnail_filepath)
-
         self.delete()
 
     def delete(self, **kwargs):
