@@ -5,6 +5,7 @@ from django.core.files import File
 
 from .models import Video, VideoProfile, UploadedPureVideo
 from .utils import ImportFile
+from .decorators import users_video_required
 from .forms import VideoFileUploadForm, VideoProfileForm, VideoImportForm
 
 
@@ -37,7 +38,7 @@ def upload(request):
                 title=request.user.name + 'さんの作品'
             )
 
-            return redirect(f'/upload/detail?slug={video.slug}')
+            return redirect(f'/upload/detail/{video.slug}')
 
     return render(request, 'upload/form.html', {'process': get_process(0), 'form': form})
 
@@ -70,18 +71,17 @@ def import_upload(request):
                     description=imported.text
                 )
 
-                return redirect(f'/upload/detail?slug={video.slug}')
+                return redirect(f'/upload/detail/{video.slug}')
 
     return render(request, 'upload/import.html', {'process': get_process(1), 'form': form})
 
 
 @login_required
-def detail(request):
-    video = get_object_or_404(Video, slug=request.GET.get('slug', ''))
-    if not video.user == request.user:
-        return HttpResponseBadRequest('ユーザー情報が投稿者と一致しません')
-
+@users_video_required
+def detail(request, slug):
+    video = request.video
     form = VideoProfileForm(instance=video.profile)
+
     if request.method == 'POST':
         form = VideoProfileForm(request.POST, instance=video.profile)
 
