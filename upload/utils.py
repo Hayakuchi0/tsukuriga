@@ -5,6 +5,7 @@ import tempfile
 import requests
 
 from django.core.files import File
+from account.models import User
 
 
 def get_tempfile(suffix, file=None):
@@ -30,7 +31,7 @@ def get_tempfile(suffix, file=None):
 
 
 class ImportFile:
-    def __init__(self, user, url):
+    def __init__(self, user: User, url: str):
         self.user = user
         self.url = url
         self.path = get_tempfile('.mp4')
@@ -51,16 +52,25 @@ class ImportFile:
             self.type = 'twitter'
             return self._download_url_twitter(twitter_matched.group('id'))
         else:
-            raise ValueError('不正なURLです')
+            raise ValueError('対応する形式のURLを入力してください')
+
+    def _raise_for_verification(self, user_id):
+        twitter_user = self.user.api.VerifyCredentials()
+        if user_id is None or not twitter_user.id == user_id:
+            raise ValueError('連携しているツイッターアカウントが一致しませんでした')
 
     def _download_url_altwug(self, video_id):
         response = requests.get(f'https://altwug.net/api/v1/export/{video_id}/').json()
+        self._raise_for_verification(response['verified_id'])
+
         self.title = response['title']
         self.description = response['description']
         return response['download_url']
 
     def _download_url_twitter(self, tweet_id):
         tweet = self.user.api.GetStatus(tweet_id)
+        self._raise_for_verification(tweet.user.id)
+
         self.description = tweet.full_text
         if tweet.media and tweet.media[0].video_info:
             variants = tweet.media[0].video_info['variants']
