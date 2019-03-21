@@ -89,7 +89,7 @@ def detail(request, slug):
             profile = form.save(commit=False)
             profile.video = video
             profile.save()
-            return redirect(f'/upload/complete')
+            return redirect(f'/upload/complete/{video.slug}')
 
     return render(request, 'upload/profile.html', {'process': get_process(2), 'form': form})
 
