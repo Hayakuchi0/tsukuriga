@@ -41,9 +41,15 @@ class Video(models.Model):
     """
     関連モデルを統括する基礎モデル
     """
+    VIDEO_TYPES = (
+        ('normal', '通常投稿'),
+        ('twitter', 'ツイッターからインポート'),
+        ('altwug', 'Altwugからインポート'),
+    )
     user = models.ForeignKey('account.User', verbose_name='投稿者', on_delete=models.CASCADE)
     slug = models.CharField('動画ID', max_length=5, default=default_video_slug, editable=False)
     views_count = models.PositiveIntegerField('再生回数', default=0)
+    type = models.CharField('動画タイプ', max_length=20, choices=VIDEO_TYPES, default=VIDEO_TYPES[0][0])
 
     def is_encoded(self):
         return VideoData.objects.filter(video=self).exists()
