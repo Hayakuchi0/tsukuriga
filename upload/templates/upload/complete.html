@@ -2,13 +2,16 @@
 {% load render_bundle from webpack_loader %}
 {% load bulma_tags %}
 
-
 {% block page_title %}{% endblock %}
 {% block ogp_title %}{% endblock %}
 {% block description %}{% endblock %}
 {% block ogp_description %}{% endblock %}
 {% block ogp_image %}{% endblock %}
 {% block ogp_twitter_creator %}{% endblock %}
+
+{% block head %}
+  {% render_bundle 'upload/steps' %}
+{% endblock %}
 
 {% block header %}
   {% include 'upload/components/header.html' %}
