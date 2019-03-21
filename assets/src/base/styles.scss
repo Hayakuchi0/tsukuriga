@@ -129,3 +129,7 @@ hr {
 i.with-text {
   padding-right: 5px;
 }
+
+.navbar-link:not(.is-arrowless)::after {
+  border-color: #fff;
+}
