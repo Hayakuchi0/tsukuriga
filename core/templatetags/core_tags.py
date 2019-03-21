@@ -50,4 +50,5 @@ def to_absolute_path(path: str, request: WSGIRequest):
 def activate_url(text):
     result = re.sub(r'(https?://\S+)', r'<a href="\1" target="_blank">\1</a>', text)
     result = re.sub(r'(\A|\s)#(\S+)', r'<a href="/search?q=%23\2">#\2</a>', result)
+    result = re.sub(r'(\A|\s)@(\S+)', r'<a href="/u/\2">@\2</a>', result)
     return result
