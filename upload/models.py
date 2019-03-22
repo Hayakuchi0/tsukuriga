@@ -122,7 +122,6 @@ class UploadedPureVideo(CustomModel):
             )
 
         self.clip.close()
-        self.delete()
 
     def delete(self, **kwargs):
         if os.path.exists(self.file.path):
