@@ -10,3 +10,7 @@
     </p>
   </div>
 </form>
+{% if request.GET.q %}
+  <p>検索結果:{{ videos|length }}件</p>
+{% endif %}
+<hr>

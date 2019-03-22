@@ -11,10 +11,6 @@
 {% block content_2col %}
   <div class="column">
     {% include 'browse/components/search-form.html' %}
-    {% if request.GET.q %}
-      <p>検索結果:{{ videos|length }}件</p>
-      <hr>
-      {% include 'browse/components/video-list.html' %}
-    {% endif %}
+    {% include 'browse/components/video-list.html' %}
   </div>
 {% endblock %}
