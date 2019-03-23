@@ -91,8 +91,9 @@ def detail(request, slug):
             profile.video = video
             profile.save()
 
-            video.is_active = True
-            video.save()
+            if not video.is_active:
+                video.publish_and_save()
+
             return redirect(f'/upload/complete/{video.slug}')
 
     return render(request, 'upload/profile.html', {'process': get_process(2), 'form': form})
