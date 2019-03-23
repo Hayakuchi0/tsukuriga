@@ -28,10 +28,6 @@ class User(AbstractUser):
                           tweet_mode='extended')
         return api
 
-    @property
-    def videos(self):
-        return self.video_set.all().order_by('-profile__created_at')
-
     def json(self):
         return {
             'username': self.username,

@@ -16,7 +16,7 @@ class Profile(AltPaginationListView):
     paginate_by = 12
 
     def get_queryset(self):
-        return Video.objects.filter(user__username=self.kwargs['username']).order_by('-profile__created_at')
+        return Video.objects.filter(user__username=self.kwargs['username']).order_by('-published_at')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

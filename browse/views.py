@@ -13,7 +13,7 @@ class Home(AltPaginationListView):
     paginate_by = 12
 
     def get_queryset(self):
-        return safe_videos().order_by('-profile__created_at')
+        return safe_videos().order_by('-published_at')
 
 
 home = Home.as_view()
@@ -31,7 +31,7 @@ class Search(AltPaginationListView):
         return safe_videos().filter(
             functools.reduce(operator.and_, (Q(profile__title__contains=item) for item in q_list)) |
             functools.reduce(operator.and_, (Q(profile__description__contains=item) for item in q_list))
-        ).order_by('-profile__created_at')
+        ).order_by('-published_at')
 
 
 search = Search.as_view()
