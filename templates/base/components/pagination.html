@@ -1,11 +1,11 @@
 {% if page_obj.paginator.page_range|length > 1 %}
   <nav class="pagination is-centered" aria-label="pagination">
     {% if page_obj.has_previous %}
-      <a class="pagination-previous" href="?page={{ page_obj.previous_page_number }}">前へ</a>
+      <a class="pagination-previous" href="{{ queries }}page={{ page_obj.previous_page_number }}">前へ</a>
     {% endif %}
 
     {% if page_obj.has_next %}
-      <a class="pagination-next" href="?page={{ page_obj.next_page_number }}">次へ</a>
+      <a class="pagination-next" href="{{ queries }}page={{ page_obj.next_page_number }}">次へ</a>
     {% endif %}
 
     <ul class="pagination-list">
@@ -13,7 +13,7 @@
         {% if page_obj.number == num %}
           <a class="pagination-link is-current" href="#!">{{ num }}</a>
         {% else %}
-          <a class="pagination-link" href="?page={{ num }}">{{ num }}</a>
+          <a class="pagination-link" href="{{ queries }}page={{ num }}">{{ num }}</a>
         {% endif %}
       {% endfor %}
     </ul>
