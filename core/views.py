@@ -28,6 +28,8 @@ def edit(request, slug):
 
         if form.is_valid():
             form.save()
+            video.is_active = True
+            video.save()
             messages.success(request, '保存されました')
             return redirect(f'/watch/{video.slug}')
 

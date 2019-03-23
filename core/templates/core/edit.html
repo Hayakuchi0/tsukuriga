@@ -17,7 +17,13 @@
       <form class="submit-form" method="post">
         {% csrf_token %}
         {{ form|bulma }}
-        <button type="submit" class="button is-info">送信</button>
+        <button type="submit" class="button is-info">
+          {% if video.is_active == False %}
+            保存して公開
+          {% else %}
+            更新
+          {% endif %}
+        </button>
         <a href="/thumbnail/{{ video.slug }}" class="button is-primary">サムネイル編集</a>
         <button type="button" class="button is-danger modal-opener" data-target="v-delete-modal">削除する</button>
       </form>
