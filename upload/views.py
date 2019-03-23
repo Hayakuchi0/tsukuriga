@@ -58,9 +58,7 @@ def import_upload(request):
             form.add_error('url', e.args[0])
 
         if form.is_valid() and imported is not None:
-            video = Video.objects.create(user=request.user)
-            video.type = imported.type
-            video.save()
+            video = Video.objects.create(user=request.user, type=imported.type)
 
             with imported.open() as f:
                 UploadedPureVideo.objects.create(
