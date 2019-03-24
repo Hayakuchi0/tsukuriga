@@ -17,8 +17,9 @@ dump.json
 webpack-stats.json
 /assets/bundles/
 
-# Firebase
-serviceAccountKey.json
+# Vagrant
+.vagrant
+*.log
 
 # Other
 Thumbs.db
