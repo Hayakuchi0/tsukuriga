@@ -2,11 +2,11 @@
 {% load core_tags %}
 
 {% block page_title %}{{ page.title }}{% endblock %}
-{% block ogp_title %}{{ page.title }}{% endblock %}
-{% block description %}{% endblock %}
-{% block ogp_description %}{% endblock %}
+{% block ogp_page_title %}{{ page.title }}{% endblock %}
+{% block description %}{{ page.description }}{% endblock %}
+{% block ogp_description %}{{ page.description }}{% endblock %}
 {% block ogp_image %}{{ page.ogp_image }}{% endblock %}
-{% block ogp_twitter_creator %}@ugo_compeito{% endblock %}
+{% block ogp_twitter_creator %}@{{ page.author.username }}{% endblock %}
 
 {% block header %}{% endblock %}
 

@@ -20,6 +20,10 @@ class Page(CustomModel):
         return markdownify(self.text)
 
     @property
+    def description(self):
+        return self.text[:80]
+
+    @property
     def is_new(self):
         return (timezone.now() - self.created_at).days < 7
 
