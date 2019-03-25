@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
+from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
 
 
 class Notification(models.Model):
@@ -27,8 +30,30 @@ class Notification(models.Model):
     def component_path(self):
         return f'notify/components/types/{self.type}.html'
 
+    @property
+    def mail_subject(self):
+        titles = {
+            'Comment': f'{self.target.user}さんがコメントしました'
+        }
+        return titles[self.type]
+
+    @property
+    def mail_body(self):
+        content = get_template(self.component_path).render({'target': self.target})
+        body = get_template('notify/mails/base.html').render({'content': content})
+        return body
+
+    def send_mail(self):
+        mail = EmailMultiAlternatives(
+            subject=self.mail_subject,
+            to=[self.user.email]
+        )
+        mail.attach_alternative(self.mail_body, 'text/html')
+        return mail.send()
+
     def save(self, *args, **kwargs):
-        # ここでメール送信
+        if not settings.DEBUG:
+            self.send_mail()
         return super().save(*args, **kwargs)
 
 
