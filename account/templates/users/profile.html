@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
-{% block page_title %}{% endblock %}
-{% block ogp_title %}{% endblock %}
-{% block description %}{% endblock %}
-{% block ogp_description %}{% endblock %}
-{% block ogp_image %}{% endblock %}
-{% block ogp_twitter_creator %}{% endblock %}
+{% block page_title %}{{ account.name }}@{{ account.username }}{% endblock %}
+{% block ogp_title %}{{ account.name }}@{{ account.username }}{% endblock %}
+{% block description %}{{ account.description }}{% endblock %}
+{% block ogp_description %}{{ account.description }}{% endblock %}
+{% block ogp_image %}{{ account.profile_icon_url }}{% endblock %}
+{% block ogp_twitter_creator %}@{{ account.username }}{% endblock %}
 
 {% block header %}{% endblock %}
 

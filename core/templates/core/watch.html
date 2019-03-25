@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% load render_bundle from webpack_loader %}
 
-{% block page_title %}{% endblock %}
-{% block ogp_page_title %}{% endblock %}
-{% block description %}{% endblock %}
-{% block ogp_description %}{% endblock %}
-{% block ogp_image %}{% endblock %}
-{% block ogp_twitter_creator %}{% endblock %}
+{% block page_title %}{{ video.profile.title }}{% endblock %}
+{% block ogp_page_title %}{{ video.profile.title }}{% endblock %}
+{% block description %}{{ video.profile.description }}{% endblock %}
+{% block ogp_description %}{{ video.profile.description }}{% endblock %}
+{% block ogp_image %}{{ video.data.thumbnail.url }}{% endblock %}
+{% block ogp_twitter_creator %}@{{ video.user.username }}{% endblock %}
 
 {% block head %}
   {% render_bundle 'core/videojs-setup' %}
