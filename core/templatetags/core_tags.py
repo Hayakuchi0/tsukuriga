@@ -1,7 +1,7 @@
 import re
 
 from django import template
-from django.core.handlers.wsgi import WSGIRequest
+from django.contrib.sites.models import Site
 
 from core.utils import created_at2str
 
@@ -38,12 +38,15 @@ def show_if_not(arg, condition):
         return ''
 
 
+current_site = Site.objects.get_current()
+
+
 @register.filter
-def to_absolute_path(path: str, request: WSGIRequest):
-    if path.strip()[:4] == 'http':
+def to_absolute_path(path: str, is_secure=True):
+    if not path.startswith('/'):
         return path
-    scheme = 'https' if request.is_secure() else 'http'
-    return scheme + '://' + request.get_host() + path
+    scheme = 'https' if is_secure else 'http'
+    return scheme + '://' + current_site.domain + path
 
 
 @register.filter
