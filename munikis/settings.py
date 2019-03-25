@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     # social-auth-app-django
     'social_django',
     # django-extensions
@@ -222,3 +223,12 @@ INTERNAL_IPS = ['127.0.0.1']
 
 # django-markdownx
 MARKDOWNX_MEDIA_PATH = 'pages/'
+
+# メール
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.muumuu-mail.com'
+EMAIL_HOST_USER = local_settings.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = local_settings.EMAIL_HOST_PASSWORD
+EMAIL_PORT = 465
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = 'Tsukuriga <mail@tsukuriga.net>'
