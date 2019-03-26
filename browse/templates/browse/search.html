@@ -1,12 +1,8 @@
 {% extends 'base.html' %}
 {% load core_tags %}
 
-{% block page_title %}{% endblock %}
-{% block ogp_page_title %}{% endblock %}
-{% block description %}{% endblock %}
-{% block ogp_description %}{% endblock %}
-{% block ogp_image %}{% endblock %}
-{% block ogp_twitter_creator %}{% endblock %}
+{% block page_title %}{{ request.GET.q }}の検索結果{% endblock %}
+{% block ogp_page_title %}{{ request.GET.q }}の検索結果{% endblock %}
 
 {% block content_2col %}
   <div class="column">
