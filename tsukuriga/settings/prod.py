@@ -11,11 +11,10 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-import socket
 import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = str(environ.Path(__file__) - 3)
 
 ENV_PATH = os.path.join(BASE_DIR, '.env')
 
@@ -27,14 +26,12 @@ if os.path.isfile(ENV_PATH):
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY', default='z4dmv4gx*^lqkgmly!3-v3-w!f(tg+9ru1bh75)hm_+h%ac%fy')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ADMINS = [('admin', env('ADMIN_MAIL'))]
-
-ALLOWED_HOSTS = env('ALLOWED_HOST')
+ALLOWED_HOSTS = env('ALLOWED_HOST', default='*').split(',')
 
 # Application definition
 
@@ -48,16 +45,12 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     # social-auth-app-django
     'social_django',
-    # django-extensions
-    'django_extensions',
     # django-webpack-loader
     'webpack_loader',
     # django-bulma
     'bulma',
     # django-markdownx
     'markdownx',
-    # django-debug-toolbar
-    'debug_toolbar',
     # original apps
     'core.apps.CoreConfig',
     'upload.apps.UploadConfig',
@@ -77,8 +70,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # django-debug-toolbar
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'tsukuriga.urls'
@@ -187,8 +178,8 @@ SOCIAL_AUTH_PIPELINE = (
     'account.pipeline.save_profile'
 )
 
-SOCIAL_AUTH_TWITTER_KEY = env('TWITTER_KEY')
-SOCIAL_AUTH_TWITTER_SECRET = env('TWITTER_SECRET')
+SOCIAL_AUTH_TWITTER_KEY = env('TWITTER_KEY', default='')
+SOCIAL_AUTH_TWITTER_SECRET = env('TWITTER_SECRET', default='')
 
 AUTH_USER_MODEL = 'account.User'
 
@@ -210,28 +201,27 @@ WEBPACK_LOADER = {
 APPEND_SLASH = False
 REMOVE_SLASH = True
 
-# django-storage-swift
+# django-markdownx
+MARKDOWNX_MEDIA_PATH = 'pages/'
+
 if not DEBUG:
+    ADMINS = [('admin', env('ADMIN_MAIL', default='admin@example.com'))]
+
+    # django-storage-swift
     DEFAULT_FILE_STORAGE = 'swift.storage.SwiftStorage'
     SWIFT_AUTH_URL = 'https://identity.tyo1.conoha.io/v2.0'
-    SWIFT_TENANT_NAME = env('SWIFT_TENANT_NAME')
-    SWIFT_USERNAME = env('SWIFT_USERNAME')
-    SWIFT_PASSWORD = env('SWIFT_PASSWORD')
+    SWIFT_TENANT_NAME = env('SWIFT_TENANT_NAME', default='')
+    SWIFT_USERNAME = env('SWIFT_USERNAME', default='')
+    SWIFT_PASSWORD = env('SWIFT_PASSWORD', default='')
     SWIFT_AUTO_CREATE_CONTAINER_PUBLIC = True
     SWIFT_AUTO_CREATE_CONTAINER = True
     SWIFT_CONTAINER_NAME = 'media'
 
-# django-debug-toolbar
-INTERNAL_IPS = ['127.0.0.1']
-
-# django-markdownx
-MARKDOWNX_MEDIA_PATH = 'pages/'
-
-# メール
-EMAIL_USE_SSL = True
-EMAIL_HOST = 'smtp.muumuu-mail.com'
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = 465
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-DEFAULT_FROM_EMAIL = 'Tsukuriga <mail@tsukuriga.net>'
+    # mail
+    EMAIL_USE_SSL = True
+    EMAIL_HOST = 'smtp.muumuu-mail.com'
+    EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='')
+    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='')
+    EMAIL_PORT = 465
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    DEFAULT_FROM_EMAIL = 'Tsukuriga <mail@tsukuriga.net>'

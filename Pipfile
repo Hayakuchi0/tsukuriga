@@ -6,8 +6,6 @@ name = "pypi"
 [packages]
 django = "*"
 social-auth-app-django = "*"
-django-extensions = "*"
-werkzeug = "*"
 django-webpack-loader = "*"
 django-bulma = "*"
 tocka-django-unslashed = {git = "https://github.com/Compeito/django-unslashed"}
@@ -15,11 +13,13 @@ pillow = "*"
 python-twitter = "*"
 moviepy = "*"
 django-storage-swift = {git = "https://github.com/Compeito/django-storage-swift"}
-django-debug-toolbar = "*"
 django-markdownx = "*"
 django-environ = "*"
 
 [dev-packages]
+django-extensions = "*"
+werkzeug = "*"
+django-debug-toolbar = "*"
 
 [requires]
 python_version = "3.7"
