@@ -4,7 +4,7 @@ from multiprocessing import Process
 
 import django
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tsukuriga.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tsukuriga.settings.prod')
 django.setup()
 
 from upload.models import UploadedPureVideo
