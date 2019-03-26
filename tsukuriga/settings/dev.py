@@ -1,6 +1,10 @@
-from .prod import *
+from .base import *
 
 DEBUG = True
+
+ALLOWED_HOSTS = ['*']
+
+WEBPACK_LOADER['DEFAULT']['CACHE'] = not DEBUG
 
 INSTALLED_APPS.extend([
     # django-extensions
