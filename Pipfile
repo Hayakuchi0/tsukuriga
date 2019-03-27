@@ -15,7 +15,6 @@ moviepy = "*"
 django-storage-swift = {git = "https://github.com/Compeito/django-storage-swift"}
 django-markdownx = "*"
 django-environ = "*"
-uwsgi = "*"
 pymysql = "*"
 
 [dev-packages]
