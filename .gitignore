@@ -12,6 +12,7 @@ db.sqlite3
 local_settings.py
 dump.json
 .env
+uwsgi_params
 
 # Nodejs
 /node_modules/
