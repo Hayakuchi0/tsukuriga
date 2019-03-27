@@ -15,6 +15,29 @@ $navbar-height: 4rem;
 @import "~bulma/bulma";
 @import "~bulmaswatch/lux/overrides";
 
+@mixin flex() {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+}
+
+body {
+  @include flex;
+  min-height: 100vh;
+  flex-direction: column;
+
+  #main {
+    margin-bottom: auto;
+  }
+}
+
+.footer {
+  @extend .footer;
+  margin-top: 20px;
+}
+
 div.columns {
   margin: 0;
 }
@@ -30,14 +53,6 @@ textarea[rows] {
 // ナビゲーションバー下に陰をつける
 .navbar.has-shadow {
   box-shadow: 0 8px 8px rgba(10, 10, 10, 0.1);
-}
-
-@mixin flex() {
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flex;
-  display: -o-flex;
-  display: flex;
 }
 
 .video {
