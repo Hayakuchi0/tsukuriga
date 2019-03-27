@@ -6,6 +6,22 @@ WEBPACK_LOADER['DEFAULT']['CACHE'] = not DEBUG
 
 ADMINS = [('admin', env('ADMIN_MAIL', default='admin@example.com'))]
 
+# 設定参考
+# https://qiita.com/shirakiya/items/71861325b2c8988979a2
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'tsukuriga',
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': 'localhost',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'sql_mode': 'TRADITIONAL,NO_AUTO_VALUE_ON_ZERO,ONLY_FULL_GROUP_BY',
+        },
+    }
+}
+
 # django-storage-swift
 DEFAULT_FILE_STORAGE = 'swift.storage.SwiftStorage'
 SWIFT_AUTH_URL = 'https://identity.tyo1.conoha.io/v2.0'
