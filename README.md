@@ -13,20 +13,20 @@ Altwugを継承する自主制作動画専用の投稿サイト
 ```bash
 $ pipenv install --dev
 $ pipenv shell
-(.venv)$ python manage.py migrate
+(.venv)$ python manag_dev.py migrate
 
 # ログインに必要なTWITTER_KEY, TWITTER_SECRETのみ変更
 $ mv .env.example .env
 $ vim .env
 
 # もしくは、スーパーユーザーの作成(localhost:8000/admin/でのみログイン可能)
-(.venv)$ python manage.py createsuperuser
+(.venv)$ python manage_dev.py createsuperuser
 ```
 
 ### 開発サーバーの起動
 下記2つのコマンドを別々のターミナルで実行
 ```bash
-(.venv)$ python manage.py runserver_plus
+(.venv)$ python manage_dev.py runserver_plus
 ```
 ```bash
 $ yarn run dev
