@@ -18,10 +18,6 @@ dump.json
 webpack-stats.json
 /assets/bundles/
 
-# Vagrant
-.vagrant
-*.log
-
 # Other
 Thumbs.db
 *.exe
