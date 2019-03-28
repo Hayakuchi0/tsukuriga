@@ -8,6 +8,7 @@ def save_profile(backend, user, response, *args, **kwargs):
         user.description = response.get('description')
 
         profile_icon_url = response.get('profile_image_url_https')
+        profile_icon_url = profile_icon_url.replace('normal', '400x400')
         profile_icon = RequestFile(profile_icon_url, '.jpg')
         profile_icon.download_file()
 
