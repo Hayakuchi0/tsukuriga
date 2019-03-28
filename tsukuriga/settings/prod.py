@@ -8,6 +8,7 @@ DEBUG = env('DEBUG', default=False)
 WEBPACK_LOADER['DEFAULT']['CACHE'] = not DEBUG
 
 ADMINS = [('admin', env('ADMIN_MAIL', default='admin@example.com'))]
+SERVER_EMAIL = 'admin@tsukuriga.net'
 
 # 設定参考
 # https://qiita.com/shirakiya/items/71861325b2c8988979a2
