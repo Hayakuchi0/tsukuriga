@@ -4,22 +4,11 @@ import tempfile
 
 import requests
 
-from django.core.files import File
 from account.models import User
 
 
 def get_tempfile(suffix, file=None):
-    """
-    Windowsではdelete=Falseを指定したtempfileは権限エラーでアクセスできない
-    https://stackoverflow.com/questions/23212435/permission-denied-to-write-to-my-temporary-file
-    :param str suffix:
-    :param File file:
-    :return:
-    :rtype str
-    """
-    delete_option = not os.name == 'nt'
-
-    temp_file = tempfile.NamedTemporaryFile(suffix=suffix, delete=delete_option)
+    temp_file = tempfile.NamedTemporaryFile(suffix=suffix, delete=False)
     temp_file_path = temp_file.name
 
     if file is not None:
