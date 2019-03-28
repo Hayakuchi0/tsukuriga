@@ -3,9 +3,15 @@ from django.contrib.auth.models import AbstractUser, UserManager
 from django.contrib.auth.validators import ASCIIUsernameValidator
 from django.conf import settings
 
-import twitter
+import os
+from uuid import uuid4
 
+import twitter
 from social_django.models import UserSocialAuth
+
+
+def profile_image_upload_to(instance, filename):
+    return os.path.join('u', instance.username, 'profile', f'{uuid4().hex}.jpg')
 
 
 class User(AbstractUser):
@@ -13,8 +19,9 @@ class User(AbstractUser):
 
     name = models.CharField('表示名', max_length=50, null=True, blank=True)
     description = models.TextField('プロフィール文', max_length=500, null=True, blank=True)
-    profile_icon_url = models.URLField('プロフィール画像URL', null=True, blank=True)
-    profile_banner_url = models.URLField('プロフィール背景画像URL', null=True, blank=True)
+
+    profile_icon = models.ImageField('プロフィール画像', upload_to=profile_image_upload_to, null=True, blank=True)
+    profile_banner = models.ImageField('プロフィール背景画像', upload_to=profile_image_upload_to, null=True, blank=True)
 
     objects = UserManager()
 
@@ -32,16 +39,8 @@ class User(AbstractUser):
         return {
             'username': self.username,
             'name': self.name,
-            'profile_icon': self.profile_icon_url_medium()
+            'profile_icon': self.profile_icon.url
         }
-
-    def profile_icon_url_medium(self):
-        if self.profile_icon_url:
-            return self.profile_icon_url.replace('normal', '200x200')
-
-    def profile_icon_url_large(self):
-        if self.profile_icon_url:
-            return self.profile_icon_url.replace('normal', '400x400')
 
     class Meta(object):
         app_label = 'account'
