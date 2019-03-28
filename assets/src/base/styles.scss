@@ -23,23 +23,10 @@ $navbar-height: 4rem;
   display: flex;
 }
 
-body {
-  @include flex;
-  min-height: 100vh;
-  flex-direction: column;
-
-  #main {
-    margin-bottom: auto;
-  }
-}
-
-.footer {
-  @extend .footer;
+.container {
+  @extend .container;
   margin-top: 20px;
-}
-
-div.columns {
-  margin: 0;
+  margin-bottom: 20px;
 }
 
 textarea[rows] {
