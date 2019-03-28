@@ -37,6 +37,20 @@ textarea[rows] {
   word-wrap: break-word;
 }
 
+// モバイル時のズレ回避用
+// https://github.com/jgthms/bulma/issues/449#issuecomment-282548314
+div.columns {
+  margin: 0;
+}
+
+@media screen and (min-width: 768px) {
+  div.columns {
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+    margin-top: -0.75rem;
+  }
+}
+
 // ナビゲーションバー下に陰をつける
 .navbar.has-shadow {
   box-shadow: 0 8px 8px rgba(10, 10, 10, 0.1);
