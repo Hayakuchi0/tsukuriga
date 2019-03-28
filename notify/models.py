@@ -52,7 +52,7 @@ class Notification(models.Model):
         return mail.send()
 
     def save(self, *args, **kwargs):
-        if not settings.DEBUG:
+        if not settings.DEBUG and self.pk is None:
             self.send_mail()
         return super().save(*args, **kwargs)
 
