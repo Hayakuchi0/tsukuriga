@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load bulma_tags %}
+
+{% block page_title %}プロフィールの編集{% endblock %}
+{% block ogp_title %}プロフィールの編集{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+  <div class="column is-two-thirds">
+    <div class="box">
+      <form class="submit-form" method="post">
+        {% csrf_token %}
+        {{ form|bulma }}
+        <button type="submit" class="button is-info">更新</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
