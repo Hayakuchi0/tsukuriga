@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load render_bundle from webpack_loader %}
+{% load core_tags %}
 
 {% block page_title %}{{ video.profile.title }}{% endblock %}
 {% block ogp_page_title %}{{ video.profile.title }}{% endblock %}
@@ -19,6 +20,12 @@
     {% include 'core/components/video-player.html' %}
     <section class="section">
       {% include 'core/components/video-menu.html' %}
+      <hr>
+      <p>
+        {% autoescape off %}
+          {{ video.profile.description|activate_url|linebreaksbr }}
+        {% endautoescape %}
+      </p>
     </section>
   </div>
   <div class="column is-one-third">

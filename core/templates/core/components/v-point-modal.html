@@ -8,7 +8,10 @@
     <section class="modal-card-body">
       <div class="columns is-mobile">
         <div class="column">
-          <div class="is-size-3 has-text-centered">[[ pointInput ]]</div>
+          <div class="is-size-3 has-text-centered">
+            [[ pointInput ]]
+            <span class="is-size-4 is-lowercase">pt</span>
+          </div>
           <form id="point-form" method="post" action="/ajax/points/add/{{ video.slug }}">
             {% csrf_token %}
             {{ modal_form|bulma }}

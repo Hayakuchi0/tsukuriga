@@ -1,4 +1,3 @@
-{% load core_tags %}
 <h1 class="title">{{ video.profile.title }}</h1>
 <div class="level is-mobile">
   <div class="level-left">
@@ -6,9 +5,27 @@
     <button id="next-frame" type="button" class="button is-primary level-item">></button>
   </div>
   <div class="level-right">
-    {% if video.user == request.user %}
-      <a href="/edit/{{ video.slug }}" class="button is-primary level-item">動画情報の編集</a>
-    {% endif %}
+    <div class="dropdown is-right is-hoverable level-item">
+      <div class="dropdown-trigger">
+        <button class="button" aria-haspopup="true" aria-controls="video-dropdown-menu">
+          <span class="icon"><i class="fas fa-ellipsis-h"></i></span>
+        </button>
+      </div>
+      <div class="dropdown-menu" id="video-dropdown-menu" role="menu">
+        <div class="dropdown-content">
+          {% if video.user == request.user %}
+            <a class="dropdown-item" href="/edit/{{ video.slug }}">
+              <i class="fas fa-edit with-text"></i>
+              動画情報の編集
+            </a>
+          {% endif %}
+          <a class="dropdown-item" href="#">
+            <i class="fas fa-flag with-text"></i>
+            通報(未対応)
+          </a>
+        </div>
+      </div>
+    </div>
     <button type="button" class="button is-warning modal-opener level-item" data-target="v-point-modal">
       <i class="fas fa-star with-text"></i>
       {% include 'core/components/v-point-text.html' %}
@@ -18,9 +35,3 @@
     </div>
   </div>
 </div>
-<hr>
-<p>
-  {% autoescape off %}
-    {{ video.profile.description|activate_url|linebreaksbr }}
-  {% endautoescape %}
-</p>
