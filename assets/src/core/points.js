@@ -1,4 +1,4 @@
-import Vue from 'vue/dist/vue'
+import Vue from 'vue/dist/vue.esm'
 import axios from 'axios'
 
 import { ready, ajaxForm, doc } from '../utils'
