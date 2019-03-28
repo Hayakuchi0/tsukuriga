@@ -9,10 +9,6 @@
 {% block ogp_image %}{{ video.data.thumbnail.url }}{% endblock %}
 {% block ogp_twitter_creator %}@{{ video.user.username }}{% endblock %}
 
-{% block head %}
-  {% render_bundle 'core/videojs-setup' %}
-{% endblock %}
-
 {% block header %}{% endblock %}
 
 {% block content %}
@@ -41,6 +37,7 @@
 {% endblock %}
 
 {% block scripts %}
+  {% render_bundle 'core/videojs-setup' %}
   {% if video.data %}
     {% render_bundle 'core/watch' %}
   {% endif %}

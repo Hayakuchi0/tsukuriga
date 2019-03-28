@@ -4,10 +4,6 @@
 {% block page_title %}サムネイル編集{% endblock %}
 {% block ogp_page_title %}サムネイル編集{% endblock %}
 
-{% block head %}
-  {% render_bundle 'core/videojs-setup' %}
-{% endblock %}
-
 {% block header %}{% endblock %}
 
 {% block content %}
@@ -33,6 +29,7 @@
 {% endblock %}
 
 {% block scripts %}
+  {% render_bundle 'core/videojs-setup' %}
   {% render_bundle 'core/watch' %}
   {% render_bundle 'core/thumbnail' %}
 {% endblock %}
