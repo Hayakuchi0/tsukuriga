@@ -1,4 +1,3 @@
-import os
 import re
 import tempfile
 
@@ -19,17 +18,30 @@ def get_tempfile(suffix, file=None):
     return temp_file_path
 
 
-class ImportFile:
-    def __init__(self, user: User, url: str):
-        self.user = user
+class RequestFile:
+    def __init__(self, url, suffix):
         self.url = url
-        self.path = get_tempfile('.mp4')
-        self.title = user.name + 'さんの作品'
-        self.description = ''
-        self.type = 'normal'
+        self.path = get_tempfile(suffix)
 
     def open(self, mode='rb'):
         return open(self.path, mode=mode)
+
+    def _download_file(self, url):
+        response = requests.get(url)
+        with open(self.path, 'wb') as f:
+            f.write(response.content)
+
+    def download_file(self):
+        self._download_file(self.url)
+
+
+class ImportFile(RequestFile):
+    def __init__(self, user: User, url: str):
+        super().__init__(url, '.mp4')
+        self.user = user
+        self.title = user.name + 'さんの作品'
+        self.description = ''
+        self.type = 'normal'
 
     def _get_download_url(self):
         altwug_matched = re.search(r'altwug\.net/watch/(?P<id>.+)/?', self.url)
@@ -68,7 +80,5 @@ class ImportFile:
         raise ValueError('動画ツイートではありません')
 
     def download_file(self):
-        download_url = self._get_download_url()
-        response = requests.get(download_url)
-        with open(self.path, 'wb') as f:
-            f.write(response.content)
+        url = self._get_download_url()
+        self._download_file(url)
