@@ -1,12 +1,15 @@
+![ツクリガ](assets/images/ogp.png)
+
 # Tsukuriga
-Altwugを継承する自主制作動画専用の投稿サイト
+[Altwug.net](https://altwug.net)を継承する自主制作動画専用の投稿サイト  
+名前は「作\(ツクり\)画(ガ)」から。アイコンは「乍」
 
 ## 開発
 必要なもの
 * python(3.7, もしくは3.6)
 * pip
 * pipenv
-* npm
+* yarn(npm)
 * ffmpeg
 
 ### セットアップ
@@ -18,6 +21,8 @@ $ pipenv shell
 # ログインに必要なTWITTER_KEY, TWITTER_SECRETのみ変更
 $ mv .env.example .env
 $ vim .env
+# 最初にログインしたユーザーをスーパーユーザー化する
+(.venv)$ python manage_dev.py setsuperuser
 
 # もしくは、スーパーユーザーの作成(localhost:8000/admin/でのみログイン可能)
 (.venv)$ python manage_dev.py createsuperuser
