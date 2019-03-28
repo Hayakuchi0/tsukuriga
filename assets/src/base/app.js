@@ -36,8 +36,8 @@ ready(() => {
   $fileField.forEach($field => {
     $field.addEventListener('change', () => {
       const file = $field.files[0]
-      const $fieldLabel = $field.nextElementSibling.querySelector('span.file-label')
-      $fieldLabel.textContent = file.name
+      const $fieldName = $field.parentNode.querySelector('span.file-name')
+      $fieldName.textContent = file.name
     })
   })
 
