@@ -22,12 +22,9 @@ export const ajaxForm = (form, callback) => {
 
       axios.post($form.action, formData)
         .then(response => {
-          const notyf = new Notyf({
-            delay: 5000
-          })
           if (response.data.isSuccess) {
             response.data.results.forEach(result => {
-              notyf.confirm(result.message)
+              Notify.activate('success', result.message)
             })
           }
         })
@@ -59,34 +56,47 @@ export const fadeIn = el => {
   tick()
 }
 
-export const Notify = () => new Vue({
-  el: '#notify-container',
-  delimiters: ['[[', ']]'],
-  computed: {
-    hasNotify() {
-      return this.tag && this.message
-    },
-    className() {
-      if (this.hasNotify) {
-        return 'notification is-' + this.tag
+export const Notify = {
+  instance: null,
+  getInstance() {
+    if (this.instance) return this.instance
+    return new Vue({
+      el: '#notify-container',
+      delimiters: ['[[', ']]'],
+      computed: {
+        hasNotify() {
+          return this.tag.length > 0 && this.message.length > 0
+        },
+        className() {
+          if (this.hasNotify) {
+            return 'notification is-' + this.tag
+          }
+        }
+      },
+      data() {
+        return {
+          tag: '',
+          message: ''
+        }
+      },
+      methods: {
+        activate(tag, message) {
+          fadeIn(this.$refs.notifyItem)
+          this.tag = tag
+          this.message = message
+          setTimeout(() => {
+            this.deactivate()
+          }, 5000)
+        },
+        deactivate() {
+          this.tag = ''
+          this.message = ''
+        }
       }
-    }
+    })
   },
-  data() {
-    return {
-      tag: '',
-      message: ''
-    }
-  },
-  methods: {
-    activate(tag, message) {
-      fadeIn(this.$refs.notifyItem)
-      this.tag = tag
-      this.message = message
-    },
-    deactivate() {
-      this.tag = ''
-      this.message = ''
-    }
+  activate(tag, message) {
+    this.instance = this.getInstance()
+    this.instance.activate(tag, message)
   }
-})
+}

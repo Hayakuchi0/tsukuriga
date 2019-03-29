@@ -68,8 +68,7 @@ ready(() => {
     }
   })
 
-  const notify = Notify()
   doc('.notify-data').forEach(notification => {
-    notify.activate(notification.dataset.tag, notification.dataset.message)
+    Notify.activate(notification.dataset.tag, notification.dataset.message)
   })
 })
