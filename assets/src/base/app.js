@@ -1,4 +1,4 @@
-import { doc, ready } from '../utils'
+import { doc, ready, Notify } from '../utils'
 import './styles.scss'
 
 
@@ -11,21 +11,6 @@ ready(() => {
   $navbarBurger.addEventListener('click', (e) => {
     doc('.navbar-burger')[0].classList.toggle('is-active')
     doc('.navbar-menu')[0].classList.toggle('is-active')
-  })
-
-  /**
-   * Notyf
-   * https://github.com/caroso1222/notyf
-   */
-  const notyf = new Notyf({
-    delay: 5000
-  })
-  const notyf_key = {
-    success: 'confirm',
-    error: 'alert'
-  }
-  doc('.notyf-data').forEach(data => {
-    notyf[notyf_key[data.dataset.tags]](data.dataset.message)
   })
 
   /**
@@ -81,5 +66,10 @@ ready(() => {
       )
       return false
     }
+  })
+
+  const notify = Notify()
+  doc('.notify-data').forEach(notification => {
+    notify.activate(notification.dataset.tag, notification.dataset.message)
   })
 })

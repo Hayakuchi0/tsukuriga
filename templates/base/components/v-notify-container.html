@@ -1,0 +1,9 @@
+<div id="notify-container" ref="container" v-cloak>
+  <div :class="className" v-show="hasNotify" ref="notifyItem">
+    <button class="delete" @click="deactivate"></button>
+    [[ message ]]
+  </div>
+</div>
+{% for message in messages %}
+  <div class="notify-data" data-tag="{{ message.tags }}" data-message="{{ message }}"></div>
+{% endfor %}

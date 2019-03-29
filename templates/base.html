@@ -38,13 +38,13 @@
     <meta name="twitter:creator" content="{% block ogp_twitter_creator %}@ugo_compeito{% endblock %}"/>
   {% endblock %}
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-  <link rel="stylesheet" href="/assets/libs/notyf.min.css">
   {% block head %}{% endblock %}
   {% render_bundle 'base/app' %}
 </head>
 <body class="has-navbar-fixed-top-desktop has-navbar-fixed-bottom-touch">
   {% include 'base/components/navbar-top.html' %}
   {% include 'base/components/navbar-bottom.html' %}
+  {% include 'base/components/v-notify-container.html' %}
   {% block header %}{% endblock %}
   <div class="container">
     <div class="columns is-centered">
@@ -63,10 +63,6 @@
       </div>
     </div>
   </footer>
-  {% for message in messages %}
-    <div class="notyf-data" data-tags="{{ message.tags }}" data-message="{{ message }}"></div>
-  {% endfor %}
-  <script src="/assets/libs/notyf.min.js"></script>
   {% block scripts %}{% endblock %}
 </body>
 </html>
