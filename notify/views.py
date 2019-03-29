@@ -10,7 +10,8 @@ class NotificationListView(generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Notification.objects.filter(user=self.request.user).order_by('-created_at')
+        notifications = Notification.objects.filter(user=self.request.user).order_by('-created_at')
+        return [n for n in notifications if n.target]
 
 
 notifications_list = login_required(NotificationListView.as_view())
