@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_GET, require_POST
 
 from upload.models import Video
-from .models import Point
+from .models import Comment, Point
 from .forms import CommentForm, AddPointForm
 from .utils import json_response, get_ip
 
@@ -30,6 +30,16 @@ def add_comment(request, slug):
         return json_response([{'message': 'コメントが追加されました'}], status=200)
 
     return json_response(form.errors, status=400)
+
+
+@require_POST
+@login_required
+def delete_comment(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    if request.user == comment.user:
+        comment.delete()
+        return json_response([{'message': 'コメントが削除されました'}], status=200)
+    return json_response([{'message': 'ユーザー情報がコメントと一致しません'}], status=400)
 
 
 @require_GET
