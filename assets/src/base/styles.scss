@@ -30,13 +30,12 @@ $navbar-height: 4rem;
 }
 
 #notify-container {
-  position: relative;
-  margin-top: -20px;
-
-  div {
-    position: absolute;
-    width: 100%;
-    z-index: 2;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+  @include desktop() {
+    top: $navbar-height;
   }
 }
 
