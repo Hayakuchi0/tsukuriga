@@ -49,6 +49,32 @@ export const ajaxForm = (form, callback) => {
   })
 }
 
+export const deleteModal = el => {
+  return new Vue({
+    el: el,
+    data() {
+      return {
+        deleteInput: '',
+        correctInput: ''
+      }
+    },
+    mounted() {
+      const $modal = this.$refs.deleteModal
+      this.correctInput = $modal.dataset.correct
+    },
+    computed: {
+      isDeletable() {
+        return this.deleteInput === this.correctInput
+      }
+    },
+    methods: {
+      hideModal() {
+        this.$refs.deleteModal.classList.remove('is-active')
+      }
+    }
+  })
+}
+
 export const fadeIn = el => {
   /**
    * http://youmightnotneedjquery.com/
