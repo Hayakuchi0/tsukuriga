@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load render_bundle from webpack_loader %}
 {% load bulma_tags %}
 
 {% block page_title %}プロフィールの編集{% endblock %}
@@ -13,7 +14,13 @@
         {% csrf_token %}
         {{ form|bulma }}
         <button type="submit" class="button is-info">更新</button>
+        <button type="button" class="button is-danger modal-opener" data-target="v-unsubscribe-modal">削除する</button>
       </form>
     </div>
   </div>
+  {% include 'users/components/v-unsubscribe-form.html' %}
+{% endblock %}
+
+{% block scripts %}
+  {% render_bundle 'users/edit' %}
 {% endblock %}

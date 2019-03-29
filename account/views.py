@@ -2,9 +2,10 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.views.decorators.http import require_POST
 
 from .models import User
-from .forms import UserProfileForm
+from .forms import UserProfileForm, DeleteUserForm
 from upload.models import Video
 from core.utils import AltPaginationListView
 
@@ -43,4 +44,19 @@ def edit_profile(request):
             messages.success(request, '保存されました')
             return redirect(f'/u/{request.user.username}')
 
-    return render(request, 'users/edit.html', {'form': form})
+    return render(request, 'users/edit.html', {'form': form, 'modal_form': DeleteUserForm()})
+
+
+@require_POST
+@login_required
+def delete(request):
+    form = DeleteUserForm(request.POST)
+
+    if form.is_valid():
+        if form.cleaned_data['username'] == request.user.username:
+            request.user.delete()
+            messages.success(request, '削除しました')
+            return redirect(f'/')
+
+    messages.error(request, '送信した値が不正です')
+    return redirect(f'/account/edit')

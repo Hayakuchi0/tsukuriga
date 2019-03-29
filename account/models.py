@@ -42,5 +42,10 @@ class User(AbstractUser):
             'profile_icon': self.profile_icon.url
         }
 
+    def delete(self, **kwargs):
+        self.profile_icon.delete(False)
+        self.profile_banner.delete(False)
+        return super().delete(**kwargs)
+
     class Meta(object):
         app_label = 'account'
