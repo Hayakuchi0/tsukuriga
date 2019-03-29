@@ -7,6 +7,18 @@ export const doc = q => Array.from(document.querySelectorAll(q))
 
 export const range = n => [...Array(n).keys()]
 
+export const user = () => {
+  const userJsonString = document.querySelector('body').dataset.user
+  return userJsonString ? JSON.parse(userJsonString.replace(/\'/g, '\"')) : {}
+}
+
+export const csrf = () => {
+  const form = new FormData()
+  const csrf = document.querySelector('body').dataset.csrf
+  form.append('csrfmiddlewaretoken', csrf)
+  return form
+}
+
 export const ajaxForm = (form, callback) => {
   const $ajaxForm = doc(form)
   $ajaxForm.forEach($form => {
