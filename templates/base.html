@@ -3,6 +3,9 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head prefix="og: http://ogp.me/ns# website: http://ogp.me/ns/website#">
+  {% if DEBUG == False and not user.is_staff %}
+    {% include 'base/components/analytics.html' %}
+  {% endif %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
