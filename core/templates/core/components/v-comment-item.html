@@ -8,6 +8,11 @@
       </p>
     </figure>
     <div class="media-content">
+      <button
+        class="delete is-pulled-right"
+        @click="deleteComment"
+        v-show="comment.user.username == user.username"
+      ></button>
       <div class="content">
         <p>
           <a :href="'/u/' + comment.user.username">

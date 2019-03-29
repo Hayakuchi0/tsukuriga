@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Vue from 'vue/dist/vue.esm'
 
-import { doc, ready, ajaxForm } from '../utils'
+import { doc, ready, user, csrf, Notify, ajaxForm } from '../utils'
 
 
 ready(() => {
@@ -11,7 +11,27 @@ ready(() => {
   Vue.component('v-comment-item', {
     template: '#v-comment-item',
     delimiters: ['[[', ']]'],
-    props: ['comment']
+    props: ['comment'],
+    data() {
+      return {
+        user: user()
+      }
+    },
+    methods: {
+      deleteComment() {
+        axios.post(`/ajax/comments/delete/${this.comment.id}`, csrf())
+          .then(response => {
+            if (response.data.isSuccess) {
+              response.data.results.forEach(result => {
+                Notify.activate('success', result.message)
+              })
+            }
+          })
+          .finally(() => {
+            commentList.getComments()
+          })
+      }
+    }
   })
 
   /**
