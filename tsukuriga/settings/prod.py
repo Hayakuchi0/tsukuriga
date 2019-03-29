@@ -10,9 +10,9 @@ WEBPACK_LOADER['DEFAULT']['CACHE'] = not DEBUG
 ADMINS = [('admin', env('ADMIN_MAIL', default='admin@example.com'))]
 SERVER_EMAIL = 'admin@tsukuriga.net'
 
-# 設定参考
-# https://qiita.com/shirakiya/items/71861325b2c8988979a2
 if not DEBUG:
+    # 設定参考
+    # https://qiita.com/shirakiya/items/71861325b2c8988979a2
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -28,6 +28,27 @@ if not DEBUG:
     }
     pymysql.install_as_MySQLdb()
     DatabaseSchemaEditor.sql_create_table += " ROW_FORMAT=DYNAMIC"
+
+    # 設定参考
+    # https://www.monotalk.xyz/blog/Validate-security-settings-by-adding-deploy-option-to-Django-check-command/
+    # security.W004
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    # security.W006
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    # security.W007
+    SECURE_BROWSER_XSS_FILTER = True
+    # security.W008
+    SECURE_SSL_REDIRECT = True
+    # security.W012
+    SESSION_COOKIE_SECURE = True
+    # security.W016, security.W017
+    CSRF_COOKIE_SECURE = True
+    CSRF_COOKIE_HTTPONLY = True
+    # security.W019
+    X_FRAME_OPTIONS = 'DENY'
+    # security.W021
+    SECURE_HSTS_PRELOAD = True
 
 # django-storage-swift
 DEFAULT_FILE_STORAGE = 'swift.storage.SwiftStorage'
