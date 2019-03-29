@@ -36,3 +36,8 @@ $ vim .env
 ```bash
 $ yarn run dev
 ```
+
+### アップロード動画のサムネイル作成とエンコード処理
+```bash
+(.venv)$ python manage_dev.py encode
+```
