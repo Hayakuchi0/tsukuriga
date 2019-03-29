@@ -12,6 +12,12 @@
       </a>
     </figure>
     <div class="avatar-name">
+      {% if user == account %}
+        <a href="/account/edit" class="is-pulled-right">
+          <i class="fas fa-edit with-text"></i>
+          <span class="is-hidden-mobile">編集</span>
+        </a>
+      {% endif %}
       <h1><a href="/u/{{ account.username }}">{{ account.name }}</a></h1>
       <small><a href="/u/{{ account.username }}">@{{ account.username }}</a></small>
     </div>
