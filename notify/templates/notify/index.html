@@ -10,6 +10,8 @@
     <div class="box">
       {% for notification in notifications %}
         {% include 'notify/components/notification-item.html' %}
+      {% empty %}
+        通知はありません
       {% endfor %}
     </div>
     {% include 'base/components/pagination.html' %}
