@@ -1,9 +1,11 @@
 from django.core.files import File
+from django.contrib import messages
+
 from upload.utils import RequestFile
 
 
-def save_profile(backend, user, response, *args, **kwargs):
-    if backend.name == 'twitter':
+def save_profile(request, response, backend, user, is_new, *args, **kwargs):
+    if backend.name == 'twitter' and is_new:
         user.name = user.get_full_name()
         user.description = response.get('description')
 
@@ -20,3 +22,5 @@ def save_profile(backend, user, response, *args, **kwargs):
             user.profile_icon = File(icon_file)
             user.profile_banner = File(banner_file)
             user.save()
+
+    messages.success(request, 'ログインしました')
