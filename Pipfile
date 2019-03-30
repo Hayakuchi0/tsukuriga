@@ -16,6 +16,7 @@ django-storage-swift = {git = "https://github.com/Compeito/django-storage-swift"
 django-markdownx = "*"
 django-environ = "*"
 pymysql = "*"
+django-cleanup = "*"
 
 [dev-packages]
 django-extensions = "*"

@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'bulma',
     # django-markdownx
     'markdownx',
+    # django-cleanup
+    'django_cleanup',
     # original apps
     'core.apps.CoreConfig',
     'upload.apps.UploadConfig',
