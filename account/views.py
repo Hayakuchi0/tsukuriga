@@ -40,7 +40,7 @@ def edit_profile(request):
     form = UserProfileForm({'name': request.user.name, 'description': request.user.description})
 
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=request.user)
+        form = UserProfileForm(request.POST, request.FILES, instance=request.user)
 
         if form.is_valid():
             form.save()

@@ -10,7 +10,7 @@
 {% block content %}
   <div class="column is-two-thirds">
     <div class="box">
-      <form class="submit-form" method="post">
+      <form class="submit-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|bulma }}
         <button type="submit" class="button is-info">更新</button>
