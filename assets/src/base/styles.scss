@@ -134,6 +134,11 @@ div.columns {
     margin: auto;
     border-radius: 50%;
     border: 10px solid white;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .avatar-name {
@@ -174,4 +179,9 @@ i.with-text {
 
 .navbar-link:not(.is-arrowless)::after {
   border-color: #fff;
+}
+
+.is-safe-aspect {
+  object-fit: cover;
+  background-color: $black;
 }
