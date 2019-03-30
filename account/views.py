@@ -13,6 +13,10 @@ from core.utils import AltPaginationListView
 class CustomLogoutView(LogoutView):
     next_page = '/'
 
+    def get_next_page(self):
+        messages.success(self.request, 'ログアウトしました')
+        return super().get_next_page()
+
 
 class Profile(AltPaginationListView):
     template_name = 'users/profile.html'
