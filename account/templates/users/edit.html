@@ -13,8 +13,20 @@
       <form class="submit-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|bulma }}
-        <button type="submit" class="button is-info">更新</button>
-        <button type="button" class="button is-danger modal-opener" data-target="v-unsubscribe-modal">削除する</button>
+        <div class="level is-mobile">
+          <div class="level-left">
+            <button type="submit" class="button is-info level-item">更新</button>
+          </div>
+          <div class="level-right">
+            <a class="button is-primary level-item" href="/account/logout">ログアウト</a>
+            <button
+              type="button"
+              class="button is-danger modal-opener level-item"
+              data-target="v-unsubscribe-modal"
+            >アカウントの削除
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
