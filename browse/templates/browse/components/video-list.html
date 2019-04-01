@@ -3,6 +3,10 @@
     <div class="column is-one-quarter-desktop is-one-third-tablet">
       {% include 'browse/components/video.html' %}
     </div>
+  {% empty %}
+    <div class="column has-text-centered">
+      <p>動画はありません</p>
+    </div>
   {% endfor %}
 </div>
 {% include 'base/components/pagination.html' %}
