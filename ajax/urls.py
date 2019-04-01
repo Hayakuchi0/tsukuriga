@@ -8,4 +8,6 @@ urlpatterns = [
     path('comments/list/<slug:slug>', views.list_comments),
     path('points/add/<slug:slug>', views.add_point),
     path('points/list/<slug:slug>', views.list_points),
+    path('favorites/toggle/<slug:slug>', views.toggle_favorite),
+    path('favorites/list/<slug:slug>', views.list_favorites),
 ]

@@ -4,3 +4,4 @@ from . import models
 
 admin.site.register(models.Comment)
 admin.site.register(models.Point)
+admin.site.register(models.Favorite)

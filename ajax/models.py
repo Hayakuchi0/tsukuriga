@@ -38,3 +38,15 @@ class Point(CustomModel):
             'count': self.count,
             'createdAt': created_at2str(self.created_at)
         }
+
+
+class Favorite(CustomModel):
+    user = models.ForeignKey('account.User', verbose_name='ユーザー', on_delete=models.CASCADE)
+    video = models.ForeignKey('upload.Video', verbose_name='動画', on_delete=models.CASCADE)
+
+    def json(self):
+        return {
+            'id': self.id,
+            'user': self.user.json(),
+            'createdAt': created_at2str(self.created_at)
+        }

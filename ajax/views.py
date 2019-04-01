@@ -79,3 +79,35 @@ def add_point(request, slug):
 def list_points(request, slug):
     video = get_object_or_404(Video, slug=slug)
     return json_response([p.json() for p in video.point_set.all().order_by('-created_at')], status=200)
+
+
+@require_POST
+def toggle_favorite(request, slug):
+    video = get_object_or_404(Video, slug=slug)
+
+    has_old_favorite = video.favorite_set.filter(user=request.user).exists()
+    if has_old_favorite:
+        old_favorite = video.favorite_set.first()
+        old_favorite.delete()
+        message = 'お気に入りリストから削除しました'
+    else:
+        video.favorite_set.create(user=request.user)
+        message = 'お気に入りリストに追加しました'
+
+    return json_response({'message': message, 'isCreated': not has_old_favorite}, status=200)
+
+
+@require_GET
+def list_favorites(request, slug):
+    video = get_object_or_404(Video, slug=slug)
+    favorites = video.favorite_set.all().order_by('-created_at')
+
+    is_created = False
+    for favorite in favorites:
+        if favorite.user == request.user:
+            is_created = True
+
+    return json_response({
+        'favorites': [f.json() for f in favorites],
+        'isCreated': is_created
+    }, status=200)
