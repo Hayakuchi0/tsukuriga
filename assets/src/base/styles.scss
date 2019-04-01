@@ -2,6 +2,7 @@
 @import "./common";
 @import "./video";
 @import "./avatar";
+@import "./tooltip";
 
 #main-container {
   @extend .container;
@@ -34,8 +35,4 @@ i.with-text {
 .is-safe-aspect {
   object-fit: cover;
   background-color: $black;
-}
-
-.tooltip {
-  background-color: $primary;
 }

@@ -1,3 +1,5 @@
+import Tooltip from 'tooltip.js'
+
 import { doc, ready, Notify } from '../utils'
 import './styles.scss'
 
@@ -68,7 +70,20 @@ ready(() => {
     }
   })
 
+  /**
+   * 通知用
+   */
   doc('.notify-data').forEach(notification => {
     Notify.activate(notification.dataset.tag, notification.dataset.message)
+  })
+
+  /**
+   * トロフィーポップアップ用
+   */
+  doc('.tooltipRef').forEach($tooltip => {
+    new Tooltip($tooltip, {
+      title: $tooltip.dataset.tooltip,
+      placement: 'bottom',
+    })
   })
 })
