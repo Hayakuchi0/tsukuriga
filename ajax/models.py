@@ -34,10 +34,30 @@ class Point(CustomModel):
     def json(self):
         return {
             'id': self.id,
-            'user': self.user.json(),
+            'user': self.user.json() if self.user else None,
+            'username': self.username_display(),
             'count': self.count,
             'createdAt': created_at2str(self.created_at)
         }
+
+    def username_display(self):
+        if self.user:
+            return self.user.username
+        annonymus_names = [
+            '匿名ライオン',
+            '匿名ウサギ',
+            '匿名トラ',
+            '匿名ヘビ',
+            '匿名キツネ',
+            '匿名ワニ',
+            '匿名サル',
+            '匿名バク',
+            '匿名ラクダ',
+            '匿名ペンギン',
+            '匿名ムササビ',
+        ]
+        index = int(self.ip.replace('.', '')[-1])
+        return annonymus_names[index]
 
 
 class Favorite(CustomModel):
