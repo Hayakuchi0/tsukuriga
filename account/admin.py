@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
 
-from .models import User
+from . import models
 
 
 class CustomUserAdmin(UserAdmin):
@@ -16,4 +16,14 @@ class CustomUserAdmin(UserAdmin):
     list_display = ('username', 'email', 'name', 'is_staff')
 
 
-admin.site.register(User, CustomUserAdmin)
+class TrophyAdmin(admin.ModelAdmin):
+    list_display = ('title', 'description')
+
+
+class TrophyUserRelationAdmin(admin.ModelAdmin):
+    list_display = ('user', 'trophy')
+
+
+admin.site.register(models.User, CustomUserAdmin)
+admin.site.register(models.Trophy, TrophyAdmin)
+admin.site.register(models.TrophyUserRelation, TrophyUserRelationAdmin)

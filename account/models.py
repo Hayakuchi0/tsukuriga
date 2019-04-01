@@ -5,6 +5,7 @@ from django.conf import settings
 
 import os
 from uuid import uuid4
+from core.utils import CustomModel
 
 import twitter
 from social_django.models import UserSocialAuth
@@ -42,6 +43,9 @@ class User(AbstractUser):
             'profile_icon': self.profile_icon.url
         }
 
+    def __str__(self):
+        return f'{self.name}(@{self.username})'
+
     def delete(self, **kwargs):
         self.profile_icon.delete(False)
         self.profile_banner.delete(False)
@@ -49,3 +53,22 @@ class User(AbstractUser):
 
     class Meta(object):
         app_label = 'account'
+
+
+def trophy_upload_to(self, filename):
+    extension = os.path.splitext(filename)[1]
+    return os.path.join('trophy', f'{uuid4().hex}{extension}')
+
+
+class Trophy(CustomModel):
+    title = models.CharField(max_length=255, unique=True)
+    description = models.CharField(max_length=255)
+    file = models.FileField(upload_to=trophy_upload_to)
+
+    def __str__(self):
+        return self.title
+
+
+class TrophyUserRelation(CustomModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    trophy = models.ForeignKey(Trophy, on_delete=models.CASCADE)
