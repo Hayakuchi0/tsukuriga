@@ -10,7 +10,6 @@ function getEntries() {
     const file = filepath.split('/')
     const folder = file.slice(-2, -1)[0]
     const filename = file.slice(-1)[0]
-    console.log(filename)
     entries[`${folder}/${filename.split('.')[0]}`] = filepath
   })
   return entries

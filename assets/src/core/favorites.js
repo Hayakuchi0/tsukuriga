@@ -47,7 +47,6 @@ ready(() => {
         const videoId = doc('video')[0].dataset.videoId
         axios.post(`/ajax/favorites/toggle/${videoId}`, csrf())
           .then(response => {
-              console.log(response.data.results)
               Notify.activate('success', response.data.results.message)
               this.getFavorites()
             }
