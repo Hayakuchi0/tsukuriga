@@ -1,0 +1,50 @@
+.video {
+
+  .video-thumbnail {
+    position: relative;
+
+    .video-thumbnail-image {
+      object-fit: contain;
+      background-color: $black;
+      box-shadow: 0 8px 8px rgba(10, 10, 10, 0.1);
+    }
+
+    .video-thumbnail-display {
+      display: none;
+    }
+
+    &:hover {
+      .video-thumbnail-display {
+        @include flex;
+        position: absolute;
+
+        &.is-bottom {
+          right: 2px;
+          bottom: 2px;
+        }
+
+        &.is-top {
+          right: 2px;
+          top: 2px;
+        }
+
+        .video-thumbnail-display-item {
+          margin-left: 5px;
+          padding: 2px 3px;
+          background-color: black;
+          color: #eeeeee;
+          opacity: 0.8;
+          border-radius: 0.3rem;
+
+          &.is-twitter {
+            background-color: $info;
+          }
+
+          &.is-altwug {
+            background-color: $purple;
+          }
+        }
+      }
+    }
+  }
+}

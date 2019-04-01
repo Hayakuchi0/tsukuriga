@@ -1,30 +1,9 @@
-@charset "utf-8";
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
-@import "~bulmaswatch/lux/variables";
+@import "./bulma";
+@import "./common";
+@import "./video";
+@import "./avatar";
 
-$bulmaswatch-import-font: false;
-$family-sans-serif: "Nunito", sans-serif;
-$section-padding: 1.5rem 0.2rem;
-$body-background-color: #eeeeee;
-$tabs-link-active-color: #000;
-$tabs-link-active-border-bottom-color: #000;
-$purple: #8200ff;
-$link: $purple;
-$box-radius: 0;
-$navbar-height: 4rem;
-
-@import "~bulma/bulma";
-@import "~bulmaswatch/lux/overrides";
-
-@mixin flex() {
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flex;
-  display: -o-flex;
-  display: flex;
-}
-
-.container {
+#main-container {
   @extend .container;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -40,132 +19,6 @@ $navbar-height: 4rem;
   }
 }
 
-textarea[rows] {
-  resize: none;
-}
-
-.box {
-  word-wrap: break-word;
-}
-
-// モバイル時のズレ回避用
-// https://github.com/jgthms/bulma/issues/449#issuecomment-282548314
-div.columns {
-  margin: 0;
-}
-
-@media screen and (min-width: 768px) {
-  div.columns {
-    margin-left: -0.75rem;
-    margin-right: -0.75rem;
-    margin-top: -0.75rem;
-  }
-}
-
-// ナビゲーションバー下に陰をつける
-.navbar.has-shadow {
-  box-shadow: 0 8px 8px rgba(10, 10, 10, 0.1);
-}
-
-.video {
-
-  .video-thumbnail {
-    position: relative;
-
-    .video-thumbnail-image {
-      object-fit: contain;
-      background-color: $black;
-      box-shadow: 0 8px 8px rgba(10, 10, 10, 0.1);
-    }
-
-    .video-thumbnail-display {
-      display: none;
-    }
-
-    &:hover {
-      .video-thumbnail-display {
-        @include flex;
-        position: absolute;
-
-        &.is-bottom {
-          right: 2px;
-          bottom: 2px;
-        }
-
-        &.is-top {
-          right: 2px;
-          top: 2px;
-        }
-
-        .video-thumbnail-display-item {
-          margin-left: 5px;
-          padding: 2px 3px;
-          background-color: black;
-          color: #eeeeee;
-          opacity: 0.8;
-          border-radius: 0.3rem;
-
-          &.is-twitter {
-            background-color: $info;
-          }
-
-          &.is-altwug {
-            background-color: $purple;
-          }
-        }
-      }
-    }
-  }
-}
-
-.navbar-center {
-  @extend .navbar-brand;
-  flex-grow: 1;
-  justify-content: center;
-}
-
-.avatar {
-  position: relative;
-
-  .avatar-icon {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: -50px;
-    margin: auto;
-    border-radius: 50%;
-    border: 10px solid white;
-
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .avatar-name {
-    margin-top: 27px;
-    margin-bottom: 10px;
-
-    h1 {
-      font-weight: bold;
-
-      a {
-        color: black;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-  }
-}
-
-hr {
-  margin-top: 0.4rem;
-  margin-bottom: 0.2rem;
-  background-color: #cccccc;
-}
-
 .markdownx-editor {
   width: 100% !important;
 }
@@ -178,11 +31,11 @@ i.with-text {
   padding-right: 5px;
 }
 
-.navbar-link:not(.is-arrowless)::after {
-  border-color: #fff;
-}
-
 .is-safe-aspect {
   object-fit: cover;
   background-color: $black;
+}
+
+.tooltip {
+  background-color: $primary;
 }
