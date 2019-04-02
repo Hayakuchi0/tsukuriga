@@ -1,3 +1,4 @@
+import os
 import re
 import tempfile
 
@@ -19,8 +20,10 @@ def get_tempfile(suffix, file=None):
 
 
 class RequestFile:
-    def __init__(self, url, suffix):
+    def __init__(self, url, suffix=None):
         self.url = url
+        if suffix is None:
+            suffix = os.path.splitext(url)[-1]
         self.path = get_tempfile(suffix)
 
     def open(self, mode='rb'):
