@@ -61,7 +61,7 @@ class ImportFile(RequestFile):
             raise ValueError('連携しているツイッターアカウントが一致しませんでした')
 
     def _download_url_altwug(self, video_id):
-        response = requests.get(f'https://altwug.net/api/v1/export/{video_id}/').json()
+        response = requests.get(f'https://altwug.net/api/v1/export/video/{video_id}/').json()
         self._raise_for_verification(response['verified_id'])
 
         self.title = response['title']
