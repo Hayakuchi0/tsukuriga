@@ -6,7 +6,7 @@ from django.views.decorators.http import require_POST
 
 from .models import User
 from .forms import UserProfileForm, DeleteUserForm, ImportUserForm
-from .utils import ImportUser
+from .utils import ImportUser, ImportUserException
 from ajax.models import Favorite
 from upload.models import Video
 from core.utils import AltPaginationListView
@@ -124,8 +124,8 @@ def import_user(request):
 
             try:
                 user = ImportUser(form.cleaned_data['username'], form.cleaned_data['password'])
-            except:
-                pass
+            except ImportUserException as e:
+                form.add_error('username', e.args[0])
 
             if user is not None:
                 user.create_user()
@@ -133,5 +133,4 @@ def import_user(request):
                 user.login(request)
                 return redirect(f'/')
 
-        form.add_error('username', '該当するユーザーがいないか、ログインに失敗しました')
     return render(request, 'users/import.html', {'form': form})

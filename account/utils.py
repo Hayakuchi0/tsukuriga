@@ -12,19 +12,26 @@ def create_and_set_trophy(user, **trophy_option):
     TrophyUserRelation.objects.create(user=user, trophy=trophy)
 
 
+class ImportUserException(Exception):
+    pass
+
+
 class ImportUser:
     instance = None
     is_imported = False
     url = 'https://altwug.net/api/v1/export/user/'
 
     def __init__(self, username, password):
+        if User.objects.filter(username=username).exists():
+            raise ImportUserException('同じユーザー名がこのサイトで既に使用されています')
+
         response = requests.post(self.url, {'username': username, 'password': password}).json()
         if response['is_success']:
             self._user = response.pop('user')
             self._trophies = self._user.pop('trophies')
             self._password = password
         else:
-            raise ValueError('ユーザーが存在しないか、パスワードが一致しませんでした')
+            raise ImportUserException('Altwug上にユーザーが存在しないか、パスワードが一致しませんでした')
 
     def login(self, request):
         login(request, self.instance, backend='django.contrib.auth.backends.ModelBackend')
