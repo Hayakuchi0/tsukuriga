@@ -74,7 +74,11 @@ favorites_list = FavoritesList.as_view()
 
 @login_required
 def edit_profile(request):
-    form = UserProfileForm({'name': request.user.name, 'description': request.user.description})
+    form = UserProfileForm({
+        'name': request.user.name,
+        'email': request.user.email,
+        'description': request.user.description,
+    })
 
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES, instance=request.user)
