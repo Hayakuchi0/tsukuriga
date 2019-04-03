@@ -27,7 +27,7 @@ class ImportUser:
             raise ValueError('ユーザーが存在しないか、パスワードが一致しませんでした')
 
     def login(self, request):
-        login(request, self.instance)
+        login(request, self.instance, backend='django.contrib.auth.backends.ModelBackend')
 
     def create_user(self):
         profile_icon = RequestFile(self._user.pop('profile_icon_url'))
