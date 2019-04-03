@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.http import require_POST
@@ -10,6 +10,10 @@ from .utils import ImportUser
 from ajax.models import Favorite
 from upload.models import Video
 from core.utils import AltPaginationListView
+
+
+class CustomLoginView(LoginView):
+    template_name = 'users/login.html'
 
 
 class CustomLogoutView(LogoutView):
