@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
-from django.contrib.auth.validators import ASCIIUsernameValidator
 from django.conf import settings
 
 import os
 from uuid import uuid4
 from core.utils import CustomModel
+from .validators import UsernameValidator
 
 import twitter
 from social_django.models import UserSocialAuth
@@ -16,7 +16,8 @@ def profile_image_upload_to(instance, filename):
 
 
 class User(AbstractUser):
-    username_validator = ASCIIUsernameValidator()
+    username_validator = UsernameValidator()
+    username = models.CharField('ユーザー名', max_length=20, unique=True, validators=[username_validator])
 
     name = models.CharField('表示名', max_length=50, null=True, blank=True)
     description = models.TextField('プロフィール文', max_length=500, null=True, blank=True)
@@ -40,7 +41,7 @@ class User(AbstractUser):
         return {
             'username': self.username,
             'name': self.name,
-            'profile_icon': self.profile_icon.url
+            'profile_icon': self.profile_icon.url if self.profile_icon else None
         }
 
     def __str__(self):
