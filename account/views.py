@@ -1,15 +1,30 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
 from django.contrib import messages
 from django.views.decorators.http import require_POST
 
 from .models import User
-from .forms import UserProfileForm, DeleteUserForm, ImportUserForm
+from .forms import (
+    SignUpForm, UserProfileForm, DeleteUserForm,
+    ImportUserForm
+)
 from .utils import ImportUser, ImportUserException
 from ajax.models import Favorite
 from upload.models import Video
 from core.utils import AltPaginationListView
+
+
+def signup(request):
+    form = SignUpForm()
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return redirect('/')
+    return render(request, 'users/signup.html', {'form': form})
 
 
 class CustomLoginView(LoginView):
