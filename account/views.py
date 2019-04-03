@@ -5,7 +5,8 @@ from django.contrib import messages
 from django.views.decorators.http import require_POST
 
 from .models import User
-from .forms import UserProfileForm, DeleteUserForm
+from .forms import UserProfileForm, DeleteUserForm, ImportUserForm
+from .utils import ImportUser
 from ajax.models import Favorite
 from upload.models import Video
 from core.utils import AltPaginationListView
@@ -100,3 +101,29 @@ def delete(request):
 
     messages.error(request, '送信した値が不正です')
     return redirect(f'/account/edit')
+
+
+def import_user(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+
+    form = ImportUserForm()
+    if request.method == 'POST':
+        form = ImportUserForm(request.POST)
+
+        if form.is_valid():
+            user = None
+
+            try:
+                user = ImportUser(form.cleaned_data['username'], form.cleaned_data['password'])
+            except:
+                pass
+
+            if user is not None:
+                user.create_user()
+                user.create_trophies()
+                user.login(request)
+                return redirect(f'/')
+
+        form.add_error('username', '該当するユーザーがいないか、ログインに失敗しました')
+    return render(request, 'users/import.html', {'form': form})
