@@ -6,7 +6,7 @@ from upload.utils import RequestFile
 
 def save_profile(request, response, backend, user, is_new, *args, **kwargs):
     if backend.name == 'twitter' and is_new:
-        user.name = user.get_full_name()
+        user.name = response.get('name')
         user.description = response.get('description')
 
         profile_icon_url = response.get('profile_image_url_https')
