@@ -5,6 +5,8 @@ from .models import User
 
 
 class SignUpForm(UserCreationForm):
+    username = forms.CharField(label='ユーザー名(id)', help_text='先頭に@を付けてユーザーを一意に識別するためのIDです。')
+
     class Meta:
         model = User
         fields = ('name', 'username', 'email', 'password1', 'password2')
