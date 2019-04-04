@@ -26,6 +26,7 @@ class User(AbstractUser):
     profile_icon = models.ImageField('プロフィール画像', upload_to=profile_image_upload_to, null=True, blank=True)
     profile_banner = models.ImageField('プロフィール背景画像', upload_to=profile_image_upload_to, null=True, blank=True)
 
+    is_accept_mail = models.BooleanField('メール配信の許可', default=True)
     objects = UserManager()
 
     @property
