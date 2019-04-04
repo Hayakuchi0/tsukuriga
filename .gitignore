@@ -16,7 +16,6 @@ uwsgi_params
 
 # media
 media/*
-!images
 
 # Nodejs
 /node_modules/
