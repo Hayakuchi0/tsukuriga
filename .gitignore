@@ -14,6 +14,10 @@ dump.json
 .env
 uwsgi_params
 
+# media
+media/*
+!images
+
 # Nodejs
 /node_modules/
 webpack-stats.json
