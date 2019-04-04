@@ -23,12 +23,17 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            messages.success(request, 'ログインしました')
             return redirect('/')
     return render(request, 'users/signup.html', {'form': form})
 
 
 class CustomLoginView(LoginView):
     template_name = 'users/login.html'
+
+    def get_success_url(self):
+        messages.success(self.request, 'ログインしました')
+        return super().get_success_url()
 
 
 class CustomLogoutView(LogoutView):
