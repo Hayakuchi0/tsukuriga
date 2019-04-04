@@ -6,16 +6,6 @@ import './styles.scss'
 
 ready(() => {
   /**
-   * メニュー開閉
-   * https://bulma.io/documentation/components/navbar/#navbar-menu
-   */
-  const $navbarBurger = doc('.navbar-burger')[0]
-  $navbarBurger.addEventListener('click', (e) => {
-    doc('.navbar-burger')[0].classList.toggle('is-active')
-    doc('.navbar-menu')[0].classList.toggle('is-active')
-  })
-
-  /**
    * ファイル入力フィールド用処理
    *
    */
