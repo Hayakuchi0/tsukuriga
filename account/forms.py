@@ -15,7 +15,7 @@ class SignUpForm(UserCreationForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('name', 'email', 'description', 'profile_icon', 'profile_banner')
+        fields = ('name', 'username', 'email', 'description', 'profile_icon', 'profile_banner')
 
 
 class DeleteUserForm(forms.Form):
