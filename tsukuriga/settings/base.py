@@ -156,7 +156,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # social-auth-app-django
 # https://github.com/python-social-auth/social-app-django
 
-LOGIN_URL = '/login/twitter/'
+LOGIN_URL = '/account/login/'
 LOGIN_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = [
