@@ -12,6 +12,12 @@ hr {
   background-color: #cccccc;
 }
 
+.button.is-purple {
+  background-color: $purple;
+  color: #fff;
+  border-color: inherit;
+}
+
 // モバイル時のズレ回避用
 // https://github.com/jgthms/bulma/issues/449#issuecomment-282548314
 div.columns {

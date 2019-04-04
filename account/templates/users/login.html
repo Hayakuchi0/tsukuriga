@@ -9,11 +9,19 @@
 {% block content %}
   <div class="column is-two-thirds">
     <div class="box">
-      <form class="submit-form" method="post">
-        {% csrf_token %}
-        {{ form|bulma }}
-        <button type="submit" class="button is-info">ログイン</button>
-      </form>
+      <div class="content">
+        <h1>ログイン</h1>
+        <form class="submit-form" method="post">
+          {% csrf_token %}
+          {{ form|bulma }}
+          <button type="submit" class="button is-info">ログイン</button>
+        </form>
+        <h3>SNSアカウントでログイン</h3>
+        <a href="/login/twitter/" class="button is-info"><i class="fab fa-twitter with-text"></i>ツイッター</a>
+        <h3>アカウント作成</h3>
+        <a href="/account/signup" class="button is-primary"><i class="fas fa-envelope with-text"></i>メールアドレスで登録</a>
+        <a href="/account/import" class="button is-purple"><i class="fas fa-frog with-text"></i>Altwugからインポート</a>
+      </div>
     </div>
   </div>
 {% endblock %}

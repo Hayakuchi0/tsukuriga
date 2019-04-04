@@ -19,11 +19,14 @@ class User(AbstractUser):
     username_validator = UsernameValidator()
     username = models.CharField('ユーザー名', max_length=20, unique=True, validators=[username_validator])
 
-    name = models.CharField('表示名', max_length=50, null=True, blank=True)
-    description = models.TextField('プロフィール文', max_length=500, null=True, blank=True)
+    # createsuperuserなどのためにnull許容
+    name = models.CharField('表示名', max_length=50, null=True)
+    description = models.TextField('プロフィール文', default='', max_length=500, null=True, blank=True)
 
-    profile_icon = models.ImageField('プロフィール画像', upload_to=profile_image_upload_to, null=True, blank=True)
-    profile_banner = models.ImageField('プロフィール背景画像', upload_to=profile_image_upload_to, null=True, blank=True)
+    profile_icon = models.ImageField('プロフィール画像', default='images/default-icon.png', upload_to=profile_image_upload_to,
+                                     null=True, blank=True)
+    profile_banner = models.ImageField('プロフィール背景画像', default='images/default-banner.png',
+                                       upload_to=profile_image_upload_to, null=True, blank=True)
 
     objects = UserManager()
 
