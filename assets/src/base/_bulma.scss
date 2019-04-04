@@ -12,6 +12,8 @@ $purple: #8200ff;
 $link: $purple;
 $box-radius: 0;
 $navbar-height: 4rem;
+$navbar-item-color: white;
+$navbar-item-hover-color: darken(white, 20%);
 
 @import "~bulma/bulma";
 @import "~bulmaswatch/lux/overrides";
