@@ -23,12 +23,22 @@ class User(AbstractUser):
     name = models.CharField('表示名', max_length=50, null=True)
     description = models.TextField('プロフィール文', default='', max_length=500, null=True, blank=True)
 
-    profile_icon = models.ImageField('プロフィール画像', default='images/default-icon.png', upload_to=profile_image_upload_to,
-                                     null=True, blank=True)
-    profile_banner = models.ImageField('プロフィール背景画像', default='images/default-banner.png',
-                                       upload_to=profile_image_upload_to, null=True, blank=True)
+    profile_icon = models.ImageField('プロフィール画像', upload_to=profile_image_upload_to, null=True, blank=True)
+    profile_banner = models.ImageField('プロフィール背景画像', upload_to=profile_image_upload_to, null=True, blank=True)
 
     objects = UserManager()
+
+    @property
+    def profile_icon_url(self):
+        if self.profile_icon:
+            return self.profile_icon.url
+        return '/assets/images/default-icon.png'
+
+    @property
+    def profile_banner_url(self):
+        if self.profile_banner:
+            return self.profile_banner.url
+        return '/assets/images/default-banner.png'
 
     @property
     def api(self):
@@ -44,7 +54,8 @@ class User(AbstractUser):
         return {
             'username': self.username,
             'name': self.name,
-            'profile_icon': self.profile_icon.url if self.profile_icon else None
+            'profile_icon_url': self.profile_icon_url,
+            'profile_banner_url': self.profile_banner_url,
         }
 
     def __str__(self):
