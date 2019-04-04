@@ -13,7 +13,7 @@
       <form method="post" action="/account/delete">
         {% csrf_token %}
         {{ modal_form|bulma }}
-        <button type="submit" class="button is-danger" :disabled="!isDeletable">退会する</button>
+        <button type="submit" class="button is-danger" :disabled="!isDeletable">削除する</button>
       </form>
     </section>
   </div>
