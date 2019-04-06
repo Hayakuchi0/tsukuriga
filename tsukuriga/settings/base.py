@@ -201,3 +201,5 @@ REMOVE_SLASH = True
 
 # django-markdownx
 MARKDOWNX_MEDIA_PATH = 'pages/'
+
+MARKDOWNX_MARKDOWNIFY_FUNCTION = 'pages.utils.markdownify'

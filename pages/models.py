@@ -4,8 +4,8 @@ from django.utils import timezone
 import re
 
 from markdownx.models import MarkdownxField
-from markdownx.utils import markdownify
 from core.utils import CustomModel
+from .utils import markdownify
 
 
 class Page(CustomModel):
