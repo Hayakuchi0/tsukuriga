@@ -24,6 +24,11 @@
   width: 100% !important;
 }
 
+// adminでのMarkdownプレビュー用
+form .aligned ul li {
+  list-style: disc;
+}
+
 [v-cloak] {
   display: none;
 }
