@@ -36,7 +36,7 @@ class Page(CustomModel):
         img = re.search(r'!\[.+\]\((?P<uri>.+)\)', self.text)
         if img:
             return img.group('uri')
-        return 'https://placehold.it/1200x630'
+        return 'https://tsukuriga.net/assets/images/ogp.png'
 
     def __str__(self):
         return self.title
