@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'markdownx',
     # django-cleanup
     'django_cleanup',
+    # django-maintenance-mode
+    'maintenance_mode',
     # original apps
     'core.apps.CoreConfig',
     'upload.apps.UploadConfig',
@@ -69,6 +71,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'maintenance_mode.middleware.MaintenanceModeMiddleware',
 ]
 
 ROOT_URLCONF = 'tsukuriga.urls'
@@ -203,3 +206,8 @@ REMOVE_SLASH = True
 MARKDOWNX_MEDIA_PATH = 'pages/'
 
 MARKDOWNX_MARKDOWNIFY_FUNCTION = 'pages.utils.markdownify'
+
+# django-maintenance-mode
+MAINTENANCE_MODE_IGNORE_ADMIN_SITE = True
+MAINTENANCE_MODE_IGNORE_SUPERUSER = True
+MAINTENANCE_MODE_IGNORE_STAFF = True

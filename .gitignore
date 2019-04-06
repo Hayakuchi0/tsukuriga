@@ -13,6 +13,7 @@ local_settings.py
 dump.json
 .env
 uwsgi_params
+maintenance_mode_state.txt
 
 # media
 media/*
