@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6641777ab7820db62f5cab8c3ccf5d7ca66149fe78d6330eefd17f842237269b"
+            "sha256": "29ee8c2c90d69f8cbf5495ba60595c1536cb9bb93b60f37f6a9a45a478e8c872"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -47,11 +47,11 @@
         },
         "django": {
             "hashes": [
-                "sha256:7c3543e4fb070d14e10926189a7fcf42ba919263b7473dceaefce34d54e8a119",
-                "sha256:a2814bffd1f007805b19194eb0b9a331933b82bd5da1c3ba3d7b7ba16e06dc4b"
+                "sha256:7f246078d5a546f63c28fc03ce71f4d7a23677ce42109219c24c9ffb28416137",
+                "sha256:ea50d85709708621d956187c6b61d9f9ce155007b496dd914fdb35db8d790aec"
             ],
             "index": "pypi",
-            "version": "==2.2"
+            "version": "==2.1"
         },
         "django-bulma": {
             "hashes": [
@@ -298,13 +298,6 @@
             ],
             "version": "==3.1.0"
         },
-        "sqlparse": {
-            "hashes": [
-                "sha256:40afe6b8d4b1117e7dff5504d7a8ce07d9a1b15aeeade8a2d10f130a834f8177",
-                "sha256:7c3dca29c022744e95b547e867cee89f4fce4373f3549ccd8797d8eb52cdb873"
-            ],
-            "version": "==0.3.0"
-        },
         "tocka-django-unslashed": {
             "git": "https://github.com/Compeito/django-unslashed",
             "ref": "7be945ab4efd1ed40de86e05cf68302c904e0010"
@@ -327,11 +320,11 @@
     "develop": {
         "django": {
             "hashes": [
-                "sha256:7c3543e4fb070d14e10926189a7fcf42ba919263b7473dceaefce34d54e8a119",
-                "sha256:a2814bffd1f007805b19194eb0b9a331933b82bd5da1c3ba3d7b7ba16e06dc4b"
+                "sha256:7f246078d5a546f63c28fc03ce71f4d7a23677ce42109219c24c9ffb28416137",
+                "sha256:ea50d85709708621d956187c6b61d9f9ce155007b496dd914fdb35db8d790aec"
             ],
             "index": "pypi",
-            "version": "==2.2"
+            "version": "==2.1"
         },
         "django-debug-toolbar": {
             "hashes": [
