@@ -4,6 +4,10 @@ from django.db import models
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.views import generic
+from django.conf import settings
+
+from maintenance_mode.backends import AbstractStateBackend
+from maintenance_mode.io import read_file, write_file
 
 
 class AltPaginationListView(generic.ListView):
@@ -44,13 +48,13 @@ def created_at2str(datetime_obj):
 
     elapsed = timezone.now() - datetime_obj
     if elapsed.days >= 365:
-        return mf2str(elapsed.days/365) + '年前'
+        return mf2str(elapsed.days / 365) + '年前'
     elif elapsed.days >= 1:
         return mf2str(elapsed.days) + '日前'
-    elif elapsed.seconds >= 60*60:
-        return mf2str(elapsed.seconds/60/60) + '時間前'
+    elif elapsed.seconds >= 60 * 60:
+        return mf2str(elapsed.seconds / 60 / 60) + '時間前'
     elif elapsed.seconds >= 60:
-        return mf2str(elapsed.seconds/60) + '分前'
+        return mf2str(elapsed.seconds / 60) + '分前'
     else:
         return str(elapsed.seconds) + '秒前'
 
@@ -77,3 +81,20 @@ class CustomModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+class LocalFileBackend(AbstractStateBackend):
+    """デフォルトのLocalFileBackendの各メソッドのvalueに.strip()を追加しただけのもの"""
+
+    def get_value(self):
+        value = read_file(settings.MAINTENANCE_MODE_STATE_FILE_PATH, '0')
+        if value.strip() not in ['0', '1']:
+            raise ValueError('state file content value is not 0|1')
+        value = bool(int(value))
+        return value
+
+    def set_value(self, value):
+        value = str(int(value))
+        if value.strip() not in ['0', '1']:
+            raise ValueError('state file content value is not 0|1')
+        write_file(settings.MAINTENANCE_MODE_STATE_FILE_PATH, value)
