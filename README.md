@@ -1,7 +1,7 @@
 ![ツクリガ](assets/images/ogp.png)
 
 # Tsukuriga
-[Altwug.net](https://altwug.net)を継承する自主制作動画専用の投稿サイト  
+[Altwug.net](https://altwug.net)を継承する自主制作動画専用の投稿サイト
 名前は「作\(ツクり\)画(ガ)」から。アイコンは「乍」
 
 ## 開発
@@ -16,7 +16,7 @@
 ```bash
 $ pipenv install --dev
 $ pipenv shell
-(.venv)$ python manag_dev.py migrate
+(.venv)$ python manage_dev.py migrate
 
 # ログインに必要なTWITTER_KEY, TWITTER_SECRETのみ変更
 $ mv .env.example .env
