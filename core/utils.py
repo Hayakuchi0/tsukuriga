@@ -1,6 +1,5 @@
 import math
 
-import twitter
 from django.db import models
 from django.utils import timezone
 from django.utils.crypto import get_random_string
@@ -62,23 +61,6 @@ def ts2datetime(timestamp):
 
 def get_tweet_url(tweet):
     return f'https://twitter.com/{tweet.user.screen_name}/status/{tweet.id}'
-
-
-def search_loop(api: twitter.Api, logger=None, *args, **kwargs):
-    result = []
-    max_id = None
-    loop_count = 0
-    while True:
-        loop_count += 1
-        tweets = api.GetSearch(*args, **kwargs, count=100, max_id=max_id)
-        if logger:
-            print(f'search{loop_count}:{str(len(tweets))} tweets')
-        if not tweets:
-            break
-        else:
-            result.extend(tweets)
-            max_id = tweets[-1].id
-    return sorted(list(set(result)), key=lambda x: x.created_at_in_seconds)
 
 
 def gen_unique_slug(x, obj, slug_name='slug'):
