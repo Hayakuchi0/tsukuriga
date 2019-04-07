@@ -38,11 +38,9 @@ def show_if_not(arg, condition):
         return ''
 
 
-current_site = Site.objects.get_current()
-
-
 @register.filter
 def to_absolute_path(path: str, is_secure=True):
+    current_site = Site.objects.get_current()
     if not path.startswith('/'):
         return path
     scheme = 'https' if is_secure else 'http'
