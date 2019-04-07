@@ -82,6 +82,7 @@ def list_points(request, slug):
 
 
 @require_POST
+@login_required
 def toggle_favorite(request, slug):
     video = get_object_or_404(Video, slug=slug)
 
