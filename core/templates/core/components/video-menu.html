@@ -19,19 +19,23 @@
               動画情報の編集
             </a>
           {% endif %}
+          {% comment %}
           <a class="dropdown-item" href="#">
             <i class="fas fa-flag with-text"></i>
             通報(未対応)
           </a>
+          {% endcomment %}
         </div>
       </div>
     </div>
     <div class="level-item">
       {% include 'core/components/point-button.html' %}
     </div>
-    <div class="level-item">
-      {% include 'core/components/v-favorite-button.html' %}
-    </div>
+    {% if user.is_authenticated %}
+      <div class="level-item">
+        {% include 'core/components/v-favorite-button.html' %}
+      </div>
+    {% endif %}
     <div class="level-item">
       {% include 'base/components/tweet-button.html' %}
     </div>
