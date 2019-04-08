@@ -3,6 +3,8 @@ import re
 from django import template
 from django.contrib.sites.models import Site
 
+from bulma.templatetags.bulma_tags import is_input
+
 from core.utils import created_at2str
 
 register = template.Library()
@@ -55,3 +57,8 @@ def activate_url(text):
     result = re.sub(r'(\A|\s)#(\S+)', r'<a href="/search?q=%23\2">#\2</a>', result)
     result = re.sub(r'(\A|\s)@(\S+)', r'<a href="/u/\2">@\2</a>', result)
     return result
+
+
+@register.filter
+def is_username_field(field):
+    return is_input and field.id_for_label == 'id_username'

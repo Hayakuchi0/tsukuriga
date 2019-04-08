@@ -1,4 +1,5 @@
 {% load bulma_tags %}
+{% load core_tags %}
 <div class="field">
   {% if field|is_checkbox %}
     {% if field.auto_id %}
@@ -45,6 +46,25 @@
         <span class="help is-danger {{ form.error_css_class }}">{{ error }}</span>
       {% endfor %}
 
+      {% if field.help_text %}
+        <div class="help">
+          {{ field.help_text|safe }}
+        </div>
+      {% endif %}
+    </div>
+
+  {% elif field|is_username_field %}
+
+    <label class="label {{ classes.label }}
+        {% if field.field.required %}{{ form.required_css_class }}{% endif %}">{{ field.label }}</label>
+    <div class="control has-icons-left {{ classes.value }}">
+      {{ field|addclass:'input' }}
+      <span class="icon is-left">
+        <i class="fas fa-at"></i>
+      </span>
+      {% for error in field.errors %}
+        <span class="help is-danger {{ form.error_css_class }}">{{ error }}</span>
+      {% endfor %}
       {% if field.help_text %}
         <div class="help">
           {{ field.help_text|safe }}
