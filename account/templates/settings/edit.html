@@ -2,32 +2,46 @@
 {% load render_bundle from webpack_loader %}
 {% load bulma_tags %}
 
-{% block page_title %}プロフィールの編集{% endblock %}
-{% block ogp_title %}プロフィールの編集{% endblock %}
+{% block page_title %}設定{% endblock %}
+{% block ogp_title %}設定{% endblock %}
 
 {% block header %}{% endblock %}
 
 {% block content %}
   <div class="column is-two-thirds">
     <div class="box">
-      <form class="submit-form" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form|bulma }}
-        <div class="level is-mobile">
-          <div class="level-left">
-            <button type="submit" class="button is-info level-item">更新</button>
+      <div class="content">
+        <h1>設定</h1>
+        <h3>SNSアカウント</h3>
+        {% if user.social_auth.exists %}
+          <button class="button is-info">
+            <i class="fab fa-twitter with-text"></i>認証済み：{{ user.extra_data.access_token.screen_name }}
+          </button>
+        {% else %}
+          <a href="/login/twitter/" class="button">
+            <i class="fab fa-twitter with-text"></i>クリックで認証ページへ
+          </a>
+        {% endif %}
+        <h3>プロフィール</h3>
+        <form class="submit-form" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form|bulma }}
+          <div class="level is-mobile">
+            <div class="level-left">
+              <button type="submit" class="button is-info level-item">更新</button>
+            </div>
+            <div class="level-right">
+              <a class="button is-primary level-item" href="/account/logout">ログアウト</a>
+              <button
+                type="button"
+                class="button is-danger modal-opener level-item"
+                data-target="v-unsubscribe-modal"
+              >アカウントの削除
+              </button>
+            </div>
           </div>
-          <div class="level-right">
-            <a class="button is-primary level-item" href="/account/logout">ログアウト</a>
-            <button
-              type="button"
-              class="button is-danger modal-opener level-item"
-              data-target="v-unsubscribe-modal"
-            >アカウントの削除
-            </button>
-          </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
   {% include 'settings/components/v-unsubscribe-form.html' %}

@@ -42,6 +42,11 @@ class User(AbstractUser):
         return '/assets/images/default-banner.png'
 
     @property
+    def extra_data(self):
+        if self.social_auth.exists():
+            return self.social_auth.first().extra_data
+
+    @property
     def api(self):
         social_auth_obj = UserSocialAuth.objects.get(user=self)
         api = twitter.Api(consumer_key=settings.SOCIAL_AUTH_TWITTER_KEY,
