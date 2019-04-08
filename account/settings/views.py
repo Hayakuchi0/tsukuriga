@@ -19,7 +19,7 @@ def edit_profile(request):
             messages.success(request, '保存されました')
             return redirect(f'/u/{request.user.username}')
 
-    return render(request, 'users/edit.html', {'form': form, 'modal_form': DeleteUserForm()})
+    return render(request, 'settings/edit.html', {'form': form, 'modal_form': DeleteUserForm()})
 
 
 @require_POST
