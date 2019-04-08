@@ -16,11 +16,11 @@ def signup(request):
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             messages.success(request, 'ログインしました')
             return redirect('/')
-    return render(request, 'users/signup.html', {'form': form})
+    return render(request, 'auth/signup.html', {'form': form})
 
 
 class CustomLoginView(LoginView):
-    template_name = 'users/login.html'
+    template_name = 'auth/login.html'
 
     def get_success_url(self):
         messages.success(self.request, 'ログインしました')
@@ -57,4 +57,4 @@ def import_user(request):
                 user.login(request)
                 return redirect(f'/')
 
-    return render(request, 'users/import.html', {'form': form})
+    return render(request, 'auth/import.html', {'form': form})
