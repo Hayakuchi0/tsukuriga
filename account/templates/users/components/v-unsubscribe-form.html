@@ -10,7 +10,7 @@
         一度削除したアカウントは元に戻せません。削除して問題ない場合は、
         ユーザーネーム(<code>{{ user.username }}</code>)を入力して「削除する」を押してください
       </p>
-      <form method="post" action="/account/delete">
+      <form method="post" action="/settings/delete">
         {% csrf_token %}
         {{ modal_form|bulma }}
         <button type="submit" class="button is-danger" :disabled="!isDeletable">削除する</button>

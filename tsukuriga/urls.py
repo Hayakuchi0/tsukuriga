@@ -21,8 +21,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('maintenance/', include('maintenance_mode.urls')),
-    path('account/', include('account.auth_urls')),
-    path('u/', include('account.users_urls')),
+    path('', include('account.urls')),
     path('pages/', include('pages.urls')),
     path('markdownx/', include('markdownx.urls')),
     path('', include('social_django.urls', namespace='social')),
