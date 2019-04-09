@@ -5,6 +5,8 @@ from django.contrib.auth.views import (
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from ...models import User
+
 
 class PasswordChange(LoginRequiredMixin, PasswordChangeView):
     success_url = '/accounts/password/change/done'
@@ -19,6 +21,18 @@ class PasswordReset(PasswordResetView):
     email_template_name = 'password/mails/message.txt'
     template_name = 'password/reset.html'
     success_url = '/account/password/reset/send'
+
+    def form_valid(self, form):
+        cleaned_email = form.cleaned_data['email']
+
+        for user in User.objects.filter(email=cleaned_email):
+            if user.has_usable_password():
+                continue
+            random_password = User.objects.make_random_password()
+            user.set_password(random_password)
+            user.save()
+
+        return super().form_valid(form)
 
 
 class PasswordResetDone(PasswordResetDoneView):
