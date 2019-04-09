@@ -18,7 +18,6 @@ class ImportUserException(Exception):
 
 class ImportUser:
     instance = None
-    is_imported = False
     url = 'https://altwug.net/api/v1/export/user/'
 
     def __init__(self, username, password):
@@ -60,5 +59,6 @@ class ImportUser:
                 TrophyUserRelation.objects.create(user=self.instance, trophy=trophy_obj.first())
             else:
                 file = RequestFile(trophy_json.pop('file_url'))
+                file.download_file()
                 with file.open() as f:
                     create_and_set_trophy(self.instance, file=File(f), **trophy_json)
