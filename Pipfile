@@ -18,6 +18,7 @@ django-environ = "*"
 pymysql = "*"
 django-cleanup = "*"
 django-maintenance-mode = "*"
+pymdown-extensions = "*"
 
 [dev-packages]
 django-extensions = "*"
