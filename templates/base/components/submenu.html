@@ -1,28 +1,10 @@
-<aside class="box">
-  <div class="content">
-    <p>
-      現在試験運用中。タイトル、説明、デザイン等々は仮のものです。<br>
-      また、一部ページにアクセス制限を設けています。ログインページ、アップロードフォームなど順次開放予定。<br>
-    </p>
-    <h4>このサイトは？</h4>
-    <p>
-      <a href="https://altwug.net">Altwug.net</a>を後継する動画投稿サイトとして、
-      前サービスで課題だったデザインや使いやすさの向上、各種機能拡充のために作り直したもの。
-      サービス開始時に存在した基礎的な機能はほぼ実装済み。
-    </p>
-    <h4>問い合わせ/提案/バグ報告</h4>
-    <ul>
-      <li><a href="https://twitter.com/ugo_compeito" target="_blank">Twitter</a></li>
-      <li><a href="https://peing.net/ja/ugo_compeito" target="_blank">質問箱</a></li>
-    </ul>
-    <h4>開発者向け</h4>
-    <ul>
-      <li><a href="https://github.com/Compeito/tsukuriga" target="_blank">GitHub</a></li>
-    </ul>
-    <h4>今後の予定</h4>
-    <p>今のところは未定。</p>
-  </div>
-</aside>
+{% if submenu_message %}
+  <aside class="box">
+    <div class="content">
+      {{ submenu_message | safe }}
+    </div>
+  </aside>
+{% endif %}
 <aside class="box menu">
   <p class="menu-label">お知らせ一覧</p>
   <ul class="menu-list">
