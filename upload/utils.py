@@ -4,6 +4,8 @@ import tempfile
 
 import requests
 
+from django.core.files import File
+
 from account.models import User
 
 
@@ -38,50 +40,88 @@ class RequestFile:
         self._download_file(self.url)
 
 
+class ImportFileError(Exception):
+    pass
+
+
 class ImportFile(RequestFile):
     def __init__(self, user: User, url: str):
         super().__init__(url, '.mp4')
         self.user = user
-        self.title = user.name + 'さんの作品'
-        self.description = ''
-        self.type = 'normal'
+        self.importer = self._get_importer()
+        self.json = self.importer()
+        self.video = None
 
-    def _get_download_url(self):
-        altwug_matched = re.search(r'altwug\.net/watch/(?P<id>.+)/?', self.url)
-        twitter_matched = re.search(r'twitter\.com/\w+/status/(?P<id>\d+)/?', self.url)
-        if altwug_matched:
-            self.type = 'altwug'
-            return self._download_url_altwug(altwug_matched.group('id'))
-        elif twitter_matched:
-            self.type = 'twitter'
-            return self._download_url_twitter(twitter_matched.group('id'))
-        else:
-            raise ValueError('対応する形式のURLを入力してください')
+    def _get_importer(self):
+        patterns = (
+            (AltwugImporter, r'altwug\.net/watch/(?P<id>.+)/?'),
+            (TwitterImporter, r'twitter\.com/\w+/status/(?P<id>\d+)/?'),
+        )
+        for importer, pattern in patterns:
+            matched = re.search(pattern, self.url)
+            if matched:
+                return importer(matched.group('id'), self.user)
 
-    def _raise_for_verification(self, user_id):
-        twitter_user = self.user.api.VerifyCredentials()
-        if user_id is None or not twitter_user.id == user_id:
-            raise ValueError('連携しているツイッターアカウントが一致しませんでした')
+        raise ImportFileError('対応する形式のURLを入力してください')
 
-    def _download_url_altwug(self, video_id):
-        response = requests.get(f'https://altwug.net/api/v1/export/video/{video_id}/').json()
-        self._raise_for_verification(response['verified_id'])
+    def download_file(self):
+        url = self.json['download_url']
+        self._download_file(url)
 
-        self.title = response['title']
-        self.description = response['description']
-        return response['download_url']
+    def create_video(self):
+        # upload.viewsとの相互インポート解決のため
+        from upload.models import Video, VideoProfile, UploadedPureVideo
 
-    def _download_url_twitter(self, tweet_id):
-        tweet = self.user.api.GetStatus(tweet_id)
-        self._raise_for_verification(tweet.user.id)
+        video = Video.objects.create(user=self.user, type=self.json['type'])
+        self.video = video
 
-        self.description = tweet.full_text
+        with self.open() as f:
+            UploadedPureVideo.objects.create(
+                video=video,
+                file=File(f)
+            )
+
+        VideoProfile.objects.create(
+            video=video,
+            title=self.json['title'],
+            description=self.json['description']
+        )
+
+
+class TwitterImporter:
+    def __init__(self, tweet_id, user):
+        self.user = user
+        self.tweet_id = tweet_id
+
+    def __call__(self):
+        tweet = self.user.api.GetStatus(self.tweet_id)
+
+        return {
+            'type': 'twitter',
+            'title': self.user.name + 'さんの作品',
+            'description': tweet.full_text,
+            'download_url': self.get_video_url(tweet)
+        }
+
+    @staticmethod
+    def get_video_url(tweet):
         if tweet.media and tweet.media[0].video_info:
             variants = tweet.media[0].video_info['variants']
             sorted_variants = sorted(variants, key=lambda x: x['bitrate'] if x['content_type'] == 'video/mp4' else 0)
             return sorted_variants[-1]['url']
         raise ValueError('動画ツイートではありません')
 
-    def download_file(self):
-        url = self._get_download_url()
-        self._download_file(url)
+
+class AltwugImporter:
+    def __init__(self, video_id, user=None):
+        self.video_id = video_id
+
+    def __call__(self):
+        response = requests.get(f'https://altwug.net/api/v1/export/video/{self.video_id}/').json()
+
+        return {
+            'type': 'altwug',
+            'title': response['title'],
+            'description': response['description'],
+            'download_url': response['download_url'],
+        }

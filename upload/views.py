@@ -1,10 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http.response import HttpResponseBadRequest
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.core.files import File
 
-from .models import Video, VideoProfile, UploadedPureVideo
-from .utils import ImportFile
+from .models import Video, VideoProfile
+from .utils import ImportFile, ImportFileError
 from .decorators import users_video_required
 from .forms import VideoFileUploadForm, VideoProfileForm, VideoImportForm
 
@@ -53,26 +51,14 @@ def import_upload(request):
         imported = None
         try:
             imported = ImportFile(user=request.user, url=form.data['url'])
-            imported.download_file()
-        except Exception as e:
+        except ImportFileError as e:
             form.add_error('url', e.args[0])
 
         if form.is_valid() and imported is not None:
-            video = Video.objects.create(user=request.user, type=imported.type)
+            imported.download_file()
+            imported.create_video()
 
-            with imported.open() as f:
-                UploadedPureVideo.objects.create(
-                    video=video,
-                    file=File(f)
-                )
-
-            VideoProfile.objects.create(
-                video=video,
-                title=imported.title,
-                description=imported.description
-            )
-
-            return redirect(f'/upload/detail/{video.slug}')
+            return redirect(f'/upload/detail/{imported.video.slug}')
 
     return render(request, 'upload/import.html', {'process': get_process(1), 'form': form})
 
