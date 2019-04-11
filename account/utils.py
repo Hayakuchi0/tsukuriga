@@ -21,9 +21,6 @@ class ImportUser:
     url = 'https://altwug.net/api/v1/export/user/'
 
     def __init__(self, username, password):
-        if User.objects.filter(username=username).exists():
-            raise ImportUserException('同じユーザー名がこのサイトで既に使用されています')
-
         response = requests.post(self.url, {'username': username, 'password': password}).json()
         if response['is_success']:
             self._user = response.pop('user')
@@ -56,7 +53,8 @@ class ImportUser:
             trophy_obj = Trophy.objects.filter(title=trophy_json['title'])
 
             if trophy_obj.exists():
-                TrophyUserRelation.objects.create(user=self.instance, trophy=trophy_obj.first())
+                # 既にトロフィーが作成されている場合に重複しないようにupdate_or_createする
+                TrophyUserRelation.objects.update_or_create(user=self.instance, trophy=trophy_obj.first())
             else:
                 file = RequestFile(trophy_json.pop('file_url'))
                 file.download_file()
