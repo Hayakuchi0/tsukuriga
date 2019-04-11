@@ -5,7 +5,7 @@ from .models import User
 
 
 class SignUpForm(UserCreationForm):
-    username = forms.CharField(label='ユーザー名(id)', help_text='先頭に@を付けてユーザーを一意に識別するためのIDです。')
+    username = forms.CharField(label='ユーザー名', help_text='先頭に@を付けてユーザーを識別するためのIDです。')
 
     def __init__(self, *args, **kwargs):
         super(forms.ModelForm, self).__init__(*args, **kwargs)
