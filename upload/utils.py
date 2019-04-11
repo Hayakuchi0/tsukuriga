@@ -92,9 +92,14 @@ class TwitterImporter:
     def __init__(self, tweet_id, user):
         self.user = user
         self.tweet_id = tweet_id
+        if not self.user.has_social_auth('twitter'):
+            raise ImportFileError('ツイッター認証が必要です')
 
     def __call__(self):
         tweet = self.user.api.GetStatus(self.tweet_id)
+
+        if not self.is_valid(tweet.user.id):
+            raise ImportFileError('ツイートの投稿者と連携アカウントが一致しません')
 
         return {
             'type': 'twitter',
@@ -103,21 +108,31 @@ class TwitterImporter:
             'download_url': self.get_video_url(tweet)
         }
 
+    def is_valid(self, verification_id):
+        return int(self.user.extra_data['access_token']['user_id']) == verification_id
+
     @staticmethod
     def get_video_url(tweet):
         if tweet.media and tweet.media[0].video_info:
             variants = tweet.media[0].video_info['variants']
             sorted_variants = sorted(variants, key=lambda x: x['bitrate'] if x['content_type'] == 'video/mp4' else 0)
             return sorted_variants[-1]['url']
-        raise ValueError('動画ツイートではありません')
+        raise ImportFileError('指定したツイートは動画ツイートではありません')
 
 
 class AltwugImporter:
-    def __init__(self, video_id, user=None):
+    def __init__(self, video_id, user):
+        self.user = user
         self.video_id = video_id
+
+        if not hasattr(self.user, 'altwugauth'):
+            raise ImportFileError('Altwugとの接続が必要です')
 
     def __call__(self):
         response = requests.get(f'https://altwug.net/api/v1/export/video/{self.video_id}/').json()
+
+        if not self.is_valid(response['verification_id']):
+            raise ImportFileError('動画の投稿者と連携アカウントが一致しません')
 
         return {
             'type': 'altwug',
@@ -125,3 +140,6 @@ class AltwugImporter:
             'description': response['description'],
             'download_url': response['download_url'],
         }
+
+    def is_valid(self, verification_id):
+        return self.user.altwugauth.verification_id == verification_id

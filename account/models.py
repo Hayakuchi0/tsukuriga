@@ -41,10 +41,13 @@ class User(AbstractUser):
             return self.profile_banner.url
         return '/assets/images/default-banner.png'
 
+    def has_social_auth(self, provider):
+        return self.social_auth.filter(provider=provider).exists()
+
     @property
     def extra_data(self):
-        if self.social_auth.exists():
-            return self.social_auth.first().extra_data
+        if self.has_social_auth('twitter'):
+            return self.social_auth.get(provider='twitter').extra_data
 
     @property
     def api(self):

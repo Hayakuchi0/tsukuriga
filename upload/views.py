@@ -52,7 +52,7 @@ def import_upload(request):
         try:
             imported = ImportFile(user=request.user, url=form.data['url'])
         except ImportFileError as e:
-            form.add_error('url', e.args[0])
+            form.add_error('url', e.args[0] + ' 詳細はインポートガイドをご確認ください')
 
         if form.is_valid() and imported is not None:
             imported.download_file()
