@@ -49,8 +49,8 @@ $ sudo apt install nodejs npm git docker
 ## セットアップ及びサーバー起動
 
 ツクリガをローカルPC上で動作確認するには、まずツクリガを動かせる環境を構築(セットアップ)し、その環境上でツクリガ本体を起動する(サーバー起動)という手順を踏む必要がある。
-以下の0~5の手順通りに実行することで、localhost:8000というアドレスにアクセスするという形でツクリガの動作確認をすることができる。
-なお、0~3がセットアップ、4~5がサーバー起動である。
+以下の0〜5の手順通りに実行することで、localhost:8000というアドレスにアクセスするという形でツクリガの動作確認をすることができる。
+なお、0〜3がセットアップ、4〜5がサーバー起動である。
 
 0. gitを用いてこのリポジトリをcloneする。
 
@@ -100,7 +100,7 @@ $ sudo ./docker/createDocker.sh
 3. Djangoの環境変数を設定する。
 
 Twitterログインを用いた機能のデバッグをする予定なら、ログインに必要なTWITTER_KEY, TWITTER_SECRETのみを記述し、残りの行は削除する。
-TWITTER_KEYおよびTWITTER_SECRETを取得する方法は[ここ](./HowToGetTwitterAPIKey.md)を参照すること。
+TWITTER_KEYおよびTWITTER_SECRETを取得する方法は[ここ](https://github.com/Hayakuchi0/tsukuriga/blob/DocumentForContribute/doc/StarterForDevelop/HowToGetTwitterAPIKey.md)を参照すること。
 
 ```bash
 $ mv .env.example .env

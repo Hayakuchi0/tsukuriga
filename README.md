@@ -6,7 +6,7 @@
 
 ## 開発
 
-詳細な手順については[StarterGuide](./doc/StarterForDevelopment/StarterGuide.md)を参照。
+詳細な手順については[StarterGuide](https://github.com/Hayakuchi0/tsukuriga/blob/DocumentForContribute/doc/StarterForDevelop/StarterGuide.md)を参照。
 
 必要なもの
 * bash
