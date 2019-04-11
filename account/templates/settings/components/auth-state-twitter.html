@@ -1,0 +1,11 @@
+<div class="is-size-5">Twitter</div>
+{% if user.has_twitter_auth %}
+  <button class="button is-info">
+    <i class="fab fa-twitter with-text"></i>認証済み
+{#{{ user.extra_data.access_token.screen_name }}#}
+  </button>
+{% else %}
+  <a href="/login/twitter/" class="button">
+    <i class="fab fa-twitter with-text"></i>認証ページへ
+  </a>
+{% endif %}
