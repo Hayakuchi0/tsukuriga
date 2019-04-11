@@ -5,6 +5,9 @@
 名前は「作\(ツクり\)画(ガ)」から。アイコンは「乍」
 
 ## 開発
+
+詳細な手順については[StarterGuide](./doc/StarterForDevelopment/StarterGuide.md)を参照。
+
 必要なもの
 * bash
 * python(3.7, もしくは3.6)
