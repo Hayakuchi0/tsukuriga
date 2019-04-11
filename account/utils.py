@@ -62,7 +62,7 @@ class ImportUser:
                     create_and_set_trophy(self.instance, file=File(f), **trophy_json)
 
     def set_verification(self):
-        AltwugAuth.objects.create(
+        AltwugAuth.objects.update_or_create(
             user=self.instance,
             verification_id=self._user['id']
         )
