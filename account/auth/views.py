@@ -54,6 +54,7 @@ def import_user(request):
             if user is not None:
                 user.create_user()
                 user.create_trophies()
+                user.set_verification()
                 user.login(request)
                 return redirect(f'/')
 

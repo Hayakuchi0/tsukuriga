@@ -76,6 +76,11 @@ class User(AbstractUser):
         app_label = 'account'
 
 
+class AltwugAuth(CustomModel):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    verification_id = models.IntegerField()
+
+
 def trophy_upload_to(self, filename):
     extension = os.path.splitext(filename)[1]
     return os.path.join('trophy', f'{uuid4().hex}{extension}')

@@ -3,7 +3,7 @@ from django.core.files import File
 
 import requests
 
-from account.models import User, Trophy, TrophyUserRelation
+from account.models import User, AltwugAuth, Trophy, TrophyUserRelation
 from upload.utils import RequestFile
 
 
@@ -62,3 +62,9 @@ class ImportUser:
                 file.download_file()
                 with file.open() as f:
                     create_and_set_trophy(self.instance, file=File(f), **trophy_json)
+
+    def set_verification(self):
+        AltwugAuth.objects.create(
+            user=self.instance,
+            verification_id=self._user['id']
+        )
