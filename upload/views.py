@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from .models import Video, VideoProfile
-from .utils import ImportFile, ImportFileError
+from .importer import ImportFile, ImportFileError
 from .decorators import users_video_required
 from .forms import VideoFileUploadForm, VideoProfileForm, VideoImportForm
 
