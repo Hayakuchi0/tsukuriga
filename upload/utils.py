@@ -72,7 +72,11 @@ class ImportFile(RequestFile):
         # upload.viewsとの相互インポート解決のため
         from upload.models import Video, VideoProfile, UploadedPureVideo
 
-        video = Video.objects.create(user=self.user, type=self.json['type'])
+        # 重複検証のため
+        if self.url.endswith('/'):
+            self.url = self.url[:-1]
+
+        video = Video.objects.create(user=self.user, type=self.json['type'], source_url=self.url)
         self.video = video
 
         with self.open() as f:

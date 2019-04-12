@@ -54,6 +54,7 @@ class Video(models.Model):
 
     views_count = models.PositiveIntegerField('再生回数', default=0)
     type = models.CharField('動画タイプ', max_length=20, choices=VIDEO_TYPES, default=VIDEO_TYPES[0][0])
+    source_url = models.URLField('インポート元URL', null=True, blank=True)
 
     @property
     def type_icon(self):
