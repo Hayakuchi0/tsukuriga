@@ -23,6 +23,9 @@ class ImportFile(RequestFile):
         self.json = self.importer()
         self.video = None
 
+        if Video.objects.filter(source_url=url).exists():
+            raise ImportFileError('すでにインポート済みの動画です')
+
     def _get_importer(self):
         patterns = (
             (AltwugImporter, r'altwug\.net/watch/(?P<id>.+)/?'),
