@@ -6,6 +6,7 @@
 
 ## 開発
 必要なもの
+* bash
 * python(3.7, もしくは3.6)
 * pip
 * pipenv
@@ -41,3 +42,40 @@ $ yarn run dev
 ```bash
 (.venv)$ python manage_dev.py encode
 ```
+
+### Dockerを用いる場合
+
+#### セットアップ
+
+```bash
+$ sudo ./docker/createDocker.sh
+
+# ログインに必要なTWITTER_KEY, TWITTER_SECRETのみ変更
+$ mv .env.example .env
+$ vim .env
+
+# スーパーユーザーの作成
+$ sudo docker exec -it tsukuruga /bin/bash
+(docker)$ export PYTHONIOENCODING=utf-8;python3 /var/www/html/manage_dev.py createsuperuser;exit
+```
+
+#### 開発サーバーの起動
+
+下記2つのコマンドを別々のターミナルで実行
+
+```bash
+$ sudo ./docker/debugDocker.sh
+```
+```bash
+$ yarn run dev
+```
+
+#### アップロード動画のサムネイル作成とエンコード処理
+```bash
+$ sudo docker exec -it tsukuruga /bin/bash
+(docker)$ export PYTHONIOENCODING=utf-8;python3 /var/www/html/manage_dev.py encode;exit
+```
+
+## Author
+
+https://github.com/Compeito/tsukuriga/graphs/contributors
