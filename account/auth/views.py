@@ -37,8 +37,6 @@ class CustomLogoutView(LogoutView):
 
 
 def import_user(request):
-    if request.user.has_altwug_auth:
-        return redirect('/')
 
     form = ImportUserForm()
     if request.method == 'POST':
