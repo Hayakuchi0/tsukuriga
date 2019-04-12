@@ -2,9 +2,14 @@
   <article class="media">
     <figure class="media-left">
       <p class="image is-48x48">
-        <a :href="'/u/' + comment.user.username">
-          <img :src="comment.user.profile_icon_url">
-        </a>
+        <template v-if="comment.anonymous">
+          <img :src="comment.profile_icon_url">
+        </template>
+        <template v-else>
+          <a :href="'/u/' + comment.username">
+            <img :src="comment.profile_icon_url">
+          </a>
+         </template>
       </p>
     </figure>
     <div class="media-content">
@@ -15,10 +20,15 @@
       ></button>
       <div class="content">
         <p>
-          <a :href="'/u/' + comment.user.username">
-            <strong class="has-text-black">[[ comment.user.name ]]</strong>
-            <small>@[[ comment.user.username ]]</small>
-          </a>
+          <template v-if="comment.anonymous">
+            <strong class="has-text-black">[[ comment.name ]]</strong>
+          </template>
+          <template v-else>
+            <a :href="'/u/' + comment.username">
+              <strong class="has-text-black">[[ comment.name ]]</strong>
+              <small>@[[ comment.username ]]</small>
+            </a>
+          </template>
           <small>[[ comment.createdAt ]]</small>
           <br>
           [[ comment.text ]]

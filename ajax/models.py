@@ -5,16 +5,54 @@ from notify.models import Notification
 from core.utils import created_at2str, CustomModel
 
 
+anonymous_names = [
+    '匿名ライオン',
+    '匿名ウサギ',
+    '匿名トラ',
+    '匿名ヘビ',
+    '匿名キツネ',
+    '匿名ワニ',
+    '匿名サル',
+    '匿名バク',
+    '匿名ラクダ',
+    '匿名ペンギン',
+    '匿名ムササビ',
+]
+
 class Comment(models.Model):
     user = models.ForeignKey('account.User', verbose_name='ユーザー', on_delete=models.CASCADE)
+    anonymous = models.BooleanField(default=False)
     video = models.ForeignKey('upload.Video', verbose_name='動画', on_delete=models.CASCADE)
     text = models.TextField('本文', max_length=200)
     created_at = models.DateTimeField('作成日', default=timezone.now)
+
+    @property
+    def name(self):
+        if self.anonymous:
+            index = int(self.user.username.encode()[-1]) % len(anonymous_names)
+            return anonymous_names[index]
+        return self.user.username
+
+    @property
+    def username(self):
+        if self.anonymous:
+            return ""
+        return self.user.username
+
+    @property
+    def profile_icon_url(self):
+        if self.anonymous:
+            return '/assets/images/default-icon.png'
+        return self.user.profile_icon_url
 
     def json(self):
         return {
             'id': self.id,
             'user': self.user.json(),
+            'name': self.name,
+            'username': self.username,
+            'profile_icon_url': self.profile_icon_url,
+            'anonymous': self.anonymous,
             'text': self.text,
             'createdAt': created_at2str(self.created_at)
         }
@@ -43,21 +81,8 @@ class Point(CustomModel):
     def username_display(self):
         if self.user:
             return self.user.username
-        annonymus_names = [
-            '匿名ライオン',
-            '匿名ウサギ',
-            '匿名トラ',
-            '匿名ヘビ',
-            '匿名キツネ',
-            '匿名ワニ',
-            '匿名サル',
-            '匿名バク',
-            '匿名ラクダ',
-            '匿名ペンギン',
-            '匿名ムササビ',
-        ]
-        index = int(self.ip.replace('.', '')[-1])
-        return annonymus_names[index]
+        index = int(self.ip.replace('.', '')[-1]) % len(anonymous_names)
+        return anonymous_names[index]
 
 
 class Favorite(CustomModel):

@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_GET, require_POST
 
-from upload.models import Video
+from upload.models import Video, VideoProfile
 from .models import Comment, Point
 from .forms import CommentForm, AddPointForm
 from .utils import json_response, get_ip
@@ -20,10 +20,13 @@ def login_required(view):
 @login_required
 def add_comment(request, slug):
     video = get_object_or_404(Video, slug=slug)
+    video_profile = get_object_or_404(VideoProfile, video=video)
 
     form = CommentForm(request.POST)
     if form.is_valid():
         comment = form.save(commit=False)
+        if (not video_profile.can_post_anonymous_comment) and comment.anonymous:
+            return json_response([{'message': 'この動画に匿名のコメントは投稿できません'}], status=400)
         comment.user = request.user
         comment.video = video
         comment.save()
