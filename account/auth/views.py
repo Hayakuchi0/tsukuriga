@@ -45,12 +45,12 @@ def import_user(request):
         if form.is_valid():
             username = form.cleaned_data['username']
 
-            # 既存ユーザーにインポートする場合は重複を無視する
-            if not request.user.is_authenticated and User.objects.filter(username=username).exists():
-                raise ImportUserException('同じユーザー名がこのサイトで既に使用されています')
-
             imported = None
             try:
+                # 既存ユーザーにインポートする場合は重複を無視する
+                if not request.user.is_authenticated and User.objects.filter(username=username).exists():
+                    raise ImportUserException('同じユーザー名がこのサイトで既に使用されています')
+
                 imported = ImportUser(username, form.cleaned_data['password'])
             except ImportUserException as e:
                 form.add_error('username', e.args[0])
