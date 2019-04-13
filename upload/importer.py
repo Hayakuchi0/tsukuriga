@@ -28,8 +28,8 @@ class ImportFile(RequestFile):
 
     def _get_importer(self):
         patterns = (
-            (AltwugImporter, r'altwug\.net/watch/(?P<id>.+)/?'),
-            (TwitterImporter, r'twitter\.com/\w+/status/(?P<id>\d+)/?'),
+            (AltwugImporter, r'https://altwug\.net/watch/(?P<id>.+)/?'),
+            (TwitterImporter, r'https://twitter\.com/\w+/status/(?P<id>\d+)/?'),
         )
         for importer, pattern in patterns:
             matched = re.search(pattern, self.url)
