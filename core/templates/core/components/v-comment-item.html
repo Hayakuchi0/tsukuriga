@@ -2,7 +2,7 @@
   <article class="media">
     <figure class="media-left">
       <p class="image is-48x48">
-        <template v-if="comment.anonymous">
+        <template v-if="comment.is_anonymous">
           <img :src="comment.profile_icon_url">
         </template>
         <template v-else>
@@ -20,7 +20,7 @@
       ></button>
       <div class="content">
         <p>
-          <template v-if="comment.anonymous">
+          <template v-if="comment.is_anonymous">
             <strong class="has-text-black">[[ comment.name ]]</strong>
           </template>
           <template v-else>

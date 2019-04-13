@@ -25,7 +25,7 @@ def add_comment(request, slug):
     form = CommentForm(request.POST)
     if form.is_valid():
         comment = form.save(commit=False)
-        if (not video_profile.can_post_anonymous_comment) and comment.anonymous:
+        if comment.is_anonymous and not video_profile.allows_anonymous_comment:
             return json_response([{'message': 'この動画に匿名のコメントは投稿できません'}], status=400)
         comment.user = request.user
         comment.video = video

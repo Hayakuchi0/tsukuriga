@@ -29,10 +29,10 @@ def edit(request, slug):
 
         if form.is_valid():
             form.save()
-            if not video.profile.can_post_anonymous_comment:
-                comments = Comment.objects.filter(video=video)
+            if not video.profile.allows_anonymous_comment:
+                comments = Comment.objects.filter(video=video, is_anonymous=True)
                 for comment in comments:
-                    comment.anonymous = False
+                    comment.is_anonymous = False
                     comment.save()
 
             if not video.is_active:

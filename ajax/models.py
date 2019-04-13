@@ -19,29 +19,30 @@ anonymous_names = [
     '匿名ムササビ',
 ]
 
+
 class Comment(models.Model):
     user = models.ForeignKey('account.User', verbose_name='ユーザー', on_delete=models.CASCADE)
-    anonymous = models.BooleanField(default=False)
+    is_anonymous = models.BooleanField(default=False)
     video = models.ForeignKey('upload.Video', verbose_name='動画', on_delete=models.CASCADE)
     text = models.TextField('本文', max_length=200)
     created_at = models.DateTimeField('作成日', default=timezone.now)
 
     @property
     def name(self):
-        if self.anonymous:
+        if self.is_anonymous:
             index = int(self.user.username.encode()[-1]) % len(anonymous_names)
             return anonymous_names[index]
-        return self.user.username
+        return self.user.name
 
     @property
     def username(self):
-        if self.anonymous:
+        if self.is_anonymous:
             return ""
         return self.user.username
 
     @property
     def profile_icon_url(self):
-        if self.anonymous:
+        if self.is_anonymous:
             return '/assets/images/default-icon.png'
         return self.user.profile_icon_url
 
@@ -52,7 +53,7 @@ class Comment(models.Model):
             'name': self.name,
             'username': self.username,
             'profile_icon_url': self.profile_icon_url,
-            'anonymous': self.anonymous,
+            'is_anonymous': self.is_anonymous,
             'text': self.text,
             'createdAt': created_at2str(self.created_at)
         }
