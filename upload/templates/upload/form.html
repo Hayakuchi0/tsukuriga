@@ -14,15 +14,22 @@
 {% endblock %}
 
 {% block content %}
-  <div class="column">
+  <div class="column is-10-desktop">
     {% include 'upload/components/process-list.html' %}
-    <div class="box">
-      <form class="submit-form" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form|bulma }}
-        <button type="submit" class="button is-info">送信</button>
-      </form>
-      <a href="/upload/import">別の投稿サイトからインポートする</a>
+    <div class="columns">
+      <div class="column is-8">
+        <div class="box">
+          <form class="submit-form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|bulma }}
+            <button type="submit" class="button is-info">送信</button>
+          </form>
+          <a href="/upload/import">別の投稿サイトからインポートする</a>
+        </div>
+      </div>
+      <div class="column">
+        {% include 'upload/components/common-message.html' %}
+      </div>
     </div>
   </div>
 {% endblock %}
