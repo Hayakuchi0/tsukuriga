@@ -40,6 +40,11 @@ export const ajaxForm = (form, callback) => {
             })
           }
         })
+        .catch(err => {
+          err.response.data.errors.forEach(error => {
+              Notify.activate('danger', error.message)
+          })
+        })
         .finally(() => {
           callback()
           $submitButton.classList.remove('is-loading')
