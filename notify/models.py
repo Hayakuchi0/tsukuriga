@@ -8,7 +8,12 @@ from django.template.loader import get_template
 
 
 class Notification(models.Model):
-    user = models.ForeignKey('account.User', verbose_name='受診者', on_delete=models.CASCADE)
+    recipient = models.ForeignKey(
+        'account.User', verbose_name='受診者', on_delete=models.CASCADE
+    )
+    sender = models.ForeignKey(
+        'account.User', verbose_name='送信者', on_delete=models.CASCADE, related_name='received_notifications',
+    )
     target_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     target_object_id = models.IntegerField()
     target = GenericForeignKey('target_content_type', 'target_object_id')
@@ -33,8 +38,8 @@ class Notification(models.Model):
     @property
     def mail_subject(self):
         titles = {
-            'Comment': f'{self.target.user}さんがコメントしました',
-            'Favorite': f'{self.target.user}さんがお気に入りリストに追加しました',
+            'Comment': f'{self.sender.name}さんがコメントしました',
+            'Favorite': f'{self.sender.name}さんがお気に入りリストに追加しました',
         }
         return titles[self.type]
 
@@ -47,13 +52,13 @@ class Notification(models.Model):
     def send_mail(self):
         mail = EmailMultiAlternatives(
             subject=self.mail_subject,
-            to=[self.user.email]
+            to=[self.recipient.email]
         )
         mail.attach_alternative(self.mail_body, 'text/html')
         return mail.send()
 
     def save(self, *args, **kwargs):
-        if not settings.DEBUG and self.pk is None and self.user.is_accept_mail:
+        if not settings.DEBUG and self.pk is None and self.recipient.is_accept_mail:
             self.send_mail()
         return super().save(*args, **kwargs)
 

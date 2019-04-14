@@ -22,7 +22,7 @@ class Comment(models.Model):
     def save(self, **kwargs):
         super().save(**kwargs)
         if not self.user == self.video.user:
-            Notification.objects.create(user=self.video.user, target=self)
+            Notification.objects.create(recipient=self.video.user, sender=self.user, target=self)
 
 
 class Point(CustomModel):
@@ -74,4 +74,4 @@ class Favorite(CustomModel):
     def save(self, **kwargs):
         super().save(**kwargs)
         if not self.user == self.video.user:
-            Notification.objects.create(user=self.video.user, target=self)
+            Notification.objects.create(recipient=self.video.user, sender=self.user, target=self)
