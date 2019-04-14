@@ -42,7 +42,7 @@ export const ajaxForm = (form, callback) => {
         })
         .catch(err => {
           err.response.data.errors.forEach(error => {
-              Notify.activate('danger', error.message)
+            Notify.activate('danger', error.message)
           })
         })
         .finally(() => {
@@ -112,6 +112,9 @@ export const Notify = {
         },
         className() {
           if (this.hasNotify) {
+            if (this.tag === 'error') {
+              this.tag = 'danger'
+            }
             return 'notification is-' + this.tag
           }
         }
