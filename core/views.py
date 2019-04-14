@@ -42,6 +42,10 @@ def edit(request, slug):
 @users_video_required
 def edit_thumbnail(request, slug):
     video = request.video
+    if not video.is_encoded:
+        messages.error(request, 'エンコードが完了するまでは利用できません')
+        return redirect(f'/edit/{video.slug}')
+
     form = ThumbnailForm()
 
     if request.method == 'POST':

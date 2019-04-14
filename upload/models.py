@@ -64,14 +64,15 @@ class Video(models.Model):
         }
         return icons[self.type]
 
+    @property
+    def is_encoded(self):
+        return hasattr(self, 'data')
+
     def publish_and_save(self):
         self.is_active = True
         if self.published_at is None:
             self.published_at = timezone.now()
         self.save()
-
-    def is_encoded(self):
-        return VideoData.objects.filter(video=self).exists()
 
     def delete(self, **kwargs):
         if hasattr(self, 'profile'):
