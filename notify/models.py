@@ -29,7 +29,7 @@ class Notification(models.Model):
 
     @property
     def type(self):
-        return type(self.target).__name__
+        return str(self.target_content_type.model)
 
     @property
     def component_path(self):
@@ -38,8 +38,8 @@ class Notification(models.Model):
     @property
     def mail_subject(self):
         titles = {
-            'Comment': f'{self.sender.name}さんがコメントしました',
-            'Favorite': f'{self.sender.name}さんがお気に入りリストに追加しました',
+            'comment': f'{self.sender.name}さんがコメントしました',
+            'favorite': f'{self.sender.name}さんがお気に入りリストに追加しました',
         }
         return titles[self.type]
 
