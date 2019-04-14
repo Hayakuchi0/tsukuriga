@@ -32,8 +32,8 @@ ready(() => {
       getFavorites() {
         const videoId = doc('video')[0].dataset.videoId
         const self = this
-
         this.isLoading = true
+
         axios.get(`/ajax/favorites/list/${videoId}`)
           .then(response => {
             self.sumFavorites = response.data.results.favorites.length
@@ -45,6 +45,8 @@ ready(() => {
       },
       toggleFavorite() {
         const videoId = doc('video')[0].dataset.videoId
+        this.isLoading = true
+
         axios.post(`/ajax/favorites/toggle/${videoId}`, csrf())
           .then(response => {
               Notify.activate('success', response.data.results.message)
