@@ -57,10 +57,36 @@ class Notification(models.Model):
         mail.attach_alternative(self.mail_body, 'text/html')
         return mail.send()
 
+    @property
+    def is_barrage(self):
+        # お気に入り連打でメールが連投されることへの対策、ただしコメントなど一部オブジェクトの連投を許可
+        # barrageは「弾幕」の意味
+        if self.type in ['comment']:
+            return False
+
+        latest_notify = Notification.objects.filter(
+            recipient=self.recipient,
+            sender=self.sender
+        ).order_by('-created_at').first()
+
+        if latest_notify:
+            diff = (self.created_at - latest_notify.created_at).total_seconds()
+            return diff < 5 * 60
+        return False
+
+    def is_available_mail(self):
+        return not settings.DEBUG and \
+               self.pk is None and \
+               self.recipient.is_accept_mail and \
+               not self.is_barrage
+
     def save(self, *args, **kwargs):
-        if not settings.DEBUG and self.pk is None and self.recipient.is_accept_mail:
+        if self.is_available_mail():
             self.send_mail()
         return super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.mail_subject + ('(削除済み)' if self.target is None else '')
 
 
 """
