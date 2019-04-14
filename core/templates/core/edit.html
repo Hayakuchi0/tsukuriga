@@ -21,7 +21,11 @@
           {% endif %}
         </button>
         <a href="/thumbnail/{{ video.slug }}" class="button is-primary">サムネイル編集</a>
-        <button type="button" class="button is-danger modal-opener" data-target="v-delete-modal">削除する</button>
+        <button
+          type="button"
+          class="button is-danger is-pulled-right modal-opener"
+          data-target="v-delete-modal"
+        >削除する</button>
       </form>
     </div>
     {% include 'core/components/v-delete-modal.html' %}
