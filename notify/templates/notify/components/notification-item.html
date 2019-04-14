@@ -12,5 +12,6 @@
     <div class="content">
       {% include notification.component_path with target=notification.target %}
     </div>
+    <small class="is-pulled-right">{{ notification.created_at|dt2str }}</small>
   </div>
 </article>
