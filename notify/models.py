@@ -33,7 +33,8 @@ class Notification(models.Model):
     @property
     def mail_subject(self):
         titles = {
-            'Comment': f'{self.target.user}さんがコメントしました'
+            'Comment': f'{self.target.user}さんがコメントしました',
+            'Favorite': f'{self.target.user}さんがお気に入りリストに追加しました',
         }
         return titles[self.type]
 

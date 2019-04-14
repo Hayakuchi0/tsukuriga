@@ -1,0 +1,11 @@
+{% load core_tags %}
+<strong>
+  <a href="{{ '/u/'|add:target.user.username|to_absolute_path }}">
+    {{ target.user.name }}(@{{ target.user.username }})
+  </a>
+  さんが
+  <a href="{{ '/watch/'|add:target.video.slug|to_absolute_path }}">
+    {{ target.video.profile.title }}
+  </a>
+  をお気に入りリストに追加しました
+</strong>

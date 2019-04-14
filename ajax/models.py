@@ -70,3 +70,8 @@ class Favorite(CustomModel):
             'user': self.user.json(),
             'createdAt': created_at2str(self.created_at)
         }
+
+    def save(self, **kwargs):
+        super().save(**kwargs)
+        if not self.user == self.video.user:
+            Notification.objects.create(user=self.video.user, target=self)
