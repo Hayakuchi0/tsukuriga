@@ -1,6 +1,8 @@
 import traceback
 from multiprocessing import Process
 
+from django.conf import settings
+from django.core.mail import send_mail
 from django.core.management.base import BaseCommand
 
 
@@ -24,6 +26,14 @@ class Command(BaseCommand):
                 video.is_failed = True
                 video.traceback = traceback.format_exc()
                 video.save()
+
+                if not settings.DEBUG:
+                    send_mail(
+                        subject='エンコード中のエラー通知',
+                        message=f'{video.traceback}\nhttps://tsukuriga.net/admin/upload/uploadedpurevideo/{video.id}/change/',
+                        from_email=settings.SERVER_EMAIL,
+                        recipient_list=[email for name, email in settings.ADMINS]
+                    )
 
 
 def encode(pk):
