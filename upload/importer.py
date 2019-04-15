@@ -14,9 +14,6 @@ class ImportFileError(Exception):
 
 class ImportFile(RequestFile):
     def __init__(self, user: User, url: str):
-        # 重複検証のため末尾を統一
-        if url.endswith('/'):
-            url = url[:-1]
         super().__init__(url, '.mp4')
         self.user = user
         self.importer = self._get_importer()
@@ -28,8 +25,8 @@ class ImportFile(RequestFile):
 
     def _get_importer(self):
         patterns = (
-            (AltwugImporter, r'https://altwug\.net/watch/(?P<id>.+)/?'),
-            (TwitterImporter, r'https://twitter\.com/\w+/status/(?P<id>\d+)/?'),
+            (AltwugImporter, r'^https://altwug\.net/watch/(?P<id>.+)/$'),
+            (TwitterImporter, r'^https://twitter\.com/\w+/status/(?P<id>\d+)$'),
         )
         for importer, pattern in patterns:
             matched = re.search(pattern, self.url)
