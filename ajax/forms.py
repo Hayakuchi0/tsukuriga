@@ -7,7 +7,10 @@ class CommentForm(forms.ModelForm):
     text = forms.CharField(
         label='', widget=forms.Textarea(attrs={'rows': 3, 'placeholder': 'コメントを入力(200文字まで)'}),
     )
-    is_anonymous = forms.BooleanField(label='匿名で投稿する', required=False)
+    is_anonymous = forms.BooleanField(
+        label='名前を伏せてコメントする', required=False,
+        help_text='<a href=/pages/guide#comment>ユーザーガイド</a>をよく読んだ上でご利用下さい'
+    )
 
     class Meta:
         model = Comment
