@@ -32,6 +32,14 @@ class Notification(models.Model):
         return str(self.target_content_type.model)
 
     @property
+    def sender_profile_icon_url(self):
+        # 匿名コメントに対応するため
+        # notification-item.html内でプロフィールアイコンのみコンポーネント化していない
+        if self.type == 'comment':
+            return self.target.profile_icon_url
+        return self.sender.profile_icon_url
+
+    @property
     def component_path(self):
         return f'notify/components/types/{self.type}.html'
 
