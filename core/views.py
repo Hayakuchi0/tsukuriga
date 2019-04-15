@@ -55,11 +55,15 @@ def edit_thumbnail(request, slug):
             t = form.cleaned_data['time']
 
             if 0 <= t <= video.data.duration:
-                video.data.update_thumbnail(t=t)
-                messages.success(request, '変更されました')
-                return redirect(f'/watch/{video.slug}')
+                try:
+                    video.data.update_thumbnail(t=t)
+                    messages.success(request, '変更されました')
+                    return redirect(f'/watch/{video.slug}')
+                except OSError:
+                    messages.error(request, 'サムネイルの変更に失敗しました')
 
-            messages.error(request, '指定した秒数が不正です')
+            else:
+                messages.error(request, '指定した秒数が不正です')
 
     return render(request, 'core/thumbnail.html', {'video': video, 'form': form})
 
