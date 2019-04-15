@@ -24,6 +24,7 @@ class ImportUser:
         response = requests.post(self.url, {'username': username, 'password': password}).json()
         if response['is_success']:
             self._user = response.pop('user')
+            self._verification_id = self._user.pop('id')
             self._trophies = self._user.pop('trophies')
             self._password = password
         else:
@@ -64,5 +65,5 @@ class ImportUser:
     def set_verification(self):
         AltwugAuth.objects.update_or_create(
             user=self.instance,
-            verification_id=self._user['id']
+            verification_id=self._verification_id
         )
