@@ -13,7 +13,10 @@ class VideoProfileForm(forms.ModelForm):
         label='動画説明', widget=forms.Textarea(), required=False,
         help_text='URLと@, #から始まる文字列はそれぞれリンク、ユーザーページへのリンク、ハッシュタグに置換されます'
     )
-    allows_anonymous_comment = forms.BooleanField(label='匿名のコメントを許可する', required=False)
+    allows_anonymous_comment = forms.BooleanField(
+        label='匿名のコメントを許可する', required=False,
+        help_text='拒否設定にした時点で追加されていたコメントは全て匿名設定がオフになります'
+    )
 
     class Meta:
         model = VideoProfile
