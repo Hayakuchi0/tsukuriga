@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 
+from ajax.models import Comment
 from ajax.forms import CommentForm, AddPointForm
 from upload.models import Video
 from upload.forms import VideoProfileForm
@@ -28,9 +29,15 @@ def edit(request, slug):
 
         if form.is_valid():
             form.save()
+            if not video.profile.allows_anonymous_comment:
+                comments = Comment.objects.filter(video=video, is_anonymous=True)
+                for comment in comments:
+                    comment.is_anonymous = False
+                    comment.save()
 
             if not video.is_active:
                 video.publish_and_save()
+
 
             messages.success(request, '保存されました')
             return redirect(f'/watch/{video.slug}')

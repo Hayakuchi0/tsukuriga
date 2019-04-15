@@ -149,6 +149,7 @@ class VideoProfile(CustomModel):
     video = models.OneToOneField(Video, verbose_name='動画', on_delete=models.CASCADE, related_name='profile')
     title = models.CharField('タイトル', max_length=50)
     description = models.TextField('動画説明', default='', max_length=200, null=True, blank=True)
+    allows_anonymous_comment = models.BooleanField(default=True)
     # channel = models.PositiveIntegerField
     # tags = models.PositiveIntegerField
 
