@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Comment, Point
+from .models import Comment
 
 
 class CommentForm(forms.ModelForm):
@@ -11,7 +11,7 @@ class CommentForm(forms.ModelForm):
 
     class Meta:
         model = Comment
-        fields = ('text', 'is_anonymous')
+        fields = ('is_anonymous', 'text')
 
 
 class AddPointForm(forms.Form):
