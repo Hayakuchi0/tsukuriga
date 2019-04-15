@@ -9,10 +9,10 @@ from django.template.loader import get_template
 
 class Notification(models.Model):
     recipient = models.ForeignKey(
-        'account.User', verbose_name='受診者', on_delete=models.CASCADE
+        'account.User', verbose_name='受診者', on_delete=models.CASCADE, related_name='received_notifications'
     )
     sender = models.ForeignKey(
-        'account.User', verbose_name='送信者', on_delete=models.CASCADE, related_name='received_notifications',
+        'account.User', verbose_name='送信者', on_delete=models.CASCADE, related_name='sent_notifications',
     )
     target_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     target_object_id = models.IntegerField()
