@@ -75,3 +75,23 @@ class Favorite(CustomModel):
         super().save(**kwargs)
         if not self.user == self.video.user:
             Notification.objects.create(recipient=self.video.user, sender=self.user, target=self)
+
+
+class DirectMessage(CustomModel):
+    poster = models.ForeignKey('account.User', verbose_name='送り主', on_delete=models.CASCADE)
+    receiver = models.ForeignKey('account.User', verbose_name='受取先', on_delete=models.CASCADE)
+    message = models.TextField('DM本文', default='', max_length=300)
+    is_anonymous = models.BooleanKey('DMを匿名にする', default=False)
+
+    def json(self):
+        return {
+            'poster_name': self.poster.name(),
+            'receiver': self.receiver.json(),
+            'message': self.message,
+            'createdAt': created_at2str(self.created_at)
+        }
+
+    def save(self, **kwargs):
+        super().save(**kwargs)
+        if not self.user == self.video.user:
+            Notification.objects.create(recipient=self.video.user, sender=self.user, target=self)

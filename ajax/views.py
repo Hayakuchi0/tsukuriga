@@ -1,9 +1,11 @@
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_GET, require_POST
+from django.db.models import Q
 
 from upload.models import Video
-from .models import Comment, Point
-from .forms import CommentForm, AddPointForm
+from account.models import User
+from .models import Comment, Point, DirectMessage
+from .forms import CommentForm, AddPointForm, DirectMessageForm
 from .utils import json_response, get_ip
 
 
@@ -112,3 +114,29 @@ def list_favorites(request, slug):
         'favorites': [f.json() for f in favorites],
         'isCreated': is_created
     }, status=200)
+
+
+@require_POST
+@login_required
+def post_direct_message(request, slug):
+    receiver = get_object_or_404(User, username=slug)
+    if not receiver:
+        return json_response({"message": "宛先のユーザーが存在しません。"}, status=404)
+    form = DirectMessageForm(request.POST)
+    if form.is_valid():
+        dm = form.save()
+        dm.receiver = receiver
+        dm.poster = request.user
+        dm.save()
+        return json_response({"message": "メッセージを送信しました。"}, status=200)
+    return json_response(form.errors, status=400)
+
+
+@require_GET
+def list_direct_message(requrest, slug):
+    user = get_object_or_404(User, username=slug)
+    messages = DirectMessage.filter(
+        Q(receiver=user) |
+        Q(poster=user)
+    ).order_by('-created_at')
+    return json_response([p.json() for p in messages], status=200)
