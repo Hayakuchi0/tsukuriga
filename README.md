@@ -55,8 +55,8 @@ $ mv .env.example .env
 $ vim .env
 
 # スーパーユーザーの作成
-$ sudo docker exec -it tsukuruga /bin/bash
-(docker)$ export PYTHONIOENCODING=utf-8;python3 /var/www/html/manage_dev.py createsuperuser;exit
+$ sudo ./docker/exec.sh
+(docker)$ python3 /var/www/html/manage_dev.py createsuperuser;exit
 ```
 
 #### 開発サーバーの起動
@@ -72,8 +72,8 @@ $ yarn run dev
 
 #### アップロード動画のサムネイル作成とエンコード処理
 ```bash
-$ sudo docker exec -it tsukuruga /bin/bash
-(docker)$ export PYTHONIOENCODING=utf-8;python3 /var/www/html/manage_dev.py encode;exit
+$ sudo ./docker/exec.sh
+(docker)$ python3 /var/www/html/manage_dev.py encode;exit
 ```
 
 ## Author
