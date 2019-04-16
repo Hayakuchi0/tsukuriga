@@ -120,4 +120,4 @@ class DirectMessage(CustomModel):
     def save(self, **kwargs):
         super().save(**kwargs)
         if not self.user == self.video.user:
-            Notification.objects.create(recipient=self.video.user, sender=self.user, target=self)
+            Notification.objects.create(recipient=self.receiver, sender=self.poster, target=self)

@@ -11,6 +11,7 @@ def get_tabs(n, username):
     tabs = [
         {'href': f'/u/{username}', 'title': '投稿動画', 'is_active': False},
         {'href': f'/u/{username}/favorites', 'title': 'お気に入りリスト', 'is_active': False},
+        {'href': f'/u/{username}/direct_message', 'title': 'ダイレクトメッセージ', 'is_active': False},
     ]
     tabs[n]['is_active'] = True
     return tabs

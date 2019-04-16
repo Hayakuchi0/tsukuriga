@@ -22,6 +22,8 @@
         {% endfor %}
       </ul>
     </div>
-    {% include 'browse/components/video-list.html' %}
+    {% if context_object_name is 'video' %}
+       {% include 'browse/components/video-list.html' %}
+    {% endif %}
   </div>
 {% endblock %}
