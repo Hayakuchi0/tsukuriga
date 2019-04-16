@@ -1,6 +1,6 @@
 import Vue from 'vue/dist/vue.esm'
 
-import { doc, ready, csrf, Notify } from '../utils'
+import { doc, ready, csrf, Notify } from '../../utils'
 import axios from 'axios'
 
 

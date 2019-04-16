@@ -1,7 +1,7 @@
 import videojs from 'video.js'
 import lang_ja from 'video.js/dist/lang/ja.json'
 
-import { ready } from '../utils'
+import { ready } from '../../utils'
 import './styles.scss'
 
 ready(() => {
