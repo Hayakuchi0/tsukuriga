@@ -89,7 +89,8 @@ class FileValidator:
 
 
 def video_file_validator(file):
-    temp_file_path = get_tempfile('.mp4', file)
+    extension = os.path.splitext(file.name)[-1]
+    temp_file_path = get_tempfile(extension, file)
 
     try:
         clip = VideoFileClip(temp_file_path)
