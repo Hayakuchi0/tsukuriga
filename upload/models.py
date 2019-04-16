@@ -88,7 +88,7 @@ class UploadedPureVideo(CustomModel):
     """
     video = models.OneToOneField(Video, verbose_name='動画', on_delete=models.CASCADE, related_name='pure')
 
-    file_validator = FileValidator(allowed_extensions=['mp4', 'avi'], max_size=100 * 1024 * 1024)
+    file_validator = FileValidator(allowed_extensions=['mp4', 'avi', 'gif', 'mov'], max_size=100 * 1024 * 1024)
     file = models.FileField('動画ファイル', upload_to=temp_upload_to, storage=FileSystemStorage(),
                             validators=[file_validator, video_file_validator])
 

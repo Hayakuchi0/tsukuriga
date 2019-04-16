@@ -8,6 +8,9 @@
 {% block ogp_description %}{{ video.profile.description }}{% endblock %}
 {% block ogp_image %}{{ video.data.thumbnail.url }}{% endblock %}
 {% block ogp_twitter_creator %}@{{ video.user.username }}{% endblock %}
+{% block head %}
+  {% render_bundle 'core/watch' %}
+{% endblock %}
 
 {% block header %}{% endblock %}
 
@@ -37,11 +40,5 @@
 {% endblock %}
 
 {% block scripts %}
-  {% render_bundle 'core/videojs-setup' %}
-  {% if video.data %}
-    {% render_bundle 'core/watch' %}
-  {% endif %}
-  {% render_bundle 'core/comments' %}
-  {% render_bundle 'core/favorites' %}
-  {% render_bundle 'core/points' %}
+
 {% endblock %}

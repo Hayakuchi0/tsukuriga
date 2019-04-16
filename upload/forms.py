@@ -3,6 +3,11 @@ from .models import UploadedPureVideo, VideoProfile
 
 
 class VideoFileUploadForm(forms.ModelForm):
+    file = forms.FileField(
+        label='動画ファイル', widget=forms.FileInput(),
+        help_text='mp4,avi,gif,movの動画ファイル、100MBまで'
+    )
+
     class Meta:
         model = UploadedPureVideo
         fields = ('file',)

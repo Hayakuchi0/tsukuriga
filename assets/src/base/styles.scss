@@ -1,8 +1,6 @@
-@import "./bulma";
-@import "./common";
-@import "./video";
-@import "./avatar";
-@import "./tooltip";
+@import "./utils";
+@import "./bulma/styles";
+@import "./scss/styles";
 
 #main-container {
   @extend .container;
