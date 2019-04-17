@@ -64,7 +64,7 @@ class DirectMessagesList(AbstractProfile):
     def get_queryset(self):
         return DirectMessage.objects.filter(
             Q(receiver__username=self.kwargs['username']) |
-            Q(poster__username=self.kwargs['username'])
+            Q(poster__username=self.kwargs['username'], poster__is_anonymous=False)
         ).order_by('-created_at')
 
 
