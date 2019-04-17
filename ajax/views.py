@@ -140,6 +140,6 @@ def list_direct_message(requrest, slug):
     user = get_object_or_404(User, username=slug)
     messages = DirectMessage.filter(
         Q(receiver=user) |
-        Q(poster=user)
+        Q(poster=user, is_anonymous=False)
     ).order_by('-created_at')
     return json_response([p.json() for p in messages], status=200)
