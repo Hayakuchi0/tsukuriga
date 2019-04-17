@@ -24,8 +24,12 @@ class AddPointForm(forms.Form):
     )
 
 
-class DirectMessageForm(forms.Form):
-    is_anonymous = forms.BooleanField(label='匿名で送る', initial=False)
+class DirectMessageForm(forms.ModelForm):
+    is_anonymous = forms.BooleanField(
+        label='匿名で送る',
+        initial=False,
+        required=False
+    )
     message = forms.CharField(
         label='',
         widget=forms.Textarea(attrs={'rows': 4, 'placeholder': 'ダイレクトメッセージを入力(300文字まで)'})

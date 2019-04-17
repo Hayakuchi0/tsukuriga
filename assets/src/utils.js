@@ -21,6 +21,7 @@ export const csrf = () => {
 
 export const ajaxForm = (form, callback) => {
   const $ajaxForm = doc(form)
+  console.log(form);
   $ajaxForm.forEach($form => {
     const $submitButton = $form.querySelector('button[type=submit]')
     $form.addEventListener('submit', e => {

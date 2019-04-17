@@ -1,0 +1,14 @@
+{% load bulma_tags %}
+{% load render_bundle from webpack_loader %}
+{% block head %}
+  {% render_bundle 'users/direct-message' %}
+{% endblock %}
+<form id="direct-message-form" action="/ajax/direct_message/add/{{ account.username }}">
+  {% if user.is_authenticated %}
+    {% csrf_token %}
+    {{ direct_message_form|bulma }}
+    <button type="submit" class="button is-info">送信</button>
+  {% else %}
+    ログインすることでメッセージを送れます。
+  {% endif %}
+</form>

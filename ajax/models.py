@@ -104,20 +104,42 @@ class Favorite(CustomModel):
 
 
 class DirectMessage(CustomModel):
-    poster = models.ForeignKey('account.User', verbose_name='送り主', on_delete=models.CASCADE)
-    receiver = models.ForeignKey('account.User', verbose_name='受取先', on_delete=models.CASCADE)
+    poster = models.ForeignKey('account.User', verbose_name='送り主', on_delete=models.CASCADE, related_name="direct_message_poster")
+    receiver = models.ForeignKey('account.User', verbose_name='受取先', on_delete=models.CASCADE, related_name="direct_message_receiver")
     message = models.TextField('DM本文', default='', max_length=300)
-    is_anonymous = models.BooleanKey('DMを匿名にする', default=False)
+    is_anonymous = models.BooleanField('DMを匿名にする', default=False)
 
     def json(self):
         return {
-            'poster_name': self.poster.name(),
+            'poster_name': self.poster_name(),
+            'poster_username': self.poster_username(),
+            'poster_profile_icon': self.poster_profile_icon_url(),
             'receiver': self.receiver.json(),
             'message': self.message,
-            'createdAt': created_at2str(self.created_at)
+            'created_at': created_at2str(self.created_at),
+            'is_anonymous': self.is_anonymous
         }
+
+    @property
+    def poster_name(self):
+        if self.is_anonymous:
+            index = int(self.poster.username.encode()[-1]) % len(anonymous_names)
+            return anonymous_names[index]
+        return self.poster.name
+
+    @property
+    def poster_username(self):
+        if self.is_anonymous:
+            return ""
+        return self.poster.username
+
+    @property
+    def poster_profile_icon_url(self):
+        if self.is_anonymous:
+            return '/assets/images/default-icon.png'
+        return self.poster.profile_icon_url
 
     def save(self, **kwargs):
         super().save(**kwargs)
-        if not self.user == self.video.user:
+        if not self.receiver == self.poster:
             Notification.objects.create(recipient=self.receiver, sender=self.poster, target=self)

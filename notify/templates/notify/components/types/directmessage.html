@@ -1,0 +1,14 @@
+{% load core_tags %}
+<strong>
+  {% if target.is_anonymous %}
+    {{ target.poster_name }}
+  {% else %}
+    <a href="{{ '/u/'|add:target.poster_username|to_absolute_path }}">
+      {{ target.poster_name }}(@{{ target.poster_username }})
+    </a>
+  {% endif %}
+  さんからダイレクトメッセージが届きました。
+</strong>
+<blockquote>
+  {{ target.message|linebreaksbr }}
+</blockquote>
