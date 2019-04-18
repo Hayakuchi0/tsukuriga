@@ -62,3 +62,14 @@ def activate_url(text):
 @register.filter
 def is_username_field(field):
     return is_input and field.id_for_label == 'id_username'
+
+
+@register.filter
+def to_tight_count(count):
+    result = ''
+    for i in str(int(count)):
+        if result == '':
+            result += i
+        else:
+            result += '0'
+    return result

@@ -68,6 +68,15 @@ class Video(models.Model):
     def is_encoded(self):
         return hasattr(self, 'data')
 
+    @property
+    def points_count(self):
+        points = self.point_set.all()
+        return sum([point.count for point in points])
+
+    @property
+    def favorites_count(self):
+        return len(self.favorite_set.all())
+
     def publish_and_save(self):
         self.is_active = True
         if self.published_at is None:
