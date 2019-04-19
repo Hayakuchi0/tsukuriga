@@ -41,6 +41,12 @@ class AltPaginationListView(generic.ListView):
         page[0].alt_page_range = range(prev_range, next_range)
         return page
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        if self.context_object_name:
+            context['context_type'] = self.context_object_name
+        return context
+
 
 def created_at2str(datetime_obj):
     def mf2str(division):
@@ -98,3 +104,18 @@ class LocalFileBackend(AbstractStateBackend):
         if value.strip() not in ['0', '1']:
             raise ValueError('state file content value is not 0|1')
         write_file(settings.MAINTENANCE_MODE_STATE_FILE_PATH, value)
+
+
+anonymous_names = [
+    '匿名ライオン',
+    '匿名ウサギ',
+    '匿名トラ',
+    '匿名ヘビ',
+    '匿名キツネ',
+    '匿名ワニ',
+    '匿名サル',
+    '匿名バク',
+    '匿名ラクダ',
+    '匿名ペンギン',
+    '匿名ムササビ',
+]
