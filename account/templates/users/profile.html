@@ -8,11 +8,11 @@
 {% block ogp_twitter_card %}summary{% endblock %}
 {% block ogp_twitter_creator %}@{{ account.username }}{% endblock %}
 
-{% block header %}{% endblock %}
 
 {% block content %}
   <div class="column is-one-quarter">
     {% include 'users/components/avatar-card.html' %}
+    {% include 'users/components/direct-message-form.html' %}
   </div>
   <div class="column">
     <div class="tabs">
@@ -22,6 +22,10 @@
         {% endfor %}
       </ul>
     </div>
-    {% include 'browse/components/video-list.html' %}
+    {% if context_type == 'videos' %}
+      {% include 'browse/components/video-list.html' %}
+    {% elif context_type == 'direct_messages' %}
+      {% include 'browse/components/direct-message-list.html' %}
+    {% endif %}
   </div>
 {% endblock %}

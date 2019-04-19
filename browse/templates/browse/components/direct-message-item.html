@@ -1,0 +1,50 @@
+{% load core_tags %}
+<div class="card">
+  <div class="columns card-content">
+    <div class="column">
+      <h1 class="has-text-centered"><strong>送り主</strong></h1>
+      <div class="columns">
+        <div class="column is-one-quarter">
+          <img class="image is-48x48" src="{{ direct_message.sender_profile_icon_url }}" />
+        </div>
+        <div class="column">
+          <p class="has-text-left">
+            {% if direct_message.is_anonymous is True %}
+              <strong>{{ direct_message.sender_name }}</strong>
+              </small>{{ direct_message.sender_username }}</small>
+            {% else %}
+              <a href="/u/{{ direct_message.sender_username }}">
+                <strong>{{ direct_message.sender_name }}</strong>
+                </small>@{{ direct_message.sender_username }}</small>
+              </a>
+            {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <h1 class="has-text-centered"><strong>宛先</strong></1>
+      <div class="columns">
+        <div class="column is-one-quarter">
+          <img class="image is-48x48 is-rounded"src="{{ direct_message.recipient.profile_icon_url }}" />
+        </div>
+        <div class="column">
+          <p class="has-text-left">
+            <a href="/u/{{ direct_message.recipient.username }}">
+              <strong>{{ direct_message.recipient.name }}</strong>
+              </small>@{{ direct_message.recipient.username }}</small>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-content">
+    <p>
+      {{ direct_message.text }}
+    </p>
+    <p class="has-text-right">
+      {{ direct_message.created_at }}
+    </p>
+  </div>
+</div>

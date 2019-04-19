@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import User
+from .models import User, DirectMessage
 
 
 class SignUpForm(UserCreationForm):
@@ -29,3 +29,19 @@ class DeleteUserForm(forms.Form):
 class ImportUserForm(forms.Form):
     username = forms.CharField(label='ユーザー名')
     password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
+
+
+class DirectMessageForm(forms.ModelForm):
+    is_anonymous = forms.BooleanField(
+        label='匿名で送る',
+        initial=False,
+        required=False
+    )
+    text = forms.CharField(
+        label='',
+        widget=forms.Textarea(attrs={'rows': 4, 'placeholder': 'ダイレクトメッセージを入力(300文字まで)'})
+    )
+
+    class Meta:
+        model = DirectMessage
+        fields = ('is_anonymous', 'text')
