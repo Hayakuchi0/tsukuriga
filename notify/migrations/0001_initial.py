@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                  models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
                                    to='contenttypes.ContentType')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL,
-                                           verbose_name='受診者')),
+                                           verbose_name='受信者')),
             ],
         ),
     ]

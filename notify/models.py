@@ -9,7 +9,7 @@ from django.template.loader import get_template
 
 class Notification(models.Model):
     recipient = models.ForeignKey(
-        'account.User', verbose_name='受診者', on_delete=models.CASCADE, related_name='received_notifications'
+        'account.User', verbose_name='受信者', on_delete=models.CASCADE, related_name='received_notifications'
     )
     sender = models.ForeignKey(
         'account.User', verbose_name='送信者', on_delete=models.CASCADE, related_name='sent_notifications',

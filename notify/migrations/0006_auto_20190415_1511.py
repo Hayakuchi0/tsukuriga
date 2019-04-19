@@ -15,7 +15,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='notification',
             name='recipient',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='received_notifications', to=settings.AUTH_USER_MODEL, verbose_name='受診者'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='received_notifications',
+                                    to=settings.AUTH_USER_MODEL, verbose_name='受信者'),
         ),
         migrations.AlterField(
             model_name='notification',
