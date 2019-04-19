@@ -69,15 +69,22 @@ class Video(models.Model):
         return hasattr(self, 'data')
 
     @property
+    def is_encoding(self):
+        return hasattr(self, 'pure') and self.pure.is_encoding and not self.pure.is_failed
+
+    @property
+    def is_failed(self):
+        return hasattr(self, 'pure') and self.pure.is_encoding and self.pure.is_failed
+
+    @property
     def encode_state_display(self):
         if self.is_encoded:
             return 'エンコード完了'
-        elif hasattr(self, 'pure'):
-            if self.pure.is_encoding and not self.pure.is_failed:
-                return 'エンコード中'
-            elif self.pure.is_failed:
-                return 'エンコード失敗'
-            return '未エンコード'
+        elif self.is_encoding:
+            return 'エンコード中'
+        elif self.is_failed:
+            return 'エンコード失敗'
+        return '未エンコード'
 
     @property
     def points_count(self):
