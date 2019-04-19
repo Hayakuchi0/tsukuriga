@@ -1,0 +1,45 @@
+<div class="box table-container">
+  <div class="content">
+    <table class="is-narrow is-striped">
+      <tbody>
+      <tr>
+        <th>再生回数</th>
+        <td>{{ video.views_count }}</td>
+      </tr>
+      {% if not video.type == 'normal' %}
+        <tr>
+          <th>動画タイプ</th>
+          <td>{{ video.get_type_display }}</td>
+        </tr>
+        <tr>
+          <th>インポート元URL</th>
+          <td>{{ video.source_url }}</td>
+        </tr>
+      {% endif %}
+      {% if not video.is_encoded %}
+        <tr>
+          <th>エンコード状態</th>
+          <td>{{ video.encode_state_display }}</td>
+        </tr>
+      {% else %}
+        <tr>
+          <th>fps</th>
+          <td>{{ video.data.fps }}</td>
+        </tr>
+        <tr>
+          <th>動画時間</th>
+          <td>{{ video.data.duration_str }}</td>
+        </tr>
+        <tr>
+          <th>総フレーム数</th>
+          <td>{{ video.data.frames_count }}</td>
+        </tr>
+      {% endif %}
+      <tr>
+        <th>公開日時</th>
+        <td>{{ video.published_at|default_if_none:"未公開" }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

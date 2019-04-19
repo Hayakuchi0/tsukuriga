@@ -69,6 +69,17 @@ class Video(models.Model):
         return hasattr(self, 'data')
 
     @property
+    def encode_state_display(self):
+        if self.is_encoded:
+            return 'エンコード完了'
+        elif hasattr(self, 'pure'):
+            if self.pure.is_encoding and not self.pure.is_failed:
+                return 'エンコード中'
+            elif self.pure.is_failed:
+                return 'エンコード失敗'
+            return '未エンコード'
+
+    @property
     def points_count(self):
         points = self.point_set.all()
         return sum([point.count for point in points])
@@ -199,6 +210,9 @@ class VideoData(models.Model):
 
         result = hour + '%02d:%02d' % (minute, second)
         return result
+
+    def frames_count(self):
+        return int(self.fps * self.duration)
 
     def delete(self, **kwargs):
         self.file.delete(False)
