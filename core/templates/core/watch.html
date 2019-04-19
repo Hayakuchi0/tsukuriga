@@ -21,7 +21,7 @@
       <h1 class="title">{{ video.profile.title }}</h1>
       {% include 'core/components/video-menu.html' %}
       <hr>
-      <p>
+      <p class="video-description">
         {% autoescape off %}
           {% if video.profile.description %}
             {{ video.profile.description|activate_url|linebreaksbr }}
@@ -44,8 +44,4 @@
     </section>
   </div>
   {% include 'core/components/v-point-modal.html' %}
-{% endblock %}
-
-{% block scripts %}
-
 {% endblock %}
