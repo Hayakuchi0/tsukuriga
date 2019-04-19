@@ -4,8 +4,7 @@ from django.conf import settings
 
 import os
 from uuid import uuid4
-from core.utils import CustomModel, created_at2str, anonymous_names
-from notify.models import Notification
+from core.utils import CustomModel
 from .validators import UsernameValidator
 
 import twitter
@@ -107,45 +106,3 @@ class Trophy(CustomModel):
 class TrophyUserRelation(CustomModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     trophy = models.ForeignKey(Trophy, on_delete=models.CASCADE)
-
-
-class DirectMessage(CustomModel):
-    sender = models.ForeignKey(User, verbose_name='送り主', on_delete=models.CASCADE, related_name="sent_messages")
-    recipient = models.ForeignKey(User, verbose_name='受取先', on_delete=models.CASCADE, related_name="received_messages")
-    text = models.TextField('DM本文', default='', max_length=300)
-    is_anonymous = models.BooleanField('DMを匿名にする', default=False)
-
-    def json(self):
-        return {
-            'sender_name': self.sender_name(),
-            'sender_username': self.sender_username(),
-            'sender_profile_icon': self.sender_profile_icon_url(),
-            'recipient': self.recipient.json(),
-            'text': self.text,
-            'created_at': created_at2str(self.created_at),
-            'is_anonymous': self.is_anonymous
-        }
-
-    @property
-    def sender_name(self):
-        if self.is_anonymous:
-            index = int(self.sender.username.encode()[-1]) % len(anonymous_names)
-            return anonymous_names[index]
-        return self.sender.name
-
-    @property
-    def sender_username(self):
-        if self.is_anonymous:
-            return ""
-        return self.sender.username
-
-    @property
-    def sender_profile_icon_url(self):
-        if self.is_anonymous:
-            return '/assets/images/default-icon.png'
-        return self.sender.profile_icon_url
-
-    def save(self, **kwargs):
-        super().save(**kwargs)
-        if not self.recipient == self.sender:
-            Notification.objects.create(recipient=self.recipient, sender=self.sender, target=self)

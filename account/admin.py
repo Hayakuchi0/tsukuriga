@@ -31,4 +31,3 @@ class TrophyUserRelationAdmin(admin.ModelAdmin):
 admin.site.register(models.User, CustomUserAdmin)
 admin.site.register(models.Trophy, TrophyAdmin)
 admin.site.register(models.TrophyUserRelation, TrophyUserRelationAdmin)
-admin.site.register(models.DirectMessage)

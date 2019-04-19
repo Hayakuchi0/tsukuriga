@@ -2,7 +2,22 @@ from django.db import models
 from django.utils import timezone
 
 from notify.models import Notification
-from core.utils import created_at2str, CustomModel, anonymous_names
+from core.utils import created_at2str, CustomModel
+
+
+anonymous_names = [
+    '匿名ライオン',
+    '匿名ウサギ',
+    '匿名トラ',
+    '匿名ヘビ',
+    '匿名キツネ',
+    '匿名ワニ',
+    '匿名サル',
+    '匿名バク',
+    '匿名ラクダ',
+    '匿名ペンギン',
+    '匿名ムササビ',
+]
 
 
 class Comment(models.Model):
