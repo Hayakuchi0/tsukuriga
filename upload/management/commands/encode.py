@@ -16,24 +16,12 @@ class Command(BaseCommand):
         for video in videos:
             if video.is_encoding:
                 continue
-            try:
-                process = Process(target=encode, args=[video.id])
-                process.start()
-                process.join()
-                if process.exitcode == 0:
-                    video.delete()
-            except:
-                video.is_failed = True
-                video.traceback = traceback.format_exc()
-                video.save()
 
-                if not settings.DEBUG:
-                    send_mail(
-                        subject='エンコード中のエラー通知',
-                        message=f'{video.traceback}\nhttps://tsukuriga.net/admin/upload/uploadedpurevideo/{video.id}/change/',
-                        from_email=settings.SERVER_EMAIL,
-                        recipient_list=[email for name, email in settings.ADMINS]
-                    )
+            # エラーを送出してもメインプロセスは終了しないため、try-exceptはtarget内部で行う
+            process = Process(target=encode, args=[video.id])
+            process.start()
+            # 待機はせず並行で処理させる
+            # process.join()
 
 
 def encode(pk):
@@ -41,5 +29,18 @@ def encode(pk):
     django.setup()
     from upload.models import UploadedPureVideo
 
-    v = UploadedPureVideo.objects.get(pk=pk)
-    v.make()
+    pure = UploadedPureVideo.objects.get(pk=pk)
+    try:
+        pure.make()
+    except:
+        pure.is_failed = True
+        pure.traceback = traceback.format_exc()
+        pure.save()
+
+        if not settings.DEBUG:
+            send_mail(
+                subject='エンコード中のエラー通知',
+                message=f'{pure.traceback}\nhttps://tsukuriga.net/admin/upload/uploadedpurevideo/{pure.id}/change/',
+                from_email=settings.SERVER_EMAIL,
+                recipient_list=[email for name, email in settings.ADMINS]
+            )
