@@ -138,7 +138,7 @@ class UploadedPureVideo(CustomModel):
 
     def encode_file(self):
         encoded_path = get_tempfile('.mp4')
-        self.clip.write_videofile(encoded_path, audio_codec='aac')
+        self.clip.write_videofile(encoded_path, **settings.ENCODE_OPTIONS)
         return encoded_path
 
     def make(self):
@@ -205,7 +205,7 @@ class VideoData(models.Model):
 
     def update_file(self):
         next_file_path = get_tempfile('.mp4')
-        self.clip.write_videofile(next_file_path, audio_codec='aac')
+        self.clip.write_videofile(next_file_path, **settings.ENCODE_OPTIONS)
         self.clip.close()
 
         with open(next_file_path, 'rb') as f:

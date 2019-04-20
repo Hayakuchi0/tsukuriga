@@ -213,3 +213,8 @@ MAINTENANCE_MODE_IGNORE_SUPERUSER = True
 MAINTENANCE_MODE_IGNORE_STAFF = True
 MAINTENANCE_MODE_STATE_FILE_PATH = os.path.join(BASE_DIR, 'tsukuriga', 'settings', 'maintenance_mode_state.txt')
 MAINTENANCE_MODE_STATE_BACKEND = 'core.utils.LocalFileBackend'
+
+# upload.models
+ENCODE_OPTIONS = {
+    'audio_codec': 'aac'
+}
