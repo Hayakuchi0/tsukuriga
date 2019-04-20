@@ -137,11 +137,8 @@ class UploadedPureVideo(CustomModel):
         return filepath
 
     def encode_file(self):
-        if self.is_mp4():
-            return self.file.path
-
         encoded_path = get_tempfile('.mp4')
-        self.clip.write_videofile(encoded_path)
+        self.clip.write_videofile(encoded_path, audio_codec='aac')
         return encoded_path
 
     def make(self):
