@@ -189,17 +189,27 @@ class VideoData(models.Model):
     fps = models.PositiveIntegerField('FPS')
     duration = models.FloatField('動画時間')
 
-    def update_thumbnail(self, t):
+    @cached_property
+    def clip(self):
         temp_file_path = get_tempfile('.mp4', self.file)
-        clip = VideoFileClip(temp_file_path)
+        return VideoFileClip(temp_file_path)
 
+    def update_thumbnail(self, t):
         next_thumbnail_path = get_tempfile('.jpg')
-        clip.save_frame(next_thumbnail_path, t=t)
-        clip.close()
+        self.clip.save_frame(next_thumbnail_path, t=t)
+        self.clip.close()
 
-        self.thumbnail.delete(False)
         with open(next_thumbnail_path, 'rb') as f:
             self.thumbnail = File(f)
+            self.save()
+
+    def update_file(self):
+        next_file_path = get_tempfile('.mp4')
+        self.clip.write_videofile(next_file_path, audio_codec='aac')
+        self.clip.close()
+
+        with open(next_file_path, 'rb') as f:
+            self.file = File(f)
             self.save()
 
     def duration_str(self):
