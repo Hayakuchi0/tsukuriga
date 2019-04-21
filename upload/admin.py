@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.html import format_html
+
 from . import models
 
 
@@ -19,8 +21,10 @@ class VideoAdmin(ReadOnlyMixin, admin.ModelAdmin):
     list_display_custom = [
         ('動画ID', 'slug', str),
         ('タイトル', 'profile__title', str),
-        ('エンコード済み', 'is_encoded', bool),
-        ('エンコード失敗', 'pure__is_failed', bool),
+        ('再生回数', 'views_count', int),
+        ('公開', 'is_active', bool),
+        ('作成日', 'profile__created_at', None),
+        ('URL', 'page_url', str),
     ]
     inlines = (VideoProfileInline, VideoDataInline)
 
