@@ -8,7 +8,7 @@
 <aside class="box menu">
   <p class="menu-label">お知らせ一覧</p>
   <ul class="menu-list">
-    {% for page in pages %}
+    {% for page in latest_pages %}
       <li>
         <a href="/pages/{{ page.slug }}">
           {% if page.is_new %}
