@@ -31,6 +31,7 @@ def encode(pk):
     pure = UploadedPureVideo.objects.get(pk=pk)
     try:
         pure.make()
+        pure.delete()
     except:
         pure.is_failed = True
         pure.traceback = traceback.format_exc()
