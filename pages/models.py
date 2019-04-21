@@ -13,6 +13,7 @@ class Page(CustomModel):
     title = models.CharField('タイトル', max_length=255)
     text = MarkdownxField('本文')
     slug = models.SlugField('スラッグ')
+    featured_order = models.PositiveSmallIntegerField('トップ表示順', default=0)
     is_published = models.BooleanField('公開する', default=True)
 
     @property
