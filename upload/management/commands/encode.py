@@ -20,8 +20,7 @@ class Command(BaseCommand):
             # エラーを送出してもメインプロセスは終了しないため、try-exceptはtarget内部で行う
             process = Process(target=encode, args=[video.id])
             process.start()
-            # 待機はせず並行で処理させる
-            # process.join()
+            process.join()
 
 
 def encode(pk):
