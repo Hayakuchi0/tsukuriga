@@ -23,8 +23,7 @@ class VideoAdmin(ReadOnlyMixin, admin.ModelAdmin):
         ('タイトル', 'profile__title', str),
         ('再生回数', 'views_count', int),
         ('公開', 'is_active', bool),
-        ('作成日', 'profile__created_at', None),
-        ('URL', 'page_url', str),
+        ('作成日', 'profile__created_at', None)
     ]
     inlines = (VideoProfileInline, VideoDataInline)
 
