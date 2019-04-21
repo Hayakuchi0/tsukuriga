@@ -1,7 +1,7 @@
 import Vue from 'vue/dist/vue.esm'
 import axios from 'axios'
 
-export const ready = callback => document.addEventListener('DOMContentLoaded', callback)
+export const ready = callback => window.addEventListener('load', callback)
 
 export const doc = q => Array.from(document.querySelectorAll(q))
 
