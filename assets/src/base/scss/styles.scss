@@ -1,3 +1,9 @@
 @import "./avatar";
 @import "./video";
 @import "./tooltip";
+@import "./swiper";
+
+.swiper-container {
+  width: 400px;
+  height: 300px;
+}
