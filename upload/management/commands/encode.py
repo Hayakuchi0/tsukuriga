@@ -11,14 +11,14 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # ファイルトップでimportするとAppRegistryNotReadyエラーが出る(encode()内のimportが無視される？)
         from upload.models import UploadedPureVideo
-        videos = UploadedPureVideo.objects.all().order_by('-created_at')
+        pure_videos = UploadedPureVideo.objects.all().order_by('-created_at')
 
-        for video in videos:
-            if video.is_encoding:
+        for pure in pure_videos:
+            if pure.is_encoding:
                 continue
 
             # エラーを送出してもメインプロセスは終了しないため、try-exceptはtarget内部で行う
-            process = Process(target=encode, args=[video.id])
+            process = Process(target=encode, args=[pure.id])
             process.start()
             process.join()
 
