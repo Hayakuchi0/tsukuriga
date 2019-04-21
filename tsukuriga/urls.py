@@ -16,7 +16,17 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
+
+from .sitemap import *
+
+sitemaps = {
+    'static': StaticViewSitemap,
+    'video': VideoSitemap,
+    'page': PageSitemap,
+    'user': UserSitemap
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,7 +39,8 @@ urlpatterns = [
     path('', include('browse.urls')),
     path('upload', include('upload.urls')),
     path('notify', include('notify.urls')),
-    path('ajax/', include('ajax.urls'))
+    path('ajax/', include('ajax.urls')),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ]
 
 if settings.DEBUG:
