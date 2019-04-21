@@ -5,7 +5,7 @@
         {% for page in featured_pages %}
           <div class="swiper-slide">
             <a href="/pages/{{ page.slug }}">
-              <figure class="image is-3by1">
+              <figure class="image is-16by9">
                 <img src="{{ page.ogp_image }}" alt="{{ page.title }}" class="is-safe-aspect">
               </figure>
               <div class="swiper-caption is-size-5">{{ page.title }}</div>

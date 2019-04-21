@@ -1,8 +1,10 @@
 @import "~swiper/dist/css/swiper.css";
 
 .swiper-container {
-  max-width: $tablet;
-  max-height: 300px;
+  height: 100%;
+  // タブレットサイズ * 2/3 - padding * 2
+  max-width: $tablet * 0.66 - 10.5 * 2;
+  max-height: 400px;
 
   .swiper-slide {
     position: relative;
