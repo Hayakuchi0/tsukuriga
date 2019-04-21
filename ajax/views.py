@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_GET, require_POST
+from django.utils import timezone
 
 from upload.models import Video, VideoProfile
 from .models import Comment, Point
@@ -58,9 +59,13 @@ def add_point(request, slug):
 
     if form.is_valid():
         if request.user.is_authenticated:
-            old_point = video.point_set.filter(user=request.user).first()
+            old_point = video.point_set.filter(
+                user=request.user, created_at__day=timezone.now().day
+            ).first()
         else:
-            old_point = video.point_set.filter(user__isnull=True, ip=get_ip(request)).first()
+            old_point = video.point_set.filter(
+                user__isnull=True, ip=get_ip(request), created_at__day=timezone.now().day
+            ).first()
 
         if old_point:
             old_point.count += form.cleaned_data['count']

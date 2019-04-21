@@ -101,6 +101,9 @@ class Video(models.Model):
             self.published_at = timezone.now()
         self.save()
 
+    def __str__(self):
+        return self.profile.title + f'(id:{self.slug})'
+
     def delete(self, **kwargs):
         if hasattr(self, 'profile'):
             self.profile.delete()
