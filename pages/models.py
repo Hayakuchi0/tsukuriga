@@ -22,7 +22,9 @@ class Page(CustomModel):
 
     @property
     def description(self):
-        return self.text[:80]
+        # 正規表現参考
+        # https://www.ipentec.com/document/regularexpression-html-tag-detect
+        return re.sub(r'(<(".*?"|\'.*?\'|[^\'"])*?>|\n)', '', self.body)[:80]
 
     @property
     def is_new(self):
@@ -34,7 +36,7 @@ class Page(CustomModel):
 
     @property
     def ogp_image(self):
-        img = re.search(r'!\[.+\]\((?P<uri>.+)\)', self.text)
+        img = re.search(r'!\[.+\]\((?P<uri>.)\)', self.text)
         if img:
             return img.group('uri')
         return 'https://tsukuriga.net/assets/images/ogp.png'
