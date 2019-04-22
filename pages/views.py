@@ -6,7 +6,7 @@ from .models import Page
 
 
 class PagesList(AltPaginationListView):
-    paginate_by = 12
+    paginate_by = 6
     template_name = 'pages/index.html'
     context_object_name = 'pages'
 
