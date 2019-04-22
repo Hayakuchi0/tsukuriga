@@ -14,9 +14,6 @@ class Command(BaseCommand):
         pure_videos = UploadedPureVideo.objects.all().order_by('-created_at')
 
         for pure in pure_videos:
-            if pure.is_encoding:
-                continue
-
             # エラーを送出してもメインプロセスは終了しないため、try-exceptはtarget内部で行う
             process = Process(target=encode, args=[pure.id])
             process.start()
@@ -29,6 +26,9 @@ def encode(pk):
     from upload.models import UploadedPureVideo
 
     pure = UploadedPureVideo.objects.get(pk=pk)
+    if pure.is_encoding:
+        return
+
     try:
         pure.make()
         pure.delete()
