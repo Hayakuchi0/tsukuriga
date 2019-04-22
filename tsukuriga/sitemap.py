@@ -21,14 +21,14 @@ class VideoSitemap(sitemaps.Sitemap):
 
 
 class StaticViewSitemap(sitemaps.Sitemap):
-    changefreq = 'hourly'
+    changefreq = 'daily'
     priority = 0.7
 
     def items(self):
-        return ['top']
+        return ['/', '/pages']
 
     def location(self, item):
-        return '/'
+        return item
 
 
 class PageSitemap(sitemaps.Sitemap):
