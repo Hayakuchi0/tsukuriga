@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% load core_tags %}
 
-{% block title %}ツクリガ -Tsukuriga- ワンカットから始まるアニメーション投稿プラットフォーム{% endblock %}
-{% block ogp_title %}ツクリガ -Tsukuriga- ワンカットから始まるアニメーション投稿プラットフォーム{% endblock %}
+{% block title %}ツクリガ -Tsukuriga- 自主制作アニメ、パラパラ漫画の投稿プラットフォーム{% endblock %}
+{% block ogp_title %}ツクリガ -Tsukuriga- 自主制作アニメ、パラパラ漫画の投稿プラットフォーム{% endblock %}
 {% block ogp_image %}{{ '/assets/images/ogp.png'|to_absolute_path }}{% endblock %}
 
 {% block content_2col %}
   <div class="column">
-    {% if featured_pages %}
+    {% if featured_pages and request.path == '/' %}
       {% include 'browse/components/featured-swiper.html' %}
     {% endif %}
     {% include 'browse/components/video-list.html' %}
