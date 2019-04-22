@@ -9,7 +9,7 @@ AdminMarkdownxWidget.template_name = 'pages/form.html'
 
 
 class CustomMDXModelAdmin(MarkdownxModelAdmin):
-    list_display = ('title', 'slug', 'created_at', 'is_published', 'page_url')
+    list_display = ('title', 'slug', 'featured_order', 'created_at', 'is_published', 'page_url')
 
     @staticmethod
     def page_url(obj):
