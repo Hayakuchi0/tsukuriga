@@ -7,7 +7,7 @@
 
 {% block content_2col %}
   <div class="column">
-    {% if featured_pages and request.path == '/' %}
+    {% if featured_pages and request.path == '/' and not request.GET %}
       {% include 'browse/components/featured-swiper.html' %}
     {% endif %}
     {% include 'browse/components/video-list.html' %}
