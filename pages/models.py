@@ -22,9 +22,10 @@ class Page(CustomModel):
 
     @property
     def description(self):
-        # 正規表現参考
-        # https://www.ipentec.com/document/regularexpression-html-tag-detect
-        return re.sub(r'(<(".*?"|\'.*?\'|[^\'"])*?>|\n)', '', self.body)[:80]
+        result = ''
+        for p in re.findall(r'<p>(.+?)</p>', self.body.replace('\n', '')):
+            result += re.sub('<.+?>', '', p)
+        return result[:80]
 
     @property
     def is_new(self):
