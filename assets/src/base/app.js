@@ -1,4 +1,5 @@
 import Tooltip from 'tooltip.js'
+import Swiper from 'swiper'
 
 import { doc, ready, Notify } from '../utils'
 import './styles.scss'
@@ -75,5 +76,18 @@ ready(() => {
       title: $tooltip.dataset.tooltip,
       placement: 'bottom',
     })
+  })
+
+  /**
+   * Swiper
+   */
+  new Swiper('.swiper-container', {
+    loop: true,
+    autoplay: {
+      delay: 3000,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+    },
   })
 })
