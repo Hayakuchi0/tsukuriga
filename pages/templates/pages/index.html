@@ -26,8 +26,8 @@
             {{ page.created_at|dt2str }}
           </div>
           <a href="/pages/{{ page.slug }}">
-            <h3 class="title">{{ page.title }}</h3>
-            <p class="subtitle">{{ page.description }}</p>
+            <h3 class="title page-title">{{ page.title }}</h3>
+            <p class="subtitle page-description">{{ page.description }}</p>
           </a>
         </div>
       {% endfor %}
