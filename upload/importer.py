@@ -60,7 +60,7 @@ class TwitterImporter:
     def __init__(self, tweet_id, user):
         self.user = user
         self.tweet_id = tweet_id
-        if not self.user.has_social_auth('twitter'):
+        if not self.user.has_twitter_auth:
             raise ImportFileError('ツイッター認証が必要です')
 
     def __call__(self):
