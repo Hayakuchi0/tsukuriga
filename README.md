@@ -72,7 +72,7 @@ $ yarn run dev
 
 #### アップロード動画のサムネイル作成とエンコード処理
 ```bash
-$ sudo docker-compose run python manage_dev.py encode
+$ sudo docker-compose run web python manage_dev.py encode
 ```
 
 ## Author
