@@ -18,6 +18,11 @@ class VideoProfileForm(forms.ModelForm):
         label='動画説明', widget=forms.Textarea(), required=False,
         help_text='URLと@, #から始まる文字列はそれぞれリンク、ユーザーページへのリンク、ハッシュタグに置換されます'
     )
+    ordered_fps = forms.IntegerField(
+        label='コマ送り機能用fps値の指定', min_value=1, required=False,
+        help_text="""アップロードしたファイルと異なるfpsでコマ送り機能を使いたい場合に入力して下さい。<br>
+動画ファイル自体のfpsは変わりません。指定がない場合は動画ファイルから読み取った値を使用します"""
+    )
     allows_anonymous_comment = forms.BooleanField(
         label='匿名のコメントを許可する', required=False,
         help_text='拒否設定にした時点で追加されていたコメントは全て匿名設定がオフになります'
@@ -25,7 +30,7 @@ class VideoProfileForm(forms.ModelForm):
 
     class Meta:
         model = VideoProfile
-        fields = ('title', 'description', 'is_loop', 'allows_anonymous_comment')
+        fields = ('title', 'description', 'ordered_fps', 'is_loop', 'allows_anonymous_comment')
 
 
 class VideoImportForm(forms.Form):
