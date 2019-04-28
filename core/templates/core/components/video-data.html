@@ -26,8 +26,8 @@
           <th>fps</th>
           <td>
             {{ video.data.fps }}
-            {% if video.profile.fps %}
-              (コマ送り:{{ video.profile.fps }})
+            {% if video.profile.ordered_fps %}
+              (コマ送り:{{ video.profile.ordered_fps }})
             {% endif %}
           </td>
         </tr>
