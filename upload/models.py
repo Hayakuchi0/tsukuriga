@@ -13,6 +13,7 @@ from moviepy.editor import VideoFileClip
 
 from .validators import FileValidator, video_file_validator
 from .utils import get_tempfile
+from browse.models import Ranking
 from core.utils import CustomModel, gen_unique_slug
 
 
@@ -94,6 +95,13 @@ class Video(models.Model):
     @property
     def favorites_count(self):
         return len(self.favorite_set.all())
+
+    def calculate_rankings(self):
+        for ranking_day, i in Ranking.DAYS:
+            for ranking_type, j in Ranking.TYPES:
+                ranking = self.ranking_set.create(day=ranking_day, type=ranking_type)
+                ranking.calculate()
+                ranking.save()
 
     def publish_and_save(self):
         self.is_active = True
