@@ -6,5 +6,14 @@
   </div>
   <div class="column">
     <div class="markdownx-preview"></div>
+    <script>
+    setInterval(() => {
+      for (el of document.querySelectorAll('blockquote')) {
+        el.classList.add('twitter-tweet')
+        twttr.widgets.load()
+      }
+    }, 100)
+    </script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   </div>
 </div>
