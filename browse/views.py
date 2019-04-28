@@ -5,6 +5,7 @@ from django.db.models import Q
 
 from .utils import safe_videos
 from .models import Ranking
+from upload.models import Video
 from core.utils import AltPaginationListView
 
 
@@ -54,7 +55,9 @@ class RankingList(AltPaginationListView):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        return Ranking.objects.filter(type=self.ranking_type, day=self.ranking_day).order_by('-point')
+        rankings = Ranking.objects.filter(type=self.ranking_type, day=self.ranking_day).order_by('-point')
+        videos = Video.objects.all()
+        return rankings if rankings.count() >= videos.count() else []
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
