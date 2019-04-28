@@ -3,6 +3,9 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import login
 from django.contrib import messages
 
+from social_django.views import complete
+from social_core import exceptions as social_exceptions
+
 from ..models import User
 from ..forms import SignUpForm, ImportUserForm
 from ..utils import ImportUser, ImportUserException
@@ -18,6 +21,17 @@ def signup(request):
             messages.success(request, 'ログインしました')
             return redirect('/')
     return render(request, 'auth/signup.html', {'form': form})
+
+
+def social_auth_complete(request, backend):
+    try:
+        return complete(request, backend)
+    except ValueError as e:
+        if type(e) == social_exceptions.AuthAlreadyAssociated:
+            messages.error(request, 'すでに使用済みのアカウントです')
+        else:
+            messages.error(request, '予期せぬエラーが発生しました')
+        return redirect('/account/login')
 
 
 class CustomLoginView(LoginView):
@@ -37,7 +51,6 @@ class CustomLogoutView(LogoutView):
 
 
 def import_user(request):
-
     form = ImportUserForm()
     if request.method == 'POST':
         form = ImportUserForm(request.POST)
