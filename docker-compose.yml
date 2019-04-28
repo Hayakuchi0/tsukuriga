@@ -3,10 +3,19 @@ version: '3'
 services:
   web:
     build: .
-    command: python manage_dev.py runserver_plus 0.0.0.0:8000
+    command: bash -c "python manage_dev.py migrate && python manage_dev.py runserver_plus 0.0.0.0:8000"
     dns:
       - "8.8.8.8"
     volumes:
       - .:/code
     ports:
       - "8000:8000"
+    depends_on:
+      - node
+  node:
+    image: node:11.14
+    command: bash -c "yarn && yarn run dev"
+    volumes:
+      - .:/code
+    working_dir: /code
+

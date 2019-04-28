@@ -60,14 +60,8 @@ $ sudo docker-compose run web python manage_dev.py createsuperuser
 ```
 
 #### 開発サーバーの起動
-
-下記2つのコマンドを別々のターミナルで実行
-
 ```bash
-$ sudo docker-compose up
-```
-```bash
-$ yarn run dev
+$ sudo docker-compose up -d
 ```
 
 #### アップロード動画のサムネイル作成とエンコード処理
