@@ -48,15 +48,15 @@ $ yarn run dev
 #### セットアップ
 
 ```bash
-$ sudo ./docker/createDocker.sh
+# Dockerイメージの作成
+$ sudo docker-compose build
 
 # ログインに必要なTWITTER_KEY, TWITTER_SECRETのみ変更
 $ mv .env.example .env
 $ vim .env
 
 # スーパーユーザーの作成
-$ sudo ./docker/exec.sh
-(docker)$ python3 /var/www/html/manage_dev.py createsuperuser;exit
+$ sudo docker-compose run web python manage_dev.py createsuperuser
 ```
 
 #### 開発サーバーの起動
@@ -64,7 +64,7 @@ $ sudo ./docker/exec.sh
 下記2つのコマンドを別々のターミナルで実行
 
 ```bash
-$ sudo ./docker/debugDocker.sh
+$ sudo docker-compose up
 ```
 ```bash
 $ yarn run dev
@@ -72,8 +72,7 @@ $ yarn run dev
 
 #### アップロード動画のサムネイル作成とエンコード処理
 ```bash
-$ sudo ./docker/exec.sh
-(docker)$ python3 /var/www/html/manage_dev.py encode;exit
+$ sudo docker-compose run web python manage_dev.py encode
 ```
 
 ## Author

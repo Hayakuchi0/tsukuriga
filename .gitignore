@@ -28,6 +28,3 @@ Thumbs.db
 *.exe
 *.bat
 *.wsgi
-
-# Docker
-/docker/Pipfile

@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: python manage_dev.py runserver_plus 0.0.0.0:8000
+    dns:
+      - "8.8.8.8"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
