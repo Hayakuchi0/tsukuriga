@@ -6,7 +6,23 @@
 
 {% block content_2col %}
   <div class="column">
-    <h1>ランキング</h1>
-    {% include 'browse/components/video-list.html' with videos=rankings|to_attr_list:"video" %}
+    <h1 class="title">ランキング</h1>
+    {% if rankings %}
+      <div class="level is-mobile">
+        <div class="level-left">
+          <div class="level-item">
+            {% include 'browse/components/ranking-type-dropdown.html' with ref=rankings.0 %}
+          </div>
+          <div class="level-item">
+            {% include 'browse/components/ranking-day-dropdown.html' with ref=rankings.0 %}
+          </div>
+        </div>
+      </div>
+      {% include 'browse/components/video-list.html' with videos=rankings|to_attr_list:"video" %}
+    {% else %}
+      <div class="column has-text-centered">
+        <p>現在集計中です。しばらく待ってから再度アクセスして下さい</p>
+      </div>
+    {% endif %}
   </div>
 {% endblock %}

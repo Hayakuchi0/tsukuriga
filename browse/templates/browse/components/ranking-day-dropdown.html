@@ -1,0 +1,19 @@
+<div class="dropdown is-hoverable">
+  <div class="dropdown-trigger">
+    <button class="button" aria-haspopup="true" aria-controls="ranking-dropdown-day">
+      <span>{{ ref.get_day_display }}</span>
+      <span class="icon is-small">
+        <i class="fas fa-angle-down" aria-hidden="true"></i>
+      </span>
+    </button>
+  </div>
+  <div class="dropdown-menu" id="ranking-dropdown-day" role="menu">
+    <div class="dropdown-content">
+      {% for pathname, label in Ranking.DAYS %}
+        <a class="dropdown-item" href="/ranking/{{ ref.type }}/{{ pathname }}">
+          {{ label }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>

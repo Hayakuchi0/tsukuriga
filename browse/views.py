@@ -56,5 +56,10 @@ class RankingList(AltPaginationListView):
     def get_queryset(self):
         return Ranking.objects.filter(type=self.ranking_type, day=self.ranking_day).order_by('-point')
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['Ranking'] = Ranking
+        return context
+
 
 ranking = RankingList.as_view()
