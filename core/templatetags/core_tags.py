@@ -73,3 +73,8 @@ def to_tight_count(count):
         else:
             result += '0'
     return result
+
+
+@register.filter
+def to_attr_list(l: list, attr) -> list:
+    return [getattr(i, attr) for i in l]
