@@ -24,7 +24,12 @@
       {% else %}
         <tr>
           <th>fps</th>
-          <td>{{ video.data.fps }}</td>
+          <td>
+            {{ video.data.fps }}
+            {% if video.profile.fps %}
+              (コマ送り:{{ video.profile.fps }})
+            {% endif %}
+          </td>
         </tr>
         <tr>
           <th>動画時間</th>
