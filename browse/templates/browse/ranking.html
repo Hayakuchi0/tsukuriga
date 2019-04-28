@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load core_tags %}
 
-{% block page_title %}{{ rankings.0.get_day_display }}{{ rankings.0.get_type_display }}{% endblock %}
-{% block ogp_page_title %}{{ rankings.0.get_day_display }}{{ rankings.0.get_type_display }}{% endblock %}
+{% block page_title %}ランキング：{{ rankings.0.get_day_display }}{{ rankings.0.get_type_display }}{% endblock %}
+{% block ogp_page_title %}ランキング：{{ rankings.0.get_day_display }}{{ rankings.0.get_type_display }}{% endblock %}
 
 {% block content_2col %}
   <div class="column">
