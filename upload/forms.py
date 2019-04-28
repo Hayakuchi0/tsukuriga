@@ -25,7 +25,7 @@ class VideoProfileForm(forms.ModelForm):
 
     class Meta:
         model = VideoProfile
-        fields = ('title', 'description', 'allows_anonymous_comment')
+        fields = ('title', 'description', 'is_loop', 'allows_anonymous_comment')
 
 
 class VideoImportForm(forms.Form):
