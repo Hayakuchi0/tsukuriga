@@ -59,3 +59,12 @@ class Ranking(models.Model):
         if self.day_count == -1:
             return self.video.favorites_count
         return len(self.video.favorite_set.filter(created_at__gte=self.from_datetime))
+
+
+class Channel(models.Model):
+    number = models.PositiveSmallIntegerField('番号', unique=True)
+    title = models.CharField('タイトル', max_length=50)
+    description = models.TextField('説明')
+
+    def __str__(self):
+        return f'{self.title}({self.number}ch)'

@@ -3,6 +3,17 @@
     <table class="is-narrow is-striped">
       <tbody>
       <tr>
+        <th>チャンネル</th>
+        <td>
+          {% for channel in video.profile.channels.all %}
+            <a href="/channel/{{ channel.number }}ch">{{ channel }}</a>
+            {% if not forloop.last %}<br>{% endif %}
+          {% empty %}
+            なし
+          {% endfor %}
+        </td>
+      </tr>
+      <tr>
         <th>再生回数</th>
         <td>{{ video.views_count }}</td>
       </tr>

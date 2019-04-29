@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
+from upload.generic import VideoProfileUpdateView
 from .models import Video, VideoProfile
 from .importer import ImportFile, ImportFileError
 from .decorators import users_video_required
-from .forms import VideoFileUploadForm, VideoProfileForm, VideoImportForm
+from .forms import VideoFileUploadForm, VideoImportForm
 
 
 def get_process(active_index):
@@ -63,26 +64,22 @@ def import_upload(request):
     return render(request, 'upload/import.html', {'process': get_process(1), 'form': form})
 
 
+class Detail(VideoProfileUpdateView):
+    template_name = 'upload/profile.html'
+
+    def get_success_url(self):
+        return f'/upload/complete/{self.request.video.slug}'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['process'] = get_process(2)
+        return context
+
+
 @login_required
 @users_video_required
 def detail(request, slug):
-    video = request.video
-    form = VideoProfileForm(instance=video.profile)
-
-    if request.method == 'POST':
-        form = VideoProfileForm(request.POST, instance=video.profile)
-
-        if form.is_valid():
-            profile = form.save(commit=False)
-            profile.video = video
-            profile.save()
-
-            if not video.is_active:
-                video.publish_and_save()
-
-            return redirect(f'/upload/complete/{video.slug}')
-
-    return render(request, 'upload/profile.html', {'process': get_process(2), 'form': form})
+    return Detail.as_view()(request, slug)
 
 
 @login_required

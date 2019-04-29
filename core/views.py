@@ -3,11 +3,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 
-from ajax.models import Comment
 from ajax.forms import CommentForm, AddPointForm
 from upload.models import Video
-from upload.forms import VideoProfileForm
 from upload.decorators import users_video_required
+from upload.generic import VideoProfileUpdateView
 from .forms import ThumbnailForm, DeleteVideoForm
 
 
@@ -21,30 +20,23 @@ def watch(request, slug):
     return render(request, 'core/watch.html', {'video': video, 'form': CommentForm(), 'modal_form': AddPointForm()})
 
 
+class Edit(VideoProfileUpdateView):
+    template_name = 'core/edit.html'
+
+    def get_success_url(self):
+        return f'/watch/{self.request.video.slug}'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['video'] = self.request.video
+        context['modal_form'] = DeleteVideoForm()
+        return context
+
+
 @login_required
 @users_video_required
 def edit(request, slug):
-    video = request.video
-    form = VideoProfileForm(instance=video.profile)
-
-    if request.method == 'POST':
-        form = VideoProfileForm(request.POST, instance=video.profile)
-
-        if form.is_valid():
-            form.save()
-            if not video.profile.allows_anonymous_comment:
-                comments = Comment.objects.filter(video=video, is_anonymous=True)
-                for comment in comments:
-                    comment.is_anonymous = False
-                    comment.save()
-
-            if not video.is_active:
-                video.publish_and_save()
-
-            messages.success(request, '保存されました')
-            return redirect(f'/watch/{video.slug}')
-
-    return render(request, 'core/edit.html', {'video': video, 'form': form, 'modal_form': DeleteVideoForm()})
+    return Edit.as_view()(request, slug)
 
 
 @login_required

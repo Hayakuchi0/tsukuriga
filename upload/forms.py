@@ -1,4 +1,7 @@
 from django import forms
+
+from extra_views import InlineFormSetFactory
+
 from .models import UploadedPureVideo, VideoProfile
 
 
@@ -31,6 +34,12 @@ class VideoProfileForm(forms.ModelForm):
     class Meta:
         model = VideoProfile
         fields = ('title', 'description', 'ordered_fps', 'is_loop', 'allows_anonymous_comment')
+
+
+class ChannelInline(InlineFormSetFactory):
+    model = VideoProfile.channels.through
+    fields = '__all__'
+    factory_kwargs = {'can_delete': False, 'max_num': 3}
 
 
 class VideoImportForm(forms.Form):
