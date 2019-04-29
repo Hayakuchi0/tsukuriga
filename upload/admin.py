@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.utils.html import format_html
 
 from . import models
 
@@ -9,7 +8,11 @@ class ReadOnlyMixin:
         return False
 
 
-class VideoProfileInline(ReadOnlyMixin, admin.StackedInline):
+class ChannelInline(admin.TabularInline):
+    model = models.VideoProfile.channels.through
+
+
+class VideoProfileInline(admin.StackedInline):
     model = models.VideoProfile
 
 
@@ -58,7 +61,11 @@ class VideoAdmin(ReadOnlyMixin, admin.ModelAdmin):
         return list_display
 
 
+class VideoProfileAdmin(admin.ModelAdmin):
+    inlines = (ChannelInline,)
+
+
 admin.site.register(models.Video, VideoAdmin)
 admin.site.register(models.UploadedPureVideo)
-admin.site.register(models.VideoProfile)
+admin.site.register(models.VideoProfile, VideoProfileAdmin)
 admin.site.register(models.VideoData)
