@@ -62,8 +62,9 @@ class Ranking(models.Model):
 
 
 class Channel(models.Model):
-    title = models.CharField('チャンネル名', max_length=50)
-    description = models.TextField('チャンネル説明')
+    number = models.PositiveSmallIntegerField('番号', unique=True)
+    title = models.CharField('タイトル', max_length=50)
+    description = models.TextField('説明')
 
     def __str__(self):
-        return self.title
+        return f'{self.title}({self.number}ch)'

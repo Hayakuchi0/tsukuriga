@@ -6,8 +6,10 @@
         <th>チャンネル</th>
         <td>
           {% for channel in video.profile.channels.all %}
-            <a href="/channel/{{ channel.title }}">{{ channel.title }}</a>
+            <a href="/channel/{{ channel.number }}ch">{{ channel }}</a>
             {% if not forloop.last %}<br>{% endif %}
+          {% empty %}
+            なし
           {% endfor %}
         </td>
       </tr>
