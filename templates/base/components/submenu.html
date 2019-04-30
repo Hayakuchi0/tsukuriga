@@ -11,8 +11,8 @@
   <ul class="menu-list">
     {% for label in labels %}
       <li>
-        <a href="/label/{{ label.number }}ch">
-          <strong>{{ label.number }}ch</strong> {{ label.title }}
+        <a href="/label/{{ label.slug }}">
+          {{ label }}
         </a>
       </li>
     {% endfor %}

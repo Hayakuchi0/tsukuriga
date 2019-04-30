@@ -62,12 +62,13 @@ class Ranking(models.Model):
 
 
 class Label(models.Model):
-    number = models.PositiveSmallIntegerField('番号', unique=True)
+    slug = models.SlugField('スラッグ')
+    color = models.CharField('色', max_length=10)
     title = models.CharField('タイトル', max_length=50)
     description = models.TextField('説明')
 
     def __str__(self):
-        return f'{self.number}ch {self.title}'
+        return self.title
 
 
 class VideoProfileLabelRelation(models.Model):

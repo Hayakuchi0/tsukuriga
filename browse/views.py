@@ -71,18 +71,18 @@ class LabelList(AltPaginationListView):
     context_object_name = 'videos'
     paginate_by = 12
 
-    ch = None
+    label = None
 
     def get(self, request, *args, **kwargs):
-        self.ch = get_object_or_404(Label, number=self.kwargs.get('number'))
+        self.label = get_object_or_404(Label, slug=self.kwargs.get('slug'))
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        return safe_videos().filter(profile__labels=self.ch)
+        return safe_videos().filter(profile__labels=self.label)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['label'] = self.ch
+        context['label'] = self.label
         return context
 
 
