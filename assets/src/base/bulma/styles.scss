@@ -29,7 +29,10 @@ $addColors: (
         "blue": ($blue, $blue-invert),
         "purple": ($purple, $purple-invert),
         "red": ($red, $red-invert),
-        "pink": ($pink, findColorInvert($pink))
+        "pink": ($pink, findColorInvert($pink)),
+        "grey": ($grey, findColorInvert($grey)),
+        "grey-light": ($grey-light, findColorInvert($grey-light)),
+        "grey-lighter": ($grey-lighter, findColorInvert($grey-lighter)),
 );
 $colors: map-merge($colors, $addColors);
 
