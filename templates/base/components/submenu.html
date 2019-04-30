@@ -7,6 +7,18 @@
   </aside>
 {% endif %}
 <aside class="box menu">
+  <p class="menu-label">チャンネル一覧</p>
+  <ul class="menu-list">
+    {% for channel in channels %}
+      <li>
+        <a href="/channel/{{ channel.number }}ch">
+          <strong>{{ channel.number }}ch</strong> {{ channel.title }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</aside>
+<aside class="box menu">
   <p class="menu-label">最新記事</p>
   <ul class="menu-list">
     {% for page in latest_pages %}
