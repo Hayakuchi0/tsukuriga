@@ -44,13 +44,18 @@ ready(() => {
       }
     },
     methods: {
-      add() {
+      add(e) {
+        e.preventDefault()
         this.pointInput++
       },
-      minus() {
+      minus(e) {
+        e.preventDefault()
         if (this.pointInput > 1) {
           this.pointInput--
         }
+      },
+      preventTouch(e) {
+        e.preventDefault()
       },
       hideModal() {
         this.$refs.pointModal.classList.remove('is-active')
