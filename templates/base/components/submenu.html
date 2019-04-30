@@ -12,7 +12,9 @@
     {% for label in labels %}
       <li>
         <a href="/label/{{ label.slug }}">
-          {{ label }}
+          <div class="{{ label.css_classes }}">
+            {{ label }}
+          </div>
         </a>
       </li>
     {% endfor %}
