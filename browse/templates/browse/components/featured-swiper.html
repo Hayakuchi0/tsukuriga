@@ -1,19 +1,15 @@
-<section class="hero is-primary is-small has-margin-bottom">
-  <div class="hero-body">
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        {% for page in featured_pages %}
-          <div class="swiper-slide">
-            <a href="/pages/{{ page.slug }}">
-              <figure class="image is-16by9">
-                <img src="{{ page.ogp_image }}" alt="{{ page.title }}" class="is-safe-aspect">
-              </figure>
-              <div class="swiper-caption is-size-5">{{ page.title }}</div>
-            </a>
-          </div>
-        {% endfor %}
+<div class="swiper-container">
+  <div class="swiper-wrapper">
+    {% for page in featured_pages %}
+      <div class="swiper-slide">
+        <a href="/pages/{{ page.slug }}">
+          <figure class="image is-16by9">
+            <img src="{{ page.ogp_image }}" alt="{{ page.title }}" class="is-safe-aspect">
+          </figure>
+          <div class="swiper-caption is-size-5">{{ page.title }}</div>
+        </a>
       </div>
-      <div class="swiper-pagination"></div>
-    </div>
+    {% endfor %}
   </div>
-</section>
+  <div class="swiper-pagination"></div>
+</div>

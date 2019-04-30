@@ -7,20 +7,6 @@
   </aside>
 {% endif %}
 <aside class="box menu">
-  <p class="menu-label">ラベル一覧</p>
-  <ul class="menu-list">
-    {% for label in labels %}
-      <li>
-        <a href="/label/{{ label.slug }}">
-          <div class="{{ label.css_classes }}">
-            {{ label }}
-          </div>
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
-</aside>
-<aside class="box menu">
   <p class="menu-label">最新記事</p>
   <ul class="menu-list">
     {% for page in latest_pages %}

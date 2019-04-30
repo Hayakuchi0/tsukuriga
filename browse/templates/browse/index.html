@@ -7,9 +7,27 @@
 
 {% block content_2col %}
   <div class="column">
-    {% if featured_pages and request.path == '/' and not request.GET %}
-      {% include 'browse/components/featured-swiper.html' %}
-    {% endif %}
+    <div class="columns has-margin-bottom">
+      <div class="column">
+        {% if featured_pages and request.path == '/' and not request.GET %}
+          {% include 'browse/components/featured-swiper.html' %}
+        {% endif %}
+      </div>
+      <div class="column">
+        <h2 class="subtitle">ラベル一覧</h2>
+        <div class="columns is-multiline is-mobile">
+          {% for label in labels %}
+            <div class="column is-narrow is-narrow-padding">
+              <a href="/label/{{ label.slug }}">
+                <div class="{{ label.css_classes }} is-size-5">
+                  {{ label }}
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
     {% include 'browse/components/video-list.html' %}
   </div>
 {% endblock %}
