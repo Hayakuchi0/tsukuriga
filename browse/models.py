@@ -67,7 +67,7 @@ class Channel(models.Model):
     description = models.TextField('説明')
 
     def __str__(self):
-        return f'{self.title}({self.number}ch)'
+        return f'{self.number}ch {self.title}'
 
 
 class VideoProfileChannelRelation(models.Model):
