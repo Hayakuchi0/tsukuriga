@@ -7,5 +7,5 @@ urlpatterns = [
     path('ranking', views.ranking),
     path('ranking/<slug:type>', views.ranking),
     path('ranking/<slug:type>/<slug:day>', views.ranking),
-    path('channel/<int:number>ch', views.channel),
+    path('label/<int:number>ch', views.label),
 ]

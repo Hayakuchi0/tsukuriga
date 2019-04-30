@@ -5,8 +5,8 @@
       <tr>
         <th>チャンネル</th>
         <td>
-          {% for channel in video.profile.channels.all %}
-            <a href="/channel/{{ channel.number }}ch">{{ channel }}</a>
+          {% for label in video.profile.labels.all %}
+            <a href="/label/{{ label.number }}ch">{{ label }}</a>
             {% if not forloop.last %}<br>{% endif %}
           {% empty %}
             なし

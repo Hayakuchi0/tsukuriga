@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from browse.models import VideoProfileChannelRelation
+from browse.models import VideoProfileLabelRelation
 from . import models
 
 
@@ -9,8 +9,8 @@ class ReadOnlyMixin:
         return False
 
 
-class ChannelInline(admin.TabularInline):
-    model = VideoProfileChannelRelation
+class LabelInline(admin.TabularInline):
+    model = VideoProfileLabelRelation
 
 
 class VideoProfileInline(admin.StackedInline):
@@ -63,7 +63,7 @@ class VideoAdmin(ReadOnlyMixin, admin.ModelAdmin):
 
 
 class VideoProfileAdmin(admin.ModelAdmin):
-    inlines = (ChannelInline,)
+    inlines = (LabelInline,)
 
 
 admin.site.register(models.Video, VideoAdmin)

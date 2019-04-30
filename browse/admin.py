@@ -7,5 +7,5 @@ class RankingAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Ranking, RankingAdmin)
-admin.site.register(models.Channel)
-admin.site.register(models.VideoProfileChannelRelation)
+admin.site.register(models.Labels)
+admin.site.register(models.VideoProfileLabelRelation)

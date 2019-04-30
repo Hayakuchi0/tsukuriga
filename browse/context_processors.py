@@ -1,5 +1,5 @@
-from .models import Channel
+from .models import Labels
 
 
-def channels(request):
-    return {'channels': Channel.objects.all().order_by('number')}
+def labels(request):
+    return {'labels': Labels.objects.all().order_by('number')}
