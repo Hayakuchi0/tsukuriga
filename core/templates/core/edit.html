@@ -12,7 +12,7 @@
     <div class="box">
       <form class="submit-form" method="post">
         {% csrf_token %}
-        {% include 'upload/components/channel-select-form.html' %}
+        {% include 'upload/components/label-select-form.html' %}
         {{ form|bulma }}
         <button type="submit" class="button is-info">
           {% if video.is_active == False %}

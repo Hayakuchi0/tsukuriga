@@ -7,12 +7,14 @@
   </aside>
 {% endif %}
 <aside class="box menu">
-  <p class="menu-label">チャンネル一覧</p>
+  <p class="menu-label">ラベル一覧</p>
   <ul class="menu-list">
-    {% for channel in channels %}
+    {% for label in labels %}
       <li>
-        <a href="/channel/{{ channel.number }}ch">
-          <strong>{{ channel.number }}ch</strong> {{ channel.title }}
+        <a href="/label/{{ label.slug }}">
+          <div class="{{ label.css_classes }}">
+            {{ label }}
+          </div>
         </a>
       </li>
     {% endfor %}

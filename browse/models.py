@@ -61,18 +61,23 @@ class Ranking(models.Model):
         return len(self.video.favorite_set.filter(created_at__gte=self.from_datetime))
 
 
-class Channel(models.Model):
-    number = models.PositiveSmallIntegerField('番号', unique=True)
+class Label(models.Model):
+    slug = models.SlugField('スラッグ')
+    color = models.CharField('色', max_length=10)
     title = models.CharField('タイトル', max_length=50)
     description = models.TextField('説明')
 
+    @property
+    def css_classes(self):
+        return f'tag is-rounded is-{self.color}'
+
     def __str__(self):
-        return f'{self.number}ch {self.title}'
+        return self.title
 
 
-class VideoProfileChannelRelation(models.Model):
+class VideoProfileLabelRelation(models.Model):
     profile = models.ForeignKey('upload.VideoProfile', on_delete=models.CASCADE)
-    channel = models.ForeignKey(Channel, null=True, blank=True, on_delete=models.CASCADE)
+    label = models.ForeignKey(Label, null=True, blank=True, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('profile', 'channel')
+        unique_together = ('profile', 'label')
