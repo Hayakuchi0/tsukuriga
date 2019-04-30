@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from browse.models import VideoProfileChannelRelation
 from . import models
 
 
@@ -9,7 +10,7 @@ class ReadOnlyMixin:
 
 
 class ChannelInline(admin.TabularInline):
-    model = models.VideoProfile.channels.through
+    model = VideoProfileChannelRelation
 
 
 class VideoProfileInline(admin.StackedInline):

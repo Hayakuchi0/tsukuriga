@@ -2,6 +2,7 @@ from django import forms
 
 from extra_views import InlineFormSetFactory
 
+from browse.models import VideoProfileChannelRelation
 from .models import UploadedPureVideo, VideoProfile
 
 
@@ -37,7 +38,7 @@ class VideoProfileForm(forms.ModelForm):
 
 
 class ChannelInline(InlineFormSetFactory):
-    model = VideoProfile.channels.through
+    model = VideoProfileChannelRelation
     fields = '__all__'
     factory_kwargs = {'can_delete': False, 'max_num': 3}
 

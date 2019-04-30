@@ -5,6 +5,7 @@ from extra_views import UpdateWithInlinesView
 
 from .models import VideoProfile
 from .forms import VideoProfileForm, ChannelInline
+from browse.models import VideoProfileChannelRelation
 from ajax.models import Comment
 
 
@@ -12,6 +13,15 @@ class VideoProfileUpdateView(UpdateWithInlinesView):
     model = VideoProfile
     form_class = VideoProfileForm
     inlines = [ChannelInline]
+
+    def post(self, request, *args, **kwargs):
+        # 順番を入れ替えたとき(チャンネルA, B, NoneをB, A, Noneにしたときなど)に重複のエラーが出る
+        # 過去のデータを参照している？全てNULLにしておくことで回避できた
+        rels = VideoProfileChannelRelation.objects.filter(profile=self.request.video.profile)
+        for rel in rels:
+            rel.channel = None
+            rel.save()
+        return super().post(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         return self.request.video.profile
