@@ -62,8 +62,22 @@ class Ranking(models.Model):
 
 
 class Label(models.Model):
+    COLOR_SET = (
+        ("orange", "orange"),
+        ("yellow", "yellow"),
+        ("green", "green"),
+        ("turqoise", "turqoise"),
+        ("cyan", "cyan"),
+        ("blue", "blue"),
+        ("purple", "purple"),
+        ("red", "red"),
+        ("pink", "pink"),
+        ("grey", "grey"),
+        ("grey-light", "grey-light"),
+        ("grey-lighter", "grey-lighter"),
+    )
     slug = models.SlugField('スラッグ')
-    color = models.CharField('色', max_length=10)
+    color = models.CharField('色', max_length=10, choices=COLOR_SET)
     title = models.CharField('タイトル', max_length=50)
     description = models.TextField('説明')
 

@@ -20,6 +20,9 @@ $navbar-item-hover-color: darken(white, 20%);
 @import "~bulma/sass/utilities/derived-variables";
 
 $pink: #ffaea9;
+// browse.models.Label.COLOR_SETへの変換用正規表現
+// "(.+)":.+
+// ('$1', '$1'),
 $addColors: (
         "orange": ($orange, $orange-invert),
         "yellow": ($yellow, $yellow-invert),
