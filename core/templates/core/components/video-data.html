@@ -6,7 +6,11 @@
         <th>ラベル</th>
         <td>
           {% for label in video.profile.labels.all %}
-            <a href="/label/{{ label.slug }}">{{ label }}</a>
+            <a href="/label/{{ label.slug }}">
+              <div class="{{ label.css_classes }}">
+                {{ label }}
+              </div>
+            </a>
             {% if not forloop.last %}<br>{% endif %}
           {% empty %}
             なし

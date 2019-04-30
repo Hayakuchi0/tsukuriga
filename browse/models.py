@@ -67,6 +67,10 @@ class Label(models.Model):
     title = models.CharField('タイトル', max_length=50)
     description = models.TextField('説明')
 
+    @property
+    def css_classes(self):
+        return f'tag is-rounded is-{self.color}'
+
     def __str__(self):
         return self.title
 
