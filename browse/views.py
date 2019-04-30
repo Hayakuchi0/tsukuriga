@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q
 
 from .utils import safe_videos
-from .models import Ranking, Labels
+from .models import Ranking, Label
 from core.utils import AltPaginationListView
 
 
@@ -74,7 +74,7 @@ class LabelList(AltPaginationListView):
     ch = None
 
     def get(self, request, *args, **kwargs):
-        self.ch = get_object_or_404(Labels, number=self.kwargs.get('number'))
+        self.ch = get_object_or_404(Label, number=self.kwargs.get('number'))
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):

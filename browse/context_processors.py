@@ -1,5 +1,5 @@
-from .models import Labels
+from .models import Label
 
 
 def labels(request):
-    return {'labels': Labels.objects.all().order_by('number')}
+    return {'labels': Label.objects.all().order_by('number')}

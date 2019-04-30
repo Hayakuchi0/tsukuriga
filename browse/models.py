@@ -61,7 +61,7 @@ class Ranking(models.Model):
         return len(self.video.favorite_set.filter(created_at__gte=self.from_datetime))
 
 
-class Labels(models.Model):
+class Label(models.Model):
     number = models.PositiveSmallIntegerField('番号', unique=True)
     title = models.CharField('タイトル', max_length=50)
     description = models.TextField('説明')
@@ -72,7 +72,7 @@ class Labels(models.Model):
 
 class VideoProfileLabelRelation(models.Model):
     profile = models.ForeignKey('upload.VideoProfile', on_delete=models.CASCADE)
-    label = models.ForeignKey(Labels, null=True, blank=True, on_delete=models.CASCADE)
+    label = models.ForeignKey(Label, null=True, blank=True, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ('profile', 'label')

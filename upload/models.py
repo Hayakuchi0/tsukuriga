@@ -13,7 +13,7 @@ from moviepy.editor import VideoFileClip
 
 from .validators import FileValidator, video_file_validator
 from .utils import get_tempfile
-from browse.models import Ranking, Labels, VideoProfileLabelRelation
+from browse.models import Ranking, Label, VideoProfileLabelRelation
 from core.utils import CustomModel, gen_unique_slug
 
 
@@ -182,7 +182,7 @@ class VideoProfile(CustomModel):
     基本的にユーザーが編集可
     """
     video = models.OneToOneField(Video, verbose_name='動画', on_delete=models.CASCADE, related_name='profile')
-    labels = models.ManyToManyField(Labels, verbose_name='ラベル', blank=True, through=VideoProfileLabelRelation)
+    labels = models.ManyToManyField(Label, verbose_name='ラベル', blank=True, through=VideoProfileLabelRelation)
     title = models.CharField('タイトル', max_length=50)
     description = models.TextField('動画説明', default='', max_length=200, null=True, blank=True)
     ordered_fps = models.PositiveSmallIntegerField('fps', null=True, blank=True)
