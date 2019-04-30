@@ -3,7 +3,7 @@
     <table class="is-narrow is-striped">
       <tbody>
       <tr>
-        <th>チャンネル</th>
+        <th>ラベル</th>
         <td>
           {% for label in video.profile.labels.all %}
             <a href="/label/{{ label.number }}ch">{{ label }}</a>

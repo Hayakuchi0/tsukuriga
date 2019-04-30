@@ -182,7 +182,7 @@ class VideoProfile(CustomModel):
     基本的にユーザーが編集可
     """
     video = models.OneToOneField(Video, verbose_name='動画', on_delete=models.CASCADE, related_name='profile')
-    labels = models.ManyToManyField(Labels, verbose_name='チャンネル', blank=True, through=VideoProfileLabelRelation)
+    labels = models.ManyToManyField(Labels, verbose_name='ラベル', blank=True, through=VideoProfileLabelRelation)
     title = models.CharField('タイトル', max_length=50)
     description = models.TextField('動画説明', default='', max_length=200, null=True, blank=True)
     ordered_fps = models.PositiveSmallIntegerField('fps', null=True, blank=True)

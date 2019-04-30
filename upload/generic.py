@@ -15,7 +15,7 @@ class VideoProfileUpdateView(UpdateWithInlinesView):
     inlines = [LabelInline]
 
     def post(self, request, *args, **kwargs):
-        # 順番を入れ替えたとき(チャンネルA, B, NoneをB, A, Noneにしたときなど)に重複のエラーが出る
+        # 順番を入れ替えたとき(ラベルA, B, NoneをB, A, Noneにしたときなど)に重複のエラーが出る
         # 過去のデータを参照している？全てNULLにしておくことで回避できた
         rels = VideoProfileLabelRelation.objects.filter(profile=self.request.video.profile)
         for rel in rels:
