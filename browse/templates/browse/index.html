@@ -8,12 +8,12 @@
 {% block content_2col %}
   <div class="column">
     {% if featured_pages and request.path == '/' and not request.GET %}
-      <div class="columns has-margin-bottom">
+      <div class="columns has-margin-bottom is-vcentered">
         <div class="column">
           {% include 'browse/components/featured-swiper.html' %}
         </div>
         <div class="column">
-          <div class="columns is-multiline is-mobile">
+          <div class="columns is-multiline is-mobile is-vcentered">
             {% for label in labels %}
               <div class="column is-narrow is-narrow-padding">
                 <a href="/label/{{ label.slug }}">
