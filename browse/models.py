@@ -68,3 +68,11 @@ class Channel(models.Model):
 
     def __str__(self):
         return f'{self.title}({self.number}ch)'
+
+
+class VideoProfileChannelRelation(models.Model):
+    profile = models.ForeignKey('upload.VideoProfile', on_delete=models.CASCADE)
+    channel = models.ForeignKey(Channel, null=True, blank=True, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('profile', 'channel')
