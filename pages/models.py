@@ -9,7 +9,8 @@ from .utils import markdownify
 
 
 class Page(CustomModel):
-    author = models.ForeignKey('account.User', verbose_name='筆者', null=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey('account.User', verbose_name='筆者', null=True,
+                               on_delete=models.SET_NULL, limit_choices_to={'is_staff': True})
     title = models.CharField('タイトル', max_length=255)
     text = MarkdownxField('本文')
     slug = models.SlugField('スラッグ')
