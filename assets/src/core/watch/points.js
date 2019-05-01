@@ -11,7 +11,16 @@ ready(() => {
     data() {
       return {
         isLoading: false,
-        pointSum: 0
+        points: [],
+      }
+    },
+    computed: {
+      pointSum() {
+        let result = 0
+        this.points.forEach(point => {
+          result += point.count
+        })
+        return result
       }
     },
     mounted() {
@@ -23,11 +32,7 @@ ready(() => {
         this.isLoading = true
         axios.get(`/ajax/points/list/${videoId}`)
           .then(response => {
-            let pointSum = 0
-            response.data.results.forEach(point => {
-              pointSum += point.count
-            })
-            this.pointSum = pointSum
+            this.points = response.data.results
           })
           .finally(() => {
             this.isLoading = false
