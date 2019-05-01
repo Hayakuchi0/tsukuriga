@@ -195,6 +195,9 @@ class VideoProfile(CustomModel):
             return self.ordered_fps
         return self.video.data.fps
 
+    def __str__(self):
+        return self.video.__str__() + 'のプロフィール'
+
 
 class VideoData(models.Model):
     """
