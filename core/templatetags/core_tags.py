@@ -1,4 +1,5 @@
 import re
+import html
 
 from django import template
 from django.contrib.sites.models import Site
@@ -53,7 +54,8 @@ def to_absolute_path(path: str, is_secure=True):
 def activate_url(text):
     if not text:
         return text
-    result = re.sub(r'(https?://\S+)', r'<a href="\1" target="_blank">\1</a>', text)
+    result = html.escape(text)
+    result = re.sub(r'(https?://\S+)', r'<a href="\1" target="_blank">\1</a>', result)
     result = re.sub(r'(\A|\s)#(\S+)', r'<a href="/search?q=%23\2">#\2</a>', result)
     result = re.sub(r'(\A|\s)@(\S+)', r'<a href="/u/\2">@\2</a>', result)
     return result
