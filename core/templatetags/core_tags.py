@@ -46,6 +46,7 @@ def to_absolute_path(path: str, is_secure=True):
     current_site = Site.objects.get_current()
     if not path.startswith('/'):
         return path
+    path = '' if path == '/' else path
     scheme = 'https' if is_secure else 'http'
     return scheme + '://' + current_site.domain + path
 
