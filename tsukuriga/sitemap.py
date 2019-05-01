@@ -2,6 +2,7 @@ from django.contrib import sitemaps
 
 from upload.models import Video
 from browse.utils import safe_videos
+from browse.models import Label
 from pages.models import Page
 from account.models import User
 
@@ -25,10 +26,21 @@ class StaticViewSitemap(sitemaps.Sitemap):
     priority = 0.7
 
     def items(self):
-        return ['/', '/pages']
+        return ['/', '/pages', '/ranking']
 
     def location(self, item):
         return item
+
+
+class LabelSitemap(sitemaps.Sitemap):
+    changefreq = 'weekly'
+    priority = 0.3
+
+    def items(self):
+        return Label.objects.all()
+
+    def location(self, obj: Label):
+        return f'/label/{obj.slug}'
 
 
 class PageSitemap(sitemaps.Sitemap):

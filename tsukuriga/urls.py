@@ -24,6 +24,7 @@ from .sitemap import *
 sitemaps = {
     'static': StaticViewSitemap,
     'video': VideoSitemap,
+    'label': LabelSitemap,
     'page': PageSitemap,
     'user': UserSitemap
 }
