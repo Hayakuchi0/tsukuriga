@@ -6,9 +6,11 @@
 {% block description %}{{ page.description }}{% endblock %}
 {% block ogp_description %}{{ page.description }}{% endblock %}
 {% block ogp_image %}{{ page.ogp_image }}{% endblock %}
-{% if page.author.has_twitter_auth %}
-  {% block ogp_twitter_creator %}@{{ page.author.twitter_info.screen_name }}{% endblock %}
-{% endif %}
+{% block ogp_twitter_creator %}
+  {% if page.author.has_twitter_auth %}
+    @{{ page.author.twitter_info.screen_name }}
+  {% endif %}
+{% endblock %}
 
 {% block header %}{% endblock %}
 

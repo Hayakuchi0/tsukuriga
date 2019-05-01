@@ -7,9 +7,11 @@
 {% block description %}{{ video.profile.description }}{% endblock %}
 {% block ogp_description %}{{ video.profile.description }}{% endblock %}
 {% block ogp_image %}{{ video.data.thumbnail.url }}{% endblock %}
-{% if video.user.has_twitter_auth %}
-  {% block ogp_twitter_creator %}@{{ video.user.twitter_info.screen_name }}{% endblock %}
-{% endif %}
+{% block ogp_twitter_creator %}
+  {% if video.user.has_twitter_auth %}
+    @{{ video.user.twitter_info.screen_name }}
+  {% endif %}
+{% endblock %}
 
 {% block head %}
   {% render_bundle 'core/watch' %}
