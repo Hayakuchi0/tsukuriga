@@ -78,7 +78,7 @@ class LabelList(AltPaginationListView):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        return safe_videos().filter(profile__labels=self.label)
+        return safe_videos().filter(profile__labels=self.label).order_by('-published_at')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
