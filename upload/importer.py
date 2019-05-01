@@ -77,7 +77,7 @@ class TwitterImporter:
         }
 
     def is_valid(self, verification_id):
-        return int(self.user.extra_data['access_token']['user_id']) == verification_id
+        return int(self.user.twitter_info['user_id']) == verification_id
 
     @staticmethod
     def get_video_url(tweet):

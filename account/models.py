@@ -50,9 +50,11 @@ class User(AbstractUser):
         return hasattr(self, 'altwugauth')
 
     @property
-    def extra_data(self):
+    def twitter_info(self):
         if self.has_twitter_auth:
-            return self.social_auth.get(provider='twitter').extra_data
+            extra_data = self.social_auth.get(provider='twitter').extra_data
+            return extra_data['access_token']
+        raise Exception('ツイッターの認証情報がありません')
 
     @property
     def api(self):
