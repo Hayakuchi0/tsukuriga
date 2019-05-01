@@ -6,7 +6,9 @@
 {% block ogp_description %}{{ account.description }}{% endblock %}
 {% block ogp_image %}{{ account.profile_icon_url }}{% endblock %}
 {% block ogp_twitter_card %}summary{% endblock %}
-{% block ogp_twitter_creator %}@{{ account.username }}{% endblock %}
+{% if account.has_twitter_auth %}
+  {% block ogp_twitter_creator %}@{{ account.twitter_info.screen_name }}{% endblock %}
+{% endif %}
 
 {% block header %}{% endblock %}
 
