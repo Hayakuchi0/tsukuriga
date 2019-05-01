@@ -37,7 +37,7 @@ profile = Profile.as_view()
 
 
 class FavoritesList(AltPaginationListView):
-    template_name = 'users/profile.html'
+    template_name = 'users/favorites.html'
     context_object_name = 'videos'
     paginate_by = 12
 
