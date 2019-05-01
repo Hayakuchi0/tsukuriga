@@ -3,21 +3,7 @@ from django.utils import timezone
 
 from notify.models import Notification
 from core.utils import created_at2str, CustomModel
-
-
-anonymous_names = [
-    '匿名ライオン',
-    '匿名ウサギ',
-    '匿名トラ',
-    '匿名ヘビ',
-    '匿名キツネ',
-    '匿名ワニ',
-    '匿名サル',
-    '匿名バク',
-    '匿名ラクダ',
-    '匿名ペンギン',
-    '匿名ムササビ',
-]
+from .utils import get_anonymous_name
 
 
 class Comment(models.Model):
@@ -30,8 +16,7 @@ class Comment(models.Model):
     @property
     def name(self):
         if self.is_anonymous:
-            index = int(self.user.username.encode()[-1]) % len(anonymous_names)
-            return anonymous_names[index]
+            return get_anonymous_name(self.user.username)
         return self.user.name
 
     @property
@@ -82,8 +67,7 @@ class Point(CustomModel):
     def username_display(self):
         if self.user:
             return self.user.username
-        index = int(self.ip.replace('.', '')[-1]) % len(anonymous_names)
-        return anonymous_names[index]
+        return get_anonymous_name(self.ip)
 
 
 class Favorite(CustomModel):

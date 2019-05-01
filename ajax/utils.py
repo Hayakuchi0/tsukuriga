@@ -23,3 +23,21 @@ def get_ip(request):
     except:
         ip = None
     return ip
+
+
+def get_anonymous_name(seed):
+    anonymous_names = [
+        '匿名ライオン',
+        '匿名ウサギ',
+        '匿名トラ',
+        '匿名ヘビ',
+        '匿名キツネ',
+        '匿名ワニ',
+        '匿名サル',
+        '匿名バク',
+        '匿名ラクダ',
+        '匿名ペンギン',
+        '匿名ムササビ',
+    ]
+    index = int(seed.encode()[-1]) % len(anonymous_names)
+    return anonymous_names[index]
