@@ -55,7 +55,9 @@ ready(() => {
         }
       },
       preventTouch(e) {
-        e.preventDefault()
+        if (e.target.type !== 'submit') {
+          e.preventDefault()
+        }
       },
       hideModal() {
         this.$refs.pointModal.classList.remove('is-active')
