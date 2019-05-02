@@ -30,6 +30,15 @@ ready(() => {
           .finally(() => {
             commentList.getComments()
           })
+      },
+      addReplyTarget() {
+        let id = "";
+        if(!this.comment.is_anonymous) {
+          id = `@${this.comment.username}`;
+        }
+        let target = `>>${this.comment.name}${id} `;
+        let textArea = doc('#comment-form #id_text')[0];
+        textArea.value = textArea.value + target;
       }
     }
   })
