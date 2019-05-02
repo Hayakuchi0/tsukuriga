@@ -94,16 +94,16 @@ def list_points(request, slug):
 def toggle_favorite(request, slug):
     video = get_object_or_404(Video, slug=slug)
 
-    has_old_favorite = video.favorite_set.filter(user=request.user).exists()
-    if has_old_favorite:
-        old_favorite = video.favorite_set.filter(user=request.user).first()
+    old_favorites = video.favorite_set.filter(user=request.user)
+    if old_favorites.exists():
+        old_favorite = old_favorites.first()
         old_favorite.delete()
         message = 'お気に入りリストから削除しました'
     else:
         video.favorite_set.create(user=request.user)
         message = 'お気に入りリストに追加しました'
 
-    return json_response({'message': message, 'isCreated': not has_old_favorite}, status=200)
+    return json_response({'message': message, 'isCreated': not old_favorites.exists()}, status=200)
 
 
 @require_GET
