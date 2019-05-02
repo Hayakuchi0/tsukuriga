@@ -31,13 +31,17 @@ class Comment(models.Model):
             return '/assets/images/default-icon.png'
         return self.user.profile_icon_url
 
-    def json(self):
+    def json(self, user):
+        is_mine = False
+        if user:
+            is_mine = user.username == self.user.username
         return {
             'id': self.id,
             'name': self.name,
             'username': self.username,
             'profile_icon_url': self.profile_icon_url,
             'is_anonymous': self.is_anonymous,
+            'is_mine': is_mine,
             'text': self.text,
             'createdAt': created_at2str(self.created_at)
         }

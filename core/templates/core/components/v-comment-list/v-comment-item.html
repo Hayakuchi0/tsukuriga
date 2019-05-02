@@ -16,7 +16,7 @@
       <button
         class="delete is-pulled-right"
         @click="deleteComment"
-        v-show="comment.username == user.username"
+        v-show="comment.is_mine"
       ></button>
       <div class="content">
         <p>
