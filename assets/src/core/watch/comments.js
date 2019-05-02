@@ -32,9 +32,11 @@ ready(() => {
           })
       },
       addReplyTarget() {
-        let target = `@${this.comment.username} `;
+        // 匿名コメントに対応。ただしURLに置換はしない
+        let target = `@${this.comment.username || this.comment.name}`
         let textArea = doc('#comment-form #id_text')[0];
-        textArea.value = textArea.value + target;
+        textArea.value = target + '\n' + textArea.value
+        textArea.focus()
       }
     }
   })
