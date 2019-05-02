@@ -7,6 +7,7 @@ from django.contrib.sites.models import Site
 from bulma.templatetags.bulma_tags import is_input
 
 from core.utils import created_at2str
+from account.validators import username_regex
 
 register = template.Library()
 
@@ -58,7 +59,7 @@ def activate_url(text):
     result = html.escape(text)
     result = re.sub(r'(https?://\S+)', r'<a href="\1" target="_blank">\1</a>', result)
     result = re.sub(r'(\A|\s)#(\S+)', r'<a href="/search?q=%23\2">#\2</a>', result)
-    result = re.sub(r'(\A|\s)@(\S+)', r'<a href="/u/\2">@\2</a>', result)
+    result = re.sub(rf'(\A|\s)@({username_regex})', r'<a href="/u/\2">@\2</a>', result)
     result = result.replace('\n', '<br>')
     return result
 
