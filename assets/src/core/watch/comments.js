@@ -30,6 +30,20 @@ ready(() => {
           .finally(() => {
             commentList.getComments()
           })
+      },
+      addReplyTarget() {
+        let id = "";
+        if(!this.comment.is_anonymous) {
+          id = "@"+`${this.comment.username}`;
+        }
+        let target = ">>"+`${this.comment.name}`+id+" ";
+        let commentForm = document.getElementById("comment-form");
+        for(let i=0;i<commentForm.length;i++) { /*forEachが使えないようなので番号でforを回す。*/
+          if(commentForm[i].id=="id_text") {
+            console.log(commentForm[i]);
+            commentForm[i].value = commentForm[i].value + target;
+          }
+        }
       }
     }
   })
