@@ -4,6 +4,8 @@ from django.utils import timezone
 from notify.models import Notification
 from core.utils import created_at2str, CustomModel
 from .utils import get_anonymous_name
+from html import escape
+import re
 
 
 class Comment(models.Model):
@@ -42,9 +44,20 @@ class Comment(models.Model):
             'profile_icon_url': self.profile_icon_url,
             'is_anonymous': self.is_anonymous,
             'is_mine': is_mine,
-            'text': self.text,
+            'text': self.transed_text,
             'createdAt': created_at2str(self.created_at)
         }
+
+    @property
+    def transed_text(self):
+        original = escape(self.text)
+        ret = original
+        reply_regex_not_anonymous = r'&gt;&gt;\S+@[a-zA-Z0-9_]+\s'
+        reply_targets_not_anonymous = re.findall(reply_regex_not_anonymous, ret)
+        for target in reply_targets_not_anonymous:
+            target_username = target.split('@')[-1]
+            ret = ret.replace(target, '<a href="/u/'+target_username+'">'+target+'</a><br>')
+        return ret
 
     def save(self, **kwargs):
         super().save(**kwargs)

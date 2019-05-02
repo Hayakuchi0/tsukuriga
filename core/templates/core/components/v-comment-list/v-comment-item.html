@@ -31,7 +31,7 @@
           </template>
           <small>[[ comment.createdAt ]]</small>
           <br>
-          [[ comment.text ]]
+          <span v-html="comment.text"></span>
         </p>
       </div>
     </div>
