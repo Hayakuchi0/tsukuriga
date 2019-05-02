@@ -49,10 +49,7 @@ def delete_comment(request, pk):
 @require_GET
 def list_comments(request, slug):
     video = get_object_or_404(Video, slug=slug)
-    user = None
-    if request.user.is_authenticated:
-        user = request.user
-    return json_response([c.json(user) for c in video.comment_set.all().order_by('-created_at')])
+    return json_response([c.json(request.user) for c in video.comment_set.all().order_by('-created_at')])
 
 
 @require_POST

@@ -33,7 +33,7 @@ class Comment(models.Model):
 
     def json(self, user):
         is_mine = False
-        if user:
+        if user and user.is_authenticated:
             is_mine = user.username == self.user.username
         return {
             'id': self.id,
