@@ -5,8 +5,6 @@ from notify.models import Notification
 from core.utils import created_at2str, CustomModel
 from core.templatetags.core_tags import activate_url
 from .utils import get_anonymous_name
-from html import escape
-import re
 
 
 class Comment(models.Model):
