@@ -31,15 +31,17 @@
           </template>
           <small>[[ comment.createdAt ]]</small>
           <br>
-          [[ comment.text ]]
+          <span v-html="comment.text"></span>
         </p>
       </div>
-      <button
-        class="icon button is-outlined is-primary"
-        @click="addReplyTarget"
-      >
-        <i class="fas fa-reply"></i>
-      </button>
+      <template v-if="!comment.is_anonymous">
+        <button
+          class="icon button is-outlined is-primary"
+          @click="addReplyTarget"
+        >
+          <i class="fas fa-reply"></i>
+        </button>
+      </template>
     </div>
   </article>
 </template>

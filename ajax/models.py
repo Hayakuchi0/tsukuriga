@@ -3,6 +3,7 @@ from django.utils import timezone
 
 from notify.models import Notification
 from core.utils import created_at2str, CustomModel
+from core.templatetags.core_tags import activate_url
 from .utils import get_anonymous_name
 
 
@@ -42,9 +43,14 @@ class Comment(models.Model):
             'profile_icon_url': self.profile_icon_url,
             'is_anonymous': self.is_anonymous,
             'is_mine': is_mine,
-            'text': self.text,
+            'text': self.transed_text,
             'createdAt': created_at2str(self.created_at)
         }
+
+    @property
+    def transed_text(self):
+        result = activate_url(self.text)
+        return result
 
     def save(self, **kwargs):
         super().save(**kwargs)
