@@ -9,7 +9,7 @@
           <a :href="'/u/' + comment.username">
             <img :src="comment.profile_icon_url">
           </a>
-         </template>
+        </template>
       </p>
     </figure>
     <div class="media-content">
@@ -34,14 +34,18 @@
           <span v-html="comment.text"></span>
         </p>
       </div>
-      <template v-if="!comment.is_anonymous">
-        <button
-          class="icon button is-outlined is-primary"
-          @click="addReplyTarget"
-        >
-          <i class="fas fa-reply"></i>
-        </button>
-      </template>
+      <nav class="level is-mobile">
+        <div class="level-left">
+          <a class="level-item">
+            <span
+              class="icon is-small is-primary"
+              @click="addReplyTarget"
+            >
+              <i class="fas fa-reply"></i>
+            </span>
+          </a>
+        </div>
+      </nav>
     </div>
   </article>
 </template>
