@@ -96,7 +96,7 @@ def toggle_favorite(request, slug):
 
     has_old_favorite = video.favorite_set.filter(user=request.user).exists()
     if has_old_favorite:
-        old_favorite = video.favorite_set.first()
+        old_favorite = video.favorite_set.filter(user=request.user).first()
         old_favorite.delete()
         message = 'お気に入りリストから削除しました'
     else:
