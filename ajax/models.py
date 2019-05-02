@@ -34,7 +34,6 @@ class Comment(models.Model):
     def json(self):
         return {
             'id': self.id,
-            'user': self.user.json(),
             'name': self.name,
             'username': self.username,
             'profile_icon_url': self.profile_icon_url,
