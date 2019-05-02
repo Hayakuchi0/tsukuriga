@@ -1,13 +1,9 @@
-import re
-import html
-
 from django import template
 from django.contrib.sites.models import Site
 
 from bulma.templatetags.bulma_tags import is_input
 
-from core.utils import created_at2str
-from account.validators import username_regex
+from core.utils import created_at2str, activate_url_from
 
 register = template.Library()
 
@@ -54,14 +50,7 @@ def to_absolute_path(path: str, is_secure=True):
 
 @register.filter
 def activate_url(text):
-    if not text:
-        return text
-    result = html.escape(text)
-    result = re.sub(r'(https?://\S+)', r'<a href="\1" target="_blank">\1</a>', result)
-    result = re.sub(r'(\A|\s)#(\S+)', r'<a href="/search?q=%23\2">#\2</a>', result)
-    result = re.sub(rf'(\A|\s)@({username_regex})', r'<a href="/u/\2">@\2</a>', result)
-    result = result.replace('\n', '<br>')
-    return result
+    return activate_url_from(text)
 
 
 @register.filter

@@ -2,8 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 from notify.models import Notification
-from core.utils import created_at2str, CustomModel
-from core.templatetags.core_tags import activate_url
+from core.utils import created_at2str, CustomModel, activate_url_from
 from .utils import get_anonymous_name
 
 
@@ -49,8 +48,7 @@ class Comment(models.Model):
 
     @property
     def transed_text(self):
-        result = activate_url(self.text)
-        return result
+        return activate_url_from(self.text)
 
     def save(self, **kwargs):
         super().save(**kwargs)

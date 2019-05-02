@@ -1,3 +1,5 @@
+import re
+import html
 import math
 
 from django.db import models
@@ -8,6 +10,8 @@ from django.conf import settings
 
 from maintenance_mode.backends import AbstractStateBackend
 from maintenance_mode.io import read_file, write_file
+
+from account.validators import username_regex
 
 
 class AltPaginationListView(generic.ListView):
@@ -98,3 +102,14 @@ class LocalFileBackend(AbstractStateBackend):
         if value.strip() not in ['0', '1']:
             raise ValueError('state file content value is not 0|1')
         write_file(settings.MAINTENANCE_MODE_STATE_FILE_PATH, value)
+
+
+def activate_url_from(text):
+    if not text:
+        return text
+    result = html.escape(text)
+    result = re.sub(r'(https?://\S+)', r'<a href="\1" target="_blank">\1</a>', result)
+    result = re.sub(r'(\A|\s)#(\S+)', r'<a href="/search?q=%23\2">#\2</a>', result)
+    result = re.sub(rf'(\A|\s)@({username_regex})', r'<a href="/u/\2">@\2</a>', result)
+    result = result.replace('\n', '<br>')
+    return result
