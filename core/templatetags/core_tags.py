@@ -58,7 +58,7 @@ def activate_url(text):
     result = html.escape(text)
     result = re.sub(r'(https?://\S+)', r'<a href="\1" target="_blank">\1</a>', result)
     result = re.sub(r'(\A|\s)#(\S+)', r'<a href="/search?q=%23\2">#\2</a>', result)
-    result = re.sub(r'(\A|\s)@(\S+)', r'<a href="/u/\2">@\2</a>', result)
+    result = re.sub(r'(&gt;&gt;\S+|\A|\s)@(\S+)', r'<a href="/u/\2">@\2</a>', result)
     return result
 
 

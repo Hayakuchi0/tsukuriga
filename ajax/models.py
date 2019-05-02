@@ -3,6 +3,7 @@ from django.utils import timezone
 
 from notify.models import Notification
 from core.utils import created_at2str, CustomModel
+from core.templatetags.core_tags import activate_url
 from .utils import get_anonymous_name
 from html import escape
 import re
@@ -50,14 +51,11 @@ class Comment(models.Model):
 
     @property
     def transed_text(self):
-        original = escape(self.text)
-        ret = original
-        reply_regex_not_anonymous = r'&gt;&gt;\S+@[a-zA-Z0-9_]+\s'
-        reply_targets_not_anonymous = re.findall(reply_regex_not_anonymous, ret)
-        for target in reply_targets_not_anonymous:
-            target_username = target.split('@')[-1]
-            ret = ret.replace(target, '<a href="/u/'+target_username+'">'+target+'</a><br>')
-        return ret
+        result = activate_url(self.text)
+        # 必要になったら使う
+        # reply_regex_anonymous = r'&gt;&gt;(\S+)\s'
+        # reply_regex_not_anonymous = r'&gt;&gt;(\S+)@([a-zA-Z0-9_]+)\s'
+        return result
 
     def save(self, **kwargs):
         super().save(**kwargs)
