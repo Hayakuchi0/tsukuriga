@@ -37,12 +37,8 @@ ready(() => {
           id = `@${this.comment.username}`;
         }
         let target = `>>${this.comment.name}${id} `;
-        let commentForm = document.getElementById("comment-form");
-        for(let i=0;i<commentForm.length;i++) { /*forEachが使えないようなので番号でforを回す。*/
-          if(commentForm[i].id=="id_text") {
-            commentForm[i].value = commentForm[i].value + target;
-          }
-        }
+        let textArea = doc('#comment-form #id_text')[0];
+        textArea.value = textArea.value + target;
       }
     }
   })
