@@ -50,9 +50,6 @@ class Comment(models.Model):
     @property
     def transed_text(self):
         result = activate_url(self.text)
-        # 必要になったら使う
-        # reply_regex_anonymous = r'&gt;&gt;(\S+)\s'
-        # reply_regex_not_anonymous = r'&gt;&gt;(\S+)@([a-zA-Z0-9_]+)\s'
         return result
 
     def save(self, **kwargs):
