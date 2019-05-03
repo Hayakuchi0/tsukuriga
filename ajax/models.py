@@ -92,3 +92,29 @@ class Favorite(CustomModel):
         super().save(**kwargs)
         if not self.user == self.video.user:
             Notification.objects.create(recipient=self.video.user, sender=self.user, target=self)
+
+
+class HotLine(CustomModel):
+    reporter = models.ForeignKey('account.User', verbose_name='通報者', on_delete=models.CASCADE)
+    target_type = models.CharField('通報先のタイプ', max_length=100)
+    target_video = models.ForeignKey(
+        'upload.Video',
+        verbose_name='通報対象の動画',
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE
+    )
+    target_user = models.ForeignKey(
+        'account.User',
+        verbose_name='通報対象のユーザー',
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE
+    )
+    target_comment = models.ForeignKey(
+        Comment,
+        verbose_name='通報対象のコメント',
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE
+    )
