@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from . import views
 
@@ -10,4 +10,5 @@ urlpatterns = [
     path('points/list/<slug:slug>', views.list_points),
     path('favorites/toggle/<slug:slug>', views.toggle_favorite),
     path('favorites/list/<slug:slug>', views.list_favorites),
+    path('security/', include('ajax.security.urls')),
 ]
