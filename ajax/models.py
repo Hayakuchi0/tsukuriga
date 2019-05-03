@@ -92,3 +92,7 @@ class Favorite(CustomModel):
         super().save(**kwargs)
         if not self.user == self.video.user:
             Notification.objects.create(recipient=self.video.user, sender=self.user, target=self)
+
+class View(CustomModel):
+    views_count = models.PositiveIntegerField("当日再生回数", blank=False, default=0)
+    video = models.ForeignKey('upload.Video', verbose_name="動画", related_name="view_of_days", on_delete=models.CASCADE)
