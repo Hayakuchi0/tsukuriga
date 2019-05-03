@@ -118,3 +118,4 @@ class HotLine(CustomModel):
         null=True,
         on_delete=models.CASCADE
     )
+    reason = models.TextField('通報理由', default='', max_length=1000)
