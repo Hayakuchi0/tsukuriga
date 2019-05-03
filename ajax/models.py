@@ -95,27 +95,30 @@ class Favorite(CustomModel):
 
 
 class HotLine(CustomModel):
-    reporter = models.ForeignKey('account.User', verbose_name='通報者', on_delete=models.CASCADE)
+    reporter = models.ForeignKey('account.User', verbose_name='通報者', on_delete=models.CASCADE, related_name='reporter')
     target_type = models.CharField('通報先のタイプ', max_length=100)
     target_video = models.ForeignKey(
         'upload.Video',
         verbose_name='通報対象の動画',
         blank=True,
         null=True,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='target_video'
     )
     target_user = models.ForeignKey(
         'account.User',
         verbose_name='通報対象のユーザー',
         blank=True,
         null=True,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='target_user'
     )
     target_comment = models.ForeignKey(
         Comment,
         verbose_name='通報対象のコメント',
         blank=True,
         null=True,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='target_comment'
     )
     reason = models.TextField('通報理由', default='', max_length=1000)
