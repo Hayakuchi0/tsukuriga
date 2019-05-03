@@ -7,19 +7,19 @@ from upload.models import Video
 from ajax.models import Comment
 
 
-def hotline_user(username):
+def hotline_user(reason, username):
     user = get_object_or_404(User, username=username)
     # ここに通報情報書き込み処理を挿入
     return json_response({"message": "ご協力ありがとうございます。通報が完了しました。(通報対象:"+user.name+")"}, status=200)
 
 
-def hotline_video(slug):
+def hotline_video(reason, slug):
     video = get_object_or_404(Video, slug=slug)
     # ここに通報情報書き込み処理を挿入
     return json_response({"message": "ご協力ありがとうございます。通報が完了しました。(通報対象:"+video.id+")"}, status=200)
 
 
-def hotline_comment(pk):
+def hotline_comment(reason, pk):
     if pk.isdecimal():
         comment = get_object_or_404(Comment, pk=pk)
         # ここに通報情報書き込み処理を挿入
@@ -32,10 +32,11 @@ def hotline(request, hotline_type, target):
     if not request.user.is_authenticated:
         return json_response({"message": "ログインしていないユーザーは通報できません。"}, status=400)
     result = json_response({"message": "不正な通報対象です。"}, status=400)
+    reason = ''  # POSTの内容に応じて取得。formを使うか直接POSTするか現段階で未定なので結合時に実装
     if hotline_type == "user":
-        result = hotline_user(target)
+        result = hotline_user(reason, target)
     elif hotline_type == "comment":
-        result = hotline_comment(target)
+        result = hotline_comment(reason, target)
     elif hotline_type == "video":
-        result = hotline_video(target)
+        result = hotline_video(reason, target)
     return result
