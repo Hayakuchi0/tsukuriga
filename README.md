@@ -1,8 +1,11 @@
 ![ツクリガ](assets/images/ogp.png)
 
 # Tsukuriga
-[Altwug.net](https://altwug.net)を継承する自主制作動画専用の投稿サイト
+[Altwug.net](https://altwug.net)を継承する自主制作動画専用の投稿サイト  
 名前は「作\(ツクり\)画(ガ)」から。アイコンは「乍」
+
+## 貢献
+[CONTRIBUTING.md](.github/CONTRIBUTING.md)
 
 ## 開発
 必要なもの
