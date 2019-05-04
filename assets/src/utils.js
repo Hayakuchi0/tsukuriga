@@ -3,7 +3,9 @@ import axios from 'axios'
 
 export const ready = callback => window.addEventListener('load', callback)
 
-export const doc = q => Array.from(document.querySelectorAll(q))
+export const doc = q => document.querySelector(q)
+
+export const docAll = q => Array.from(document.querySelectorAll(q))
 
 export const range = n => [...Array(n).keys()]
 
