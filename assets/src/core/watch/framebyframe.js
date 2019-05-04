@@ -3,7 +3,7 @@ import { doc, ready, range } from '../../utils'
 
 class Video {
   constructor(video) {
-    this.$el = doc(video)[0]
+    this.$el = doc(video)
     const fps = parseInt(this.$el.dataset.fps)
     const duration = parseFloat(this.$el.dataset.duration)
     if (!fps || !duration) {
@@ -43,10 +43,10 @@ class Video {
 
 ready(() => {
   const video = new Video('video')
-  doc('#prev-frame')[0].addEventListener('click', () => {
+  doc('#prev-frame').addEventListener('click', () => {
     video.ready().back_frame()
   })
-  doc('#next-frame')[0].addEventListener('click', () => {
+  doc('#next-frame').addEventListener('click', () => {
     video.ready().push_frame()
   })
 })

@@ -30,7 +30,7 @@ ready(() => {
     },
     methods: {
       getFavorites() {
-        const videoId = doc('video')[0].dataset.videoId
+        const videoId = doc('video').dataset.videoId
         const self = this
         this.isLoading = true
 
@@ -44,7 +44,7 @@ ready(() => {
           })
       },
       toggleFavorite() {
-        const videoId = doc('video')[0].dataset.videoId
+        const videoId = doc('video').dataset.videoId
         this.isLoading = true
 
         axios.post(`/ajax/favorites/toggle/${videoId}`, csrf())

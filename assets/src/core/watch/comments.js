@@ -34,7 +34,7 @@ ready(() => {
       addReplyTarget() {
         // 匿名コメントに対応。ただしURLに置換はしない
         let target = `@${this.comment.username || this.comment.name}`
-        let textArea = doc('#comment-form #id_text')[0];
+        let textArea = doc('#comment-form #id_text')
         textArea.value = target + '\n' + textArea.value
         textArea.focus()
       }
@@ -61,7 +61,7 @@ ready(() => {
     },
     methods: {
       getComments() {
-        const videoId = doc('video')[0].dataset.videoId
+        const videoId = doc('video').dataset.videoId
         const self = this
         axios.get(`/ajax/comments/list/${videoId}`)
           .then(response => {

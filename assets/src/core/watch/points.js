@@ -28,7 +28,7 @@ ready(() => {
     },
     methods: {
       updatePointSum() {
-        const videoId = doc('video')[0].dataset.videoId
+        const videoId = doc('video').dataset.videoId
         this.isLoading = true
         axios.get(`/ajax/points/list/${videoId}`)
           .then(response => {
