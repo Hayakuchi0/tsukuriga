@@ -1,7 +1,7 @@
 import Tooltip from 'tooltip.js'
 import Swiper from 'swiper'
 
-import { doc, ready, Notify } from '../utils'
+import { doc, docAll, ready, Notify } from '../utils'
 import './styles.scss'
 
 
@@ -10,7 +10,7 @@ ready(() => {
    * ファイル入力フィールド用処理
    *
    */
-  const $fileField = doc('input[type=file]')
+  const $fileField = docAll('input[type=file]')
   $fileField.forEach($field => {
     $field.addEventListener('change', () => {
       const file = $field.files[0]
@@ -24,7 +24,7 @@ ready(() => {
    * 2重サブミット対策
    *
    */
-  const $submitForm = doc('form.submit-form')
+  const $submitForm = docAll('form.submit-form')
   $submitForm.forEach($form => {
     const $submitButton = $form.querySelector('button[type=submit]')
     $form.addEventListener('submit', e => {
@@ -36,18 +36,18 @@ ready(() => {
   /**
    * モーダル展開
    */
-  const $modalButton = doc('.modal-opener')
+  const $modalButton = docAll('.modal-opener')
   $modalButton.forEach($button => {
     const modalId = $button.dataset.target
     $button.addEventListener('click', e => {
-      doc('#' + modalId)[0].classList.add('is-active')
+      doc('#' + modalId).classList.add('is-active')
     })
   })
 
   /**
    * ツイートボタン
    */
-  doc('.tweet-button').forEach($button => {
+  docAll('.tweet-button').forEach($button => {
     const text = $button.dataset.text || document.title
     const url = location.origin + $button.dataset.href || location.pathname
     const hashtags = $button.dataset.hashtags || 'tsukuriga'
@@ -64,14 +64,14 @@ ready(() => {
   /**
    * 通知用
    */
-  doc('.notify-data').forEach(notification => {
+  docAll('.notify-data').forEach(notification => {
     Notify.activate(notification.dataset.tag, notification.dataset.message)
   })
 
   /**
    * トロフィーポップアップ用
    */
-  doc('.tooltipRef').forEach($tooltip => {
+  docAll('.tooltipRef').forEach($tooltip => {
     new Tooltip($tooltip, {
       title: $tooltip.dataset.tooltip,
       placement: 'bottom',

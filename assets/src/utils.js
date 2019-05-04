@@ -22,37 +22,35 @@ export const csrf = () => {
 }
 
 export const ajaxForm = (form, callback) => {
-  const $ajaxForm = doc(form)
-  $ajaxForm.forEach($form => {
-    const $submitButton = $form.querySelector('button[type=submit]')
-    $form.addEventListener('submit', e => {
-      e.preventDefault()
+  const $form = doc(form)
+  const $submitButton = $form.querySelector('button[type=submit]')
+  $form.addEventListener('submit', e => {
+    e.preventDefault()
 
-      $submitButton.disabled = true
-      $submitButton.classList.add('is-loading')
+    $submitButton.disabled = true
+    $submitButton.classList.add('is-loading')
 
-      const formData = new FormData($form)
-      $form.reset()
+    const formData = new FormData($form)
+    $form.reset()
 
-      axios.post($form.action, formData)
-        .then(response => {
-          if (response.data.isSuccess) {
-            response.data.results.forEach(result => {
-              Notify.activate('success', result.message)
-            })
-          }
-        })
-        .catch(err => {
-          err.response.data.errors.forEach(error => {
-            Notify.activate('danger', error.message)
+    axios.post($form.action, formData)
+      .then(response => {
+        if (response.data.isSuccess) {
+          response.data.results.forEach(result => {
+            Notify.activate('success', result.message)
           })
+        }
+      })
+      .catch(err => {
+        err.response.data.errors.forEach(error => {
+          Notify.activate('danger', error.message)
         })
-        .finally(() => {
-          callback()
-          $submitButton.classList.remove('is-loading')
-          $submitButton.disabled = false
-        })
-    })
+      })
+      .finally(() => {
+        callback()
+        $submitButton.classList.remove('is-loading')
+        $submitButton.disabled = false
+      })
   })
 }
 
