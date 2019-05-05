@@ -41,8 +41,7 @@
     <meta name="twitter:creator" content="{% block ogp_twitter_creator %}@ugo_compeito{% endblock %}"/>
   {% endblock %}
   {% if request.GET.page == '1' %}
-    {# page以外のクエリを取得して絶対パスにする #}
-    <link rel="canonical" href="{{ request.path|add:queries|to_absolute_path }}">
+    <link rel="canonical" href="{{ request.path|add:queries|slice:":-1"|to_absolute_path }}">
   {% endif %}
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
   {% block head %}{% endblock %}

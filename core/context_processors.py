@@ -7,7 +7,7 @@ def query_resolver(request):
     for k, v in dict(request.GET).items():
         if not k == 'page':
             queries += f'{k}={v[0]}&'
-    return {'queries': queries if not queries == '?' else ''}
+    return {'queries': queries}
 
 
 def common(request):
