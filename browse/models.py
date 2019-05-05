@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from django.http.response import Http404
+from ajax.models import Comment, Point
+from math import sqrt
 
 DAY_SETS = (
     (1, 'day', '24時間'),
@@ -22,6 +24,7 @@ class Ranking(models.Model):
     ])
     TYPES = (
         ('favorites', 'お気に入り順'),
+        ('popular', '人気順'),
     )
     point = models.IntegerField('算出ポイント', default=0)
     video = models.ForeignKey('upload.Video', verbose_name='動画', on_delete=models.CASCADE)
@@ -59,6 +62,57 @@ class Ranking(models.Model):
         if self.day_count == -1:
             return self.video.favorites_count
         return len(self.video.favorite_set.filter(created_at__gte=self.from_datetime))
+
+    def calc_popular(self):
+        result = 0
+        fav = self.calc_favorites()
+        star = self.score_of_stars()
+        view = self.score_of_views()
+        comment = self.score_of_comments()
+        result = ((star + view) * comment) + (fav * fav)
+        return result
+
+    def score_of_stars(self):
+        result = 0
+        stars = Point.objects.filter(video=self.video)
+        if self.day_count > 0:
+            stars = stars.filter(created_at__gte=self.from_datetime)
+        users = []
+        ip_list = []
+        for star in stars:
+            if star.user:
+                users.append(star.user)
+            else:
+                ip_list.append(star.ip)
+        users = list(set(users))
+        ip_list = list(set(ip_list))
+        for user in users:
+            users_stars = stars.filter(user=user)
+            users_star_sum = 0
+            for users_star in users_stars:
+                users_star_sum += users_star.count
+            result += sqrt(users_star_sum)
+        for ip in ip_list:
+            ips_stars = stars.filter(ip=ip)
+            ips_star_sum = 0
+            for ips_star in ips_stars:
+                ips_star_sum += ips_star.count
+            result += sqrt(ips_star_sum)
+        return result
+
+    def score_of_views(self):
+        if self.day_count > 0 and self.from_datetime > self.video.published_at:
+            return self.video.views_count
+        return 0
+
+    def score_of_comments(self):
+        comments = Comment.objects.filter(video=self.video)
+        if self.day_count > 0:
+            comments = comments.filter(created_at__gte=self.from_datetime)
+        users = []
+        for comment in comments:
+            users.append(comment.user)
+        return len(list(set(users)))
 
 
 class Label(models.Model):
