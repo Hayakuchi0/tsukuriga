@@ -9,6 +9,10 @@ class TrophyUserInline(admin.TabularInline):
     model = models.TrophyUserRelation
 
 
+class AccessLogInline(admin.TabularInline):
+    model = models.AccessLog
+
+
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
@@ -17,7 +21,7 @@ class CustomUserAdmin(UserAdmin):
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
     list_display = ('username', 'email', 'name', 'is_staff')
-    inlines = (TrophyUserInline,)
+    inlines = (AccessLogInline, TrophyUserInline)
 
 
 class TrophyAdmin(admin.ModelAdmin):
