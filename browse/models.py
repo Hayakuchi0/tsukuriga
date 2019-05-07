@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.http.response import Http404
 from ajax.models import Comment, Point
-from math import sqrt
+from math import sqrt, floor
 
 DAY_SETS = (
     (1, 'day', '24時間'),
@@ -64,21 +64,26 @@ class Ranking(models.Model):
         return len(self.video.favorite_set.filter(created_at__gte=self.from_datetime))
 
     def calc_popular(self):
-        result = 0
+        """
+        評価指標(星、再生数、コメント、お気に入り)それぞれの性質に応じた値をもとに、評価関数にあてはめて算出した計算結果。
+        現在の評価関数は((星+再生数)×コメント)+(お気に入り×お気に入り)
+        """
         fav = self.calc_favorites()
         star = self.score_of_stars()
         view = self.score_of_views()
         comment = self.score_of_comments()
-        result = ((star + view) * comment) + (fav * fav)
-        return result
+        return ((star + view) * comment) + (fav * fav)
 
     def score_of_stars(self):
-        result = 0
+        """
+        動画に対してユーザーがつけた星の数をユーザーごとにそれぞれ1/2乗し、全てのユーザーについてそれらを合計した値。
+        ただし集計期間外につけられた星は算出対象から除外する。
+        """
+        users = []
+        ip_list = []
         stars = Point.objects.filter(video=self.video)
         if self.day_count > 0:
             stars = stars.filter(created_at__gte=self.from_datetime)
-        users = []
-        ip_list = []
         for star in stars:
             if star.user:
                 users.append(star.user)
@@ -86,30 +91,48 @@ class Ranking(models.Model):
                 ip_list.append(star.ip)
         users = list(set(users))
         ip_list = list(set(ip_list))
+        return self.sum_of_sqrt_star_login(stars, users) + self.sum_of_sqrt_star_anonymous(stars, ip_list)
+
+    def sum_of_sqrt_star_login(self, stars, users):
+        result = 0
         for user in users:
             users_stars = stars.filter(user=user)
             users_star_sum = 0
             for users_star in users_stars:
                 users_star_sum += users_star.count
-            result += sqrt(users_star_sum)
+            result += floor(sqrt(users_star_sum))
+        return result
+
+    def sum_of_sqrt_star_anonymous(self, stars, ip_list):
+        result = 0
         for ip in ip_list:
             ips_stars = stars.filter(ip=ip)
             ips_star_sum = 0
             for ips_star in ips_stars:
                 ips_star_sum += ips_star.count
-            result += sqrt(ips_star_sum)
+            result += floor(sqrt(ips_star_sum))
         return result
 
     def score_of_views(self):
-        if self.day_count > 0 and self.from_datetime > self.video.published_at:
-            return self.video.views_count
-        return 0
+        """
+        現時点では動画の公開日時が集計期間内であれば再生数の値、そうでなければ0としての値。
+        """
+        result = 0
+        try:
+            if self.from_datetime < self.video.published_at:
+                result = self.video.views_count
+        except Exception:
+            result = self.video.views_count
+        return result
 
     def score_of_comments(self):
+        """
+        集計期間内に動画に対してコメントをつけた人数の値。
+        """
+        users = []
         comments = Comment.objects.filter(video=self.video)
         if self.day_count > 0:
             comments = comments.filter(created_at__gte=self.from_datetime)
-        users = []
         for comment in comments:
             users.append(comment.user)
         return len(list(set(users)))
