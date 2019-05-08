@@ -86,6 +86,12 @@ class User(AbstractUser):
         app_label = 'account'
 
 
+class AccessLog(CustomModel):
+    user = models.OneToOneField(User, verbose_name='ユーザー', on_delete=models.CASCADE)
+    ip_joined = models.GenericIPAddressField('初回ログイン時のIP')  # IPモデル作成以降
+    ip_latest = models.GenericIPAddressField('最終ログイン時のIP')
+
+
 class AltwugAuth(CustomModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     verification_id = models.IntegerField()
