@@ -88,8 +88,10 @@ class User(AbstractUser):
 
 class AccessLog(CustomModel):
     user = models.OneToOneField(User, verbose_name='ユーザー', on_delete=models.CASCADE)
-    ip_joined = models.GenericIPAddressField('初回ログイン時のIP')  # IPモデル作成以降
-    ip_latest = models.GenericIPAddressField('最終ログイン時のIP')
+    # ip_joinedはIPモデル作成以降の参考記録
+    # ipアドレスは取得に失敗する場合もあるのでフィールドはnull=True
+    ip_joined = models.GenericIPAddressField('初回ログイン時のIP', null=True, blank=True)
+    ip_latest = models.GenericIPAddressField('最終ログイン時のIP', null=True, blank=True)
 
 
 class AltwugAuth(CustomModel):
