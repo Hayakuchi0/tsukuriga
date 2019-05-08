@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.conf import settings
+from django.utils import timezone
 
 import os
 from uuid import uuid4
@@ -9,6 +10,8 @@ from .validators import UsernameValidator
 
 import twitter
 from social_django.models import UserSocialAuth
+
+UPLOAD_LIMIT_MINUTES = 10
 
 
 def profile_image_upload_to(instance, filename):
@@ -65,6 +68,21 @@ class User(AbstractUser):
                           access_token_secret=social_auth_obj.extra_data['access_token']['oauth_token_secret'],
                           tweet_mode='extended')
         return api
+
+    @property
+    def is_newcomer(self):
+        return timezone.now() - self.date_joined < timezone.timedelta(days=1)
+
+    @property
+    def is_uploadable(self):
+        latest_video = self.video_set.last()
+        elapsed_time = timezone.now() - latest_video.profile.created_at
+        return self.is_newcomer and elapsed_time > timezone.timedelta(minutes=UPLOAD_LIMIT_MINUTES)
+
+    @property
+    def date_uploadable(self):
+        latest_video = self.video_set.last()
+        return latest_video.profile.created_at + timezone.timedelta(minutes=UPLOAD_LIMIT_MINUTES)
 
     def json(self):
         return {
