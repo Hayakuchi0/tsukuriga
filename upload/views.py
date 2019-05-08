@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from upload.generic import VideoProfileUpdateView
 from .models import Video, VideoProfile
 from .importer import ImportFile, ImportFileError
-from .decorators import users_video_required
+from .decorators import users_video_required, upload_limitation
 from .forms import VideoFileUploadForm, VideoImportForm
 
 
@@ -20,6 +20,7 @@ def get_process(active_index):
 
 
 @login_required
+@upload_limitation
 def upload(request):
     form = VideoFileUploadForm()
 
@@ -43,6 +44,7 @@ def upload(request):
 
 
 @login_required
+@upload_limitation
 def import_upload(request):
     form = VideoImportForm()
 
