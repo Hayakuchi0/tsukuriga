@@ -66,14 +66,15 @@ class Point(CustomModel):
         return {
             'id': self.id,
             'user': self.user.json() if self.user else None,
-            'username': self.username_display(),
+            'username': self.user_name,
             'count': self.count,
             'createdAt': created_at2str(self.created_at)
         }
 
-    def username_display(self):
+    @property
+    def user_name(self):
         if self.user:
-            return self.user.username
+            return self.user.name
         return get_anonymous_name(self.ip)
 
 
