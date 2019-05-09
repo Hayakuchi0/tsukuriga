@@ -1,6 +1,6 @@
 <div class="columns is-multiline">
   {% for video in videos %}
-    <div class="column is-one-quarter-desktop is-one-third-tablet">
+    <div class="column {{ column_classes|default:'is-one-quarter-desktop is-one-third-tablet' }}">
       {% include 'browse/components/video-item.html' %}
     </div>
   {% empty %}
