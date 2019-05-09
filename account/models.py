@@ -79,7 +79,7 @@ class User(AbstractUser):
         if not latest_video:
             return True
         elapsed_time = timezone.now() - latest_video.profile.created_at
-        return self.is_newcomer and elapsed_time > timezone.timedelta(minutes=UPLOAD_LIMIT_MINUTES)
+        return not (self.is_newcomer and elapsed_time < timezone.timedelta(minutes=UPLOAD_LIMIT_MINUTES))
 
     @property
     def date_uploadable(self):
@@ -112,6 +112,10 @@ class AccessLog(CustomModel):
     # ipアドレスは取得に失敗する場合もあるのでフィールドはnull=True
     ip_joined = models.GenericIPAddressField('初回ログイン時のIP', null=True, blank=True)
     ip_latest = models.GenericIPAddressField('最終ログイン時のIP', null=True, blank=True)
+
+    @property
+    def is_creatable_account(self):
+        pass
 
 
 class AltwugAuth(CustomModel):
