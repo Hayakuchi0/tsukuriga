@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.http.response import Http404
 from ajax.models import Comment, Point
 from math import sqrt, floor
+from datetime import datetime
 
 DAY_SETS = (
     (1, 'day', '24時間'),
@@ -46,7 +47,7 @@ class Ranking(models.Model):
     def from_datetime(self):
         if self.day_count > 0:
             return timezone.now() - timezone.timedelta(self.day_count)
-        raise Exception('期間の値が不正です')
+        return datetime(year=2019, month=4, day=1, tzinfo=timezone.now().tzinfo)
 
     def calculate(self):
         calculator = self.get_calculator()
@@ -59,8 +60,6 @@ class Ranking(models.Model):
         raise NotImplementedError(calculator_name + 'メソッドが定義されていません')
 
     def calc_favorites(self):
-        if self.day_count == -1:
-            return self.video.favorites_count
         return len(self.video.favorite_set.filter(created_at__gte=self.from_datetime))
 
     def calc_popular(self):
@@ -81,9 +80,7 @@ class Ranking(models.Model):
         """
         users = []
         ip_list = []
-        stars = Point.objects.filter(video=self.video)
-        if self.day_count > 0:
-            stars = stars.filter(created_at__gte=self.from_datetime)
+        stars = Point.objects.filter(video=self.video, created_at__gte=self.from_datetime)
         for star in stars:
             if star.user:
                 users.append(star.user)
@@ -118,10 +115,7 @@ class Ranking(models.Model):
         現時点では動画の公開日時が集計期間内であれば再生数の値、そうでなければ0としての値。
         """
         result = 0
-        try:
-            if self.from_datetime < self.video.published_at:
-                result = self.video.views_count
-        except Exception:
+        if self.from_datetime < self.video.published_at:
             result = self.video.views_count
         return result
 
@@ -130,9 +124,7 @@ class Ranking(models.Model):
         集計期間内に動画に対してコメントをつけた人数の値。
         """
         users = []
-        comments = Comment.objects.filter(video=self.video)
-        if self.day_count > 0:
-            comments = comments.filter(created_at__gte=self.from_datetime)
+        comments = Comment.objects.filter(video=self.video, created_at__gte=self.from_datetime)
         for comment in comments:
             users.append(comment.user)
         return len(list(set(users)))
