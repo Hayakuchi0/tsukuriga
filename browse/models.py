@@ -66,13 +66,13 @@ class Ranking(models.Model):
     def calc_popular(self):
         """
         評価指標(星、再生数、コメント、お気に入り)それぞれの性質に応じた値をもとに、評価関数にあてはめて算出した計算結果。
-        現在の評価関数は((星+再生数)×コメント)+(お気に入り×お気に入り)
+        現在の評価関数は((星+再生数)×コメント)+(お気に入り×お気に入り×10)
         """
         fav = self.calc_favorites()
         star = self.score_of_stars()
         view = self.score_of_views()
         comment = self.score_of_comments()
-        return ((star + view) * comment) + (fav * fav)
+        return ((star + view) * comment) + (fav * fav * 10)
 
     def score_of_stars(self):
         """
@@ -116,6 +116,7 @@ class Ranking(models.Model):
     def score_of_views(self):
         """
         現時点では動画の公開日時が集計期間内であれば再生数の値、そうでなければ0としての値。
+        その1/2乗。
         """
         result = 0
         try:
@@ -123,11 +124,11 @@ class Ranking(models.Model):
                 result = self.video.views_count
         except Exception:
             result = self.video.views_count
-        return result
+        return sqrt(result)
 
     def score_of_comments(self):
         """
-        集計期間内に動画に対してコメントをつけた人数の値。
+        集計期間内に動画に対してコメントをつけた人数の値+1。
         """
         users = []
         comments = Comment.objects.filter(video=self.video)
@@ -135,7 +136,7 @@ class Ranking(models.Model):
             comments = comments.filter(created_at__gte=self.from_datetime)
         for comment in comments:
             users.append(comment.user)
-        return len(list(set(users)))
+        return len(list(set(users)))+1
 
 
 class Label(models.Model):
