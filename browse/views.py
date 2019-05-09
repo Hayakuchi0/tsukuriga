@@ -44,7 +44,7 @@ class RankingList(AltPaginationListView):
     context_object_name = 'rankings'
     paginate_by = 12
 
-    ranking_type = 'favorites'
+    ranking_type = 'popular'
     ranking_day = 'week'
 
     def get(self, request, *args, **kwargs):
