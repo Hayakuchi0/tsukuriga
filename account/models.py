@@ -76,6 +76,8 @@ class User(AbstractUser):
     @property
     def is_uploadable(self):
         latest_video = self.video_set.last()
+        if not latest_video:
+            return True
         elapsed_time = timezone.now() - latest_video.profile.created_at
         return self.is_newcomer and elapsed_time > timezone.timedelta(minutes=UPLOAD_LIMIT_MINUTES)
 
