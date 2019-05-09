@@ -23,8 +23,8 @@ class Ranking(models.Model):
         (pathname, label) for count, pathname, label in DAY_SETS
     ])
     TYPES = (
-        ('favorites', 'お気に入り順'),
         ('popular', '人気順'),
+        ('favorites', 'お気に入り順'),
     )
     point = models.IntegerField('算出ポイント', default=0)
     video = models.ForeignKey('upload.Video', verbose_name='動画', on_delete=models.CASCADE)
