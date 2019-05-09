@@ -47,6 +47,10 @@
     <section class="section">
       {% include 'core/components/video-data.html' %}
     </section>
+    <section class="section">
+      <h3 class="subtitle">関連動画</h3>
+      {% include 'browse/components/video-list.html' with videos=related_videos column_classes='is-half' %}
+    </section>
   </div>
   {% include 'core/components/v-point-modal.html' %}
 {% endblock %}
