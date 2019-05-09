@@ -9,8 +9,10 @@ from social_core import exceptions as social_exceptions
 from ..models import User
 from ..forms import SignUpForm, ImportUserForm
 from ..utils import ImportUser, ImportUserException
+from .decorators import account_create_limitation
 
 
+@account_create_limitation
 def signup(request):
     form = SignUpForm()
     if request.method == 'POST':
@@ -50,6 +52,7 @@ class CustomLogoutView(LogoutView):
         return super().get_next_page()
 
 
+@account_create_limitation
 def import_user(request):
     form = ImportUserForm()
     if request.method == 'POST':
