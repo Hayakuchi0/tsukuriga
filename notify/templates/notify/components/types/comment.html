@@ -1,10 +1,10 @@
 {% load core_tags %}
 <strong>
   {% if target.is_anonymous %}
-    {{ target.name }}
+    {{ target.user_name }}
   {% else %}
-    <a href="{{ '/u/'|add:target.username|to_absolute_path }}">
-      {{ target.name }}(@{{ target.username }})
+    <a href="{{ '/u/'|add:target.user_username|to_absolute_path }}">
+      {{ target.user_name }}(@{{ target.user_username }})
     </a>
   {% endif %}
   さんが

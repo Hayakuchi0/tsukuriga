@@ -2,7 +2,11 @@
 <article class="media">
   <figure class="media-left">
     <p class="image is-32x32">
-      <img src="{{ notification.sender_profile_icon_url }}">
+      {% if notification.target.is_anonymous %}
+        <img src="{{ notification.target.user_profile_icon_url }}">
+      {% else%}
+        <img src="{{ notification.sender_profile_icon_url }}">
+      {% endif %}
     </p>
   </figure>
   <div class="media-content">
