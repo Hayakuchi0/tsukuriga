@@ -36,7 +36,7 @@ class Notification(models.Model):
         # 匿名コメントに対応するため
         # notification-item.html内でプロフィールアイコンのみコンポーネント化していない
         if self.type == 'comment':
-            return self.target.profile_icon_url
+            return self.target.user_profile_icon_url
         return self.sender.profile_icon_url
 
     @property

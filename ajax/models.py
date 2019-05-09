@@ -14,19 +14,19 @@ class Comment(models.Model):
     created_at = models.DateTimeField('作成日', default=timezone.now)
 
     @property
-    def name(self):
+    def user_name(self):
         if self.is_anonymous:
             return get_anonymous_name(self.user.username)
         return self.user.name
 
     @property
-    def username(self):
+    def user_username(self):
         if self.is_anonymous:
             return ""
         return self.user.username
 
     @property
-    def profile_icon_url(self):
+    def user_profile_icon_url(self):
         if self.is_anonymous:
             return '/assets/images/default-icon.png'
         return self.user.profile_icon_url
@@ -37,9 +37,9 @@ class Comment(models.Model):
             is_mine = user.username == self.user.username
         return {
             'id': self.id,
-            'name': self.name,
-            'username': self.username,
-            'profile_icon_url': self.profile_icon_url,
+            'name': self.user_name,
+            'username': self.user_username,
+            'profile_icon_url': self.user_profile_icon_url,
             'is_anonymous': self.is_anonymous,
             'is_mine': is_mine,
             'text': self.transed_text,
