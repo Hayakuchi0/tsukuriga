@@ -11,6 +11,7 @@ from .validators import UsernameValidator
 import twitter
 from social_django.models import UserSocialAuth
 
+ACCOUNT_CREATING_LIMIT_DAYS = 1
 UPLOAD_LIMIT_MINUTES = 10
 
 
@@ -114,8 +115,8 @@ class AccessLog(CustomModel):
     ip_latest = models.GenericIPAddressField('最終ログイン時のIP', null=True, blank=True)
 
     @property
-    def is_creatable_account(self):
-        pass
+    def allows_create_account(self):
+        return timezone.now() - self.user.date_joined > timezone.timedelta(days=ACCOUNT_CREATING_LIMIT_DAYS)
 
 
 class AltwugAuth(CustomModel):
