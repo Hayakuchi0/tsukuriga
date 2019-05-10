@@ -7,7 +7,7 @@ class Video {
     const fps = parseInt(this.$el.dataset.fps)
     const duration = parseFloat(this.$el.dataset.duration)
     if (!fps || !duration) {
-      throw Error("動画情報が取得できませんでした")
+      throw Error('動画情報が取得できませんでした')
     }
     const frameLength = 1 / fps
     const framesCount = Math.floor(fps * duration)
@@ -43,10 +43,33 @@ class Video {
 
 ready(() => {
   const video = new Video('video')
-  doc('#prev-frame').addEventListener('click', () => {
-    video.ready().back_frame()
-  })
-  doc('#next-frame').addEventListener('click', () => {
-    video.ready().push_frame()
+
+  const push_frame = () => video.ready().push_frame()
+  const back_frame = () => video.ready().back_frame()
+
+  doc('#next-frame').addEventListener('click', push_frame)
+  doc('#prev-frame').addEventListener('click', back_frame)
+
+  document.addEventListener('keydown', e => {
+    if (document.activeElement.tagName === 'TEXTAREA' || e.shiftKey || e.altKey || e.ctrlKey || e.metaKey) return
+
+    switch (e.code) {
+      case 'ArrowRight':
+        push_frame()
+        e.preventDefault()
+        break
+      case 'ArrowLeft':
+        back_frame()
+        e.preventDefault()
+        break
+      case 'Space':
+        if (video.$el.paused) {
+          video.$el.play()
+        } else {
+          video.$el.pause()
+        }
+        e.preventDefault()
+        break
+    }
   })
 })
