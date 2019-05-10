@@ -6,6 +6,10 @@
 {% block ogp_title %}ツクリガ -Tsukuriga- 自主制作アニメ、パラパラ漫画の投稿プラットフォーム{% endblock %}
 {% block ogp_image %}{{ '/assets/images/ogp.png'|to_absolute_path }}{% endblock %}
 
+{% block head %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css"/>
+{% endblock %}
+
 {% block content_2col %}
   <div class="column">
     {% if featured_pages and request.path == '/' and not request.GET %}
@@ -33,5 +37,16 @@
 {% endblock %}
 
 {% block scripts %}
-  {% render_bundle 'core/swiper' %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js"></script>
+  <script>
+  new Swiper('.swiper-container', {
+    loop: true,
+    autoplay: {
+      delay: 7000,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+    },
+  })
+  </script>
 {% endblock %}
