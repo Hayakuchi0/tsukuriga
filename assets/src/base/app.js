@@ -76,19 +76,4 @@ ready(() => {
       placement: 'bottom',
     })
   })
-
-  /**
-   * Swiper
-   * IEでエラーになるためrequireを末尾で実行
-   */
-  const Swiper = require('swiper')
-  new Swiper('.swiper-container', {
-    loop: true,
-    autoplay: {
-      delay: 7000,
-    },
-    pagination: {
-      el: '.swiper-pagination',
-    },
-  })
 })

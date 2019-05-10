@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load core_tags %}
+{% load render_bundle from webpack_loader %}
 
 {% block title %}ツクリガ -Tsukuriga- 自主制作アニメ、パラパラ漫画の投稿プラットフォーム{% endblock %}
 {% block ogp_title %}ツクリガ -Tsukuriga- 自主制作アニメ、パラパラ漫画の投稿プラットフォーム{% endblock %}
@@ -29,4 +30,8 @@
     {% endif %}
     {% include 'browse/components/video-list.html' %}
   </div>
+{% endblock %}
+
+{% block scripts %}
+  {% render_bundle 'core/swiper' %}
 {% endblock %}
