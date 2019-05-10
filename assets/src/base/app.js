@@ -1,5 +1,4 @@
 import Tooltip from 'tooltip.js'
-import Swiper from 'swiper'
 
 import { doc, docAll, ready, Notify } from '../utils'
 import './styles.scss'
@@ -80,7 +79,9 @@ ready(() => {
 
   /**
    * Swiper
+   * IEでエラーになるためrequireを末尾で実行
    */
+  const Swiper = require('swiper')
   new Swiper('.swiper-container', {
     loop: true,
     autoplay: {
