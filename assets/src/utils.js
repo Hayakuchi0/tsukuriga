@@ -9,6 +9,24 @@ export const docAll = q => Array.from(document.querySelectorAll(q))
 
 export const range = n => [...Array(n).keys()]
 
+export const activateTweetButton = $button => {
+  const text = $button.dataset.text || document.title
+  const url = location.origin + ($button.dataset.href || location.pathname)
+  const hashtags = $button.dataset.hashtags || 'tsukuriga'
+  $button.href = encodeURI(
+    decodeURI(
+      `https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`
+    )
+  )
+  $button.onclick = e => {
+    window.open(
+      $button.href, 'ツイート',
+      'width=650, height=270, personalbar=0, toolbar=0, scrollbars=1, sizable=1'
+    )
+    return false
+  }
+}
+
 export const user = () => {
   const userJsonString = document.querySelector('body').dataset.user
   return userJsonString ? JSON.parse(userJsonString.replace(/\'/g, '\"')) : {}
