@@ -1,6 +1,6 @@
 import Tooltip from 'tooltip.js'
 
-import { doc, docAll, ready, Notify } from '../utils'
+import { doc, docAll, ready, activateTweetButton, Notify } from '../utils'
 import './styles.scss'
 
 
@@ -46,19 +46,7 @@ ready(() => {
   /**
    * ツイートボタン
    */
-  docAll('.tweet-button').forEach($button => {
-    const text = $button.dataset.text || document.title
-    const url = location.origin + $button.dataset.href || location.pathname
-    const hashtags = $button.dataset.hashtags || 'tsukuriga'
-    $button.href = `https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`
-    $button.onclick = e => {
-      window.open(
-        encodeURI(decodeURI($button.href)), 'ツイート',
-        'width=650, height=270, personalbar=0, toolbar=0, scrollbars=1, sizable=1'
-      )
-      return false
-    }
-  })
+  docAll('.tweet-button').forEach(activateTweetButton)
 
   /**
    * 通知用
