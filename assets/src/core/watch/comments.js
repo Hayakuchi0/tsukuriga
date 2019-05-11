@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Vue from 'vue/dist/vue.esm'
 
-import { doc, ready, user, csrf, Notify, ajaxForm } from '../../utils'
+import { doc, ready, user, csrf, activateTweetButton, Notify, ajaxForm } from '../../utils'
 
 
 ready(() => {
@@ -16,6 +16,14 @@ ready(() => {
       return {
         user: user()
       }
+    },
+    computed: {
+      tweetText() {
+        return `【コメントしました】${this.comment.text}\n`
+      }
+    },
+    mounted() {
+      activateTweetButton(this.$refs.tweetButton)
     },
     methods: {
       deleteComment() {

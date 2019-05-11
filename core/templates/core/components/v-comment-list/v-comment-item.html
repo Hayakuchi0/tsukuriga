@@ -36,14 +36,22 @@
       </div>
       <nav class="level is-mobile">
         <div class="level-left">
-          <a class="level-item">
+          <div class="level-item">
             <span
               class="icon is-small is-primary"
               @click="addReplyTarget"
             >
               <i class="fas fa-reply"></i>
             </span>
-          </a>
+          </div>
+          <div class="level-item">
+            <a
+              class="icon is-small has-text-info"
+              ref="tweetButton"
+              :data-text="tweetText">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </div>
         </div>
       </nav>
     </div>
