@@ -12,27 +12,32 @@
 
 {% block content_2col %}
   <div class="column">
-    {% if featured_pages and request.path == '/' and not request.GET %}
-      <div class="columns has-margin-bottom is-vcentered">
-        <div class="column">
-          {% include 'browse/components/featured-swiper.html' %}
-        </div>
-        <div class="column">
-          <div class="columns is-multiline is-mobile is-centered">
-            {% for label in labels %}
-              <div class="column is-narrow is-narrow-padding">
-                <a href="/label/{{ label.slug }}">
-                  <div class="{{ label.css_classes }} is-size-5-desktop is-size-6">
-                    {{ label }}
-                  </div>
-                </a>
-              </div>
-            {% endfor %}
-          </div>
+    <div class="columns is-vcentered">
+      <div class="column">
+        {% include 'browse/components/featured-swiper.html' %}
+      </div>
+      <div class="column">
+        <div class="columns is-multiline is-mobile is-centered">
+          {% for label in labels %}
+            <div class="column is-narrow is-narrow-padding">
+              <a href="/label/{{ label.slug }}">
+                <div class="{{ label.css_classes }} is-size-5-desktop is-size-6">
+                  {{ label }}
+                </div>
+              </a>
+            </div>
+          {% endfor %}
         </div>
       </div>
-    {% endif %}
-    {% include 'browse/components/video-list.html' %}
+    </div>
+    <section class="section">
+      <h3 class="title is-size-4"><a href="/ranking">ランキング</a></h3>
+      {% include 'browse/components/video-list.html' with videos=top_rankings|to_attr_list:"video" %}
+    </section>
+    <section class="section">
+      <h3 class="title is-size-4"><a href="/recent">新着順</a></h3>
+      {% include 'browse/components/video-list.html' with videos=recent_videos %}
+    </section>
   </div>
 {% endblock %}
 
