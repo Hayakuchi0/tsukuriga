@@ -47,7 +47,7 @@
   {% block head %}{% endblock %}
   {% render_bundle 'base/app' %}
 </head>
-<body class="has-navbar-fixed-top-desktop has-navbar-fixed-bottom-touch" data-user="{{ user.json }}"
+<body class="has-navbar-fixed-top has-navbar-fixed-bottom-touch" data-user="{{ user.json }}"
       data-csrf="{{ csrf_token }}">
   {% include 'base/components/navbar-top.html' %}
   {% include 'base/components/navbar-bottom.html' %}

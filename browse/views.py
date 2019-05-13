@@ -1,7 +1,7 @@
 import functools
 import operator
 
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
 
 from .utils import safe_videos
@@ -9,8 +9,14 @@ from .models import Ranking, Label
 from core.utils import AltPaginationListView
 
 
-class Home(AltPaginationListView):
-    template_name = 'browse/index.html'
+def home(request):
+    recent_videos = safe_videos().order_by('-published_at')[:8]
+    top_rankings = RankingList().get_queryset()[:8]
+    return render(request, 'browse/index.html', {'recent_videos': recent_videos, 'top_rankings': top_rankings})
+
+
+class Recent(AltPaginationListView):
+    template_name = 'browse/recent.html'
     context_object_name = 'videos'
     paginate_by = 12
 
@@ -18,7 +24,7 @@ class Home(AltPaginationListView):
         return safe_videos().order_by('-published_at')
 
 
-home = Home.as_view()
+recent = Recent.as_view()
 
 
 class Search(AltPaginationListView):
