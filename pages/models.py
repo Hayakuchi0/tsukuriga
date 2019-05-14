@@ -38,7 +38,7 @@ class Page(CustomModel):
 
     @property
     def ogp_image(self):
-        img = re.search(r'!\[.+\]\((?P<uri>.+)\)', self.text)
+        img = re.search(r'!\[.*\]\((?P<uri>.+)\)', self.text)
         if img:
             return img.group('uri')
         return 'https://tsukuriga.net/assets/images/ogp.png'
