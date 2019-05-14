@@ -20,7 +20,8 @@ class CustomUserAdmin(UserAdmin):
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
-    list_display = ('username', 'email', 'name', 'is_staff')
+    list_display = ('username', 'email', 'name', 'is_staff', 'date_joined', 'last_login')
+    search_fields = ('username', 'name', 'email')
     inlines = (AccessLogInline, TrophyUserInline)
 
 
