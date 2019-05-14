@@ -31,11 +31,21 @@
       </div>
     </div>
     <section class="section">
-      <h3 class="title is-size-4"><a href="/ranking">ランキング</a></h3>
+      <div class="hero is-primary is-small has-margin-bottom">
+        <div class="hero-body">
+          <a class="is-pulled-right" href="/ranking">もっと見る</a>
+          <h3 class="title is-5">ランキング</h3>
+        </div>
+      </div>
       {% include 'browse/components/video-list.html' with videos=top_rankings|to_attr_list:"video" %}
     </section>
     <section class="section">
-      <h3 class="title is-size-4"><a href="/recent">新着順</a></h3>
+      <div class="hero is-primary is-small has-margin-bottom">
+        <div class="hero-body">
+          <a class="is-pulled-right" href="/recent">もっと見る</a>
+          <h3 class="title is-5">新着順</h3>
+        </div>
+      </div>
       {% include 'browse/components/video-list.html' with videos=recent_videos %}
     </section>
   </div>
