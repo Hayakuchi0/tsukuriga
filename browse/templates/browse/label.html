@@ -7,7 +7,7 @@
 {% block content_2col %}
   <div class="column">
     <h1 class="title"><span class="{{ label.css_classes }} is-size-4">{{ label }}</span> の動画一覧</h1>
-    <p class="subtitle">{{ label.description }}</p>
+    <p class="subtitle">{{ label.description|activate_url|safe }}</p>
     {% include 'browse/components/video-list.html' %}
   </div>
 {% endblock %}
