@@ -20,12 +20,12 @@ class Notification(models.Model):
     is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField('作成日', default=timezone.now)
 
-    @property
     def is_new(self):
-        is_read = self.is_read
-        self.is_read = True
-        self.save()
-        return not is_read
+        if not self.is_read:
+            self.is_read = True
+            self.save()
+            return True
+        return False
 
     @property
     def type(self):
