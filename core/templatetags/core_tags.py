@@ -72,3 +72,10 @@ def to_tight_count(count):
 @register.filter
 def to_attr_list(l: list, attr) -> list:
     return [getattr(i, attr) for i in l]
+
+
+@register.filter
+def safe_number_display(number, max_number):
+    if int(number) >= int(max_number):
+        return max_number + '+'
+    return number

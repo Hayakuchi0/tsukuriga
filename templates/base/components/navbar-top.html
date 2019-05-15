@@ -1,3 +1,4 @@
+{% load core_tags %}
 <nav class="navbar has-shadow is-fixed-top" role="navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="/">
@@ -20,9 +21,9 @@
         <i class="fas fa-crown with-text"></i>
         ランキング
       </a>
-      <a class="navbar-item {% if has_new_notification %}has-text-info{% endif %}" href="/notify">
+      <a class="navbar-item {% if not_reads_count %}has-text-info{% endif %}" href="/notify">
         <i class="fas fa-bell with-text"></i>
-        通知
+        通知{{ not_reads_count|safe_number_display:"9"|default:"" }}
       </a>
       <a class="navbar-item" href="/upload">
         <i class="fas fa-upload with-text"></i>
