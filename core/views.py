@@ -102,3 +102,8 @@ def delete(request, slug):
 
     messages.error(request, '送信した値が不正です')
     return redirect(f'/edit/{slug}')
+
+
+def embed(request, slug):
+    video = get_object_or_404(Video, slug=slug)
+    return render(request, 'core/embed.html', {'video': video})
