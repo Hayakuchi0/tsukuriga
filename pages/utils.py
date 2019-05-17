@@ -1,11 +1,17 @@
 import markdown
+import re
+from markdown.extensions.toc import TocExtension
+
+
+def slugify(value, separator):
+    return re.sub(r'\s', separator, value).strip().lower()
 
 
 def markdownify(content):
     return markdown.Markdown(
         tab_length=2,
         extensions=[
-            'toc',
+            TocExtension(slugify=slugify),
             'pymdownx.magiclink',
             'pymdownx.tilde',
         ],
