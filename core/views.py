@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.http import require_POST
 from django.db.models import Q
 
@@ -104,6 +105,7 @@ def delete(request, slug):
     return redirect(f'/edit/{slug}')
 
 
+@xframe_options_exempt
 def embed(request, slug):
     video = get_object_or_404(Video, slug=slug)
     return render(request, 'core/embed.html', {'video': video})
