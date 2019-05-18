@@ -16,7 +16,7 @@
 
         var embed =
           '<div style="width:95%;">' +
-          '<div style="overflow:hidden;padding-top:calc(75% + 55px);position:relative;">' +
+          '<div style="overflow:hidden;padding-top:calc(56.25% + 30px);position:relative;">' +
           '<iframe src="https://tsukuriga.net/embed/' + match[1] + '"' +
           'style="border:0;height:100%;left:0;position:absolute;top:0;width:100%; overflow:hidden;"></iframe>' +
           '</div>' +
