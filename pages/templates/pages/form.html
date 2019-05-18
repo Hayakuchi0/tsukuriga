@@ -6,9 +6,11 @@
   </div>
   <div class="column">
     <div class="markdownx-preview"></div>
+    <script src="/assets/embed.js"></script>
     <script>
     setInterval(() => {
       for (el of document.querySelectorAll('blockquote')) {
+        embedTsukurigaVideo()
         el.classList.add('twitter-tweet')
         twttr.widgets.load()
       }

@@ -1,4 +1,4 @@
-(function() {
+var embedTsukurigaVideo = function() {
   var blockquotes = document.getElementsByTagName('blockquote')
   for (var i = 0; i < blockquotes.length; i++) {
     var bq = blockquotes[i]
@@ -26,4 +26,5 @@
       }
     }
   }
-})()
+}
+embedTsukurigaVideo()
