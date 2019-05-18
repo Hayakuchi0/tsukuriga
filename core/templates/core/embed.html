@@ -6,12 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="robots" content="noindex, nofollow">
+  <style>
+    body {
+      margin: 0
+    }
+  </style>
 </head>
 <body>
-  <div class="is-fullheight is-fullwidth">
-    {% include 'core/components/video-player.html' %}
-    <a href="/watch/{{ video.slug }}">{{ video.profile.title }}</a>
-  </div>
-  {% render_bundle 'core/watch' %}
+  {% include 'core/components/video-player.html' %}
+  <a href="/watch/{{ video.slug }}">{{ video.profile.title }}</a>
+  {% render_bundle 'core/embed' %}
 </body>
 </html>
