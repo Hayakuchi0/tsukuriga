@@ -26,7 +26,7 @@
       <h1 class="title">{{ video.profile.title }}</h1>
       {% include 'core/components/video-menu.html' %}
       <hr>
-      <p class="video-description">
+      <div class="content">
         {% autoescape off %}
           {% if video.profile.description %}
             {{ video.profile.description|activate_url }}
@@ -34,7 +34,7 @@
             動画説明はありません
           {% endif %}
         {% endautoescape %}
-      </p>
+      </div>
       <hr>
     </section>
     {% include 'core/components/comment-form.html' %}
