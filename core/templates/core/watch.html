@@ -29,7 +29,7 @@
       <p class="video-description">
         {% autoescape off %}
           {% if video.profile.description %}
-            {{ video.profile.description|activate_url|linebreaksbr }}
+            {{ video.profile.description|activate_url }}
           {% else %}
             動画説明はありません
           {% endif %}
