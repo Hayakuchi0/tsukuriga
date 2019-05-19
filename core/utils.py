@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.views import generic
 from django.conf import settings
+from django.template.defaultfilters import linebreaks
 
 from maintenance_mode.backends import AbstractStateBackend
 from maintenance_mode.io import read_file, write_file
@@ -111,5 +112,5 @@ def activate_url_from(text):
     result = re.sub(r'(https?://\S+)', r'<a href="\1" target="_blank">\1</a>', result)
     result = re.sub(r'(\A|\s)#(\S+)', r'<a href="/search?q=%23\2">#\2</a>', result)
     result = re.sub(rf'(\A|\s)@({username_regex})', r'<a href="/u/\2">@\2</a>', result)
-    result = result.replace('\n', '<br>')
+    result = linebreaks(result)
     return result
