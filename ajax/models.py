@@ -42,13 +42,10 @@ class Comment(models.Model):
             'profile_icon_url': self.user_profile_icon_url,
             'is_anonymous': self.is_anonymous,
             'is_mine': is_mine,
-            'text': self.transed_text,
+            'text': self.text,
+            'html': activate_url_from(self.text),
             'createdAt': created_at2str(self.created_at)
         }
-
-    @property
-    def transed_text(self):
-        return activate_url_from(self.text)
 
     def save(self, **kwargs):
         super().save(**kwargs)
