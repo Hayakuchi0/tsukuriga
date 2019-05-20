@@ -16,6 +16,10 @@ services:
     image: node:11.14
     command: bash -c "yarn && yarn run dev"
     volumes:
-      - .:/code
+      - ./.babelrc:/code/.babelrc
+      - ./package.json:/code/package.json
+      - ./yarn.lock:/code/yarn.lock
+      - ./webpack.config.js:/code/webpack.config.js
+      - ./webpack-stats.json:/code/webpack-stats.json
+      - ./assets:/code/assets
     working_dir: /code
-
