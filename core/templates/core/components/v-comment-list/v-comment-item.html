@@ -47,8 +47,9 @@
           <div class="level-item" v-show="comment.is_mine">
             <a
               class="icon is-small has-text-info"
-              ref="tweetButton"
-              :data-text="tweetText">
+              :href="tweetHref"
+              @click="tweetOnClick"
+            >
               <i class="fab fa-twitter"></i>
             </a>
           </div>
