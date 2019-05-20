@@ -40,6 +40,9 @@ module.exports = {
       }
     ]
   },
+  watchOptions: {
+    poll: 500
+  },
   plugins: [
     new BundleTracker({filename: './webpack-stats.json'}),
     new ExtractTextPlugin('[name]-[hash].css'),
