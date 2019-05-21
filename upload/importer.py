@@ -25,11 +25,12 @@ class ImportFile(RequestFile):
 
     def _get_importer(self):
         patterns = (
-            (AltwugImporter, r'^https://altwug\.net/watch/(?P<id>.+)/$'),
-            (TwitterImporter, r'^https://twitter\.com/\w+/status/(?P<id>\d+)$'),
+            AltwugImporter,
+            TwitterImporter,
         )
-        for importer, pattern in patterns:
-            matched = re.search(pattern, self.url)
+
+        for importer in patterns:
+            matched = re.search(importer.pattern, self.url)
             if matched:
                 return importer(matched.group('id'), self.user)
 
@@ -57,6 +58,8 @@ class ImportFile(RequestFile):
 
 
 class TwitterImporter:
+    pattern = r'^https://twitter\.com/\w+/status/(?P<id>\d+)$'
+
     def __init__(self, tweet_id, user):
         self.user = user
         self.tweet_id = tweet_id
@@ -89,6 +92,8 @@ class TwitterImporter:
 
 
 class AltwugImporter:
+    pattern = r'^https://altwug\.net/watch/(?P<id>.+)/$'
+
     def __init__(self, video_id, user):
         self.user = user
         self.video_id = video_id
