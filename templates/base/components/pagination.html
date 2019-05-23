@@ -1,10 +1,11 @@
 {% if page_obj.paginator.alt_page_range|length > 1 %}
   <nav class="pagination is-rounded is-centered" aria-label="pagination">
-    {% if page_obj.has_previous %}
-      <a class="pagination-previous" href="{{ queries }}page=1">
-        <i class="fas fa-step-backward"></i>
-      </a>
-    {% endif %}
+    <a
+      class="pagination-previous" href="{{ queries }}page=1"
+      {% if not page_obj.has_previous %}disabled{% endif %}
+    >
+      <i class="fas fa-step-backward"></i>
+    </a>
 
     <ul class="pagination-list">
       {% if page_obj.paginator.has_prev_dots %}
@@ -26,10 +27,11 @@
       {% endif %}
     </ul>
 
-    {% if page_obj.has_next %}
-      <a class="pagination-next" href="{{ queries }}page={{ page_obj.paginator.num_pages }}">
-        <i class="fas fa-step-forward"></i>
-      </a>
-    {% endif %}
+    <a
+      class="pagination-next" href="{{ queries }}page={{ page_obj.paginator.num_pages }}"
+      {% if not page_obj.has_next %}disabled{% endif %}
+    >
+      <i class="fas fa-step-forward"></i>
+    </a>
   </nav>
 {% endif %}
