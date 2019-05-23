@@ -1,5 +1,6 @@
 import functools
 import operator
+import random
 
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
@@ -10,7 +11,8 @@ from core.utils import AltPaginationListView
 
 
 def home(request):
-    recent_videos = safe_videos().order_by('-published_at')[:8]
+    recent_videos = safe_videos().order_by('-published_at')[:50]
+    recent_videos = sorted(recent_videos, key=lambda x: random.random())[:8]
     top_rankings = RankingList().get_queryset()[:8]
     return render(request, 'browse/index.html', {'recent_videos': recent_videos, 'top_rankings': top_rankings})
 
