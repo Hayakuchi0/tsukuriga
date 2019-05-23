@@ -16,35 +16,29 @@ from account.validators import username_regex
 
 
 class AltPaginationListView(generic.ListView):
+    paginate_range = 2
 
     def paginate_queryset(self, queryset, page_size):
-        # 通常のページオブジェクトを取得
-        # return (paginator, page, page.object_list, page.has_other_pages())
-        page = super().paginate_queryset(queryset, page_size)
+        # (paginator, page, page.object_list, page.has_other_pages())
+        paginator, page, page_objs, has_other_pages = super().paginate_queryset(queryset, page_size)
 
-        # ページの前後幅を決定
-        range_rate = 2
-
-        # 送りページの幅を決定
-        prev_range = page[1].number - range_rate
+        prev_range = page.number - self.paginate_range
         if prev_range < 1:
             prev_range = 1
 
-        # 戻りページの幅を決定
-        next_range = page[1].number + range_rate + 1
-        if next_range > page[0].num_pages + 1:
-            next_range = page[0].num_pages + 1
+        next_range = page.number + self.paginate_range
+        if next_range > paginator.num_pages:
+            next_range = paginator.num_pages
 
-        # range_rateよりあとのページなら「...」を足す
-        if page[1].number > range_rate + 1:
-            page[0].prev_dots = True
-        # 最終ページとの差がrange_rateより大きければ「...」を足す
-        if page[0].num_pages - page[1].number > range_rate:
-            page[0].next_dots = True
+        if page.number > self.paginate_range + 1:
+            paginator.has_prev_dots = True
+
+        if paginator.num_pages - page.number > self.paginate_range:
+            paginator.has_next_dots = True
 
         # 結果をalt_page_rangeとして代入
-        page[0].alt_page_range = range(prev_range, next_range)
-        return page
+        paginator.alt_page_range = range(prev_range, next_range + 1)
+        return paginator, page, page_objs, has_other_pages
 
 
 def created_at2str(datetime_obj):
