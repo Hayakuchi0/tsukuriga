@@ -1,10 +1,10 @@
-from django.views import generic
 from django.contrib.auth.decorators import login_required
 
+from core.utils import AltPaginationListView
 from .models import Notification
 
 
-class NotificationListView(generic.ListView):
+class NotificationListView(AltPaginationListView):
     template_name = 'notify/index.html'
     context_object_name = 'notifications'
     paginate_by = 10
