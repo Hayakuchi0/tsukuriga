@@ -9,7 +9,7 @@
           alt="{{ video.profile.title }}"
         >
       </figure>
-      {% if not video.type == 'normal' %}
+      {% if video.type|is_in:"twitter,altwug" %}
         <div class="video-thumbnail-display is-top">
           <span class="video-thumbnail-display-item is-{{ video.type }}" title="{{ video.get_type_display }}">
             <i class="{{ video.type_icon }}"></i>
