@@ -21,11 +21,11 @@
         <th>再生回数</th>
         <td>{{ video.views_count }}</td>
       </tr>
-      {% if video.type|is_in:"twitter,altwug" %}
-        <tr>
-          <th>動画タイプ</th>
-          <td>{{ video.get_type_display }}</td>
-        </tr>
+      <tr>
+        <th>動画タイプ</th>
+        <td>{{ video.get_type_display }}</td>
+      </tr>
+      {% if video.source_url %}
         <tr>
           <th>インポート元URL</th>
           <td>{{ video.source_url }}</td>

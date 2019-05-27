@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='video',
             name='type',
-            field=models.CharField(choices=[('normal', '通常投稿'), ('updated', '再投稿'), ('twitter', 'ツイッターからインポート'),
+            field=models.CharField(choices=[('normal', '通常投稿'), ('updated', '通常投稿(再投稿済み)'), ('twitter', 'ツイッターからインポート'),
                                             ('altwug', 'Altwugからインポート')], default='normal', max_length=20,
                                    verbose_name='動画タイプ'),
         ),
