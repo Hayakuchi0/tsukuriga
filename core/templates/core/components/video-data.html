@@ -1,3 +1,4 @@
+{% load core_tags %}
 <div class="box table-container">
   <div class="content">
     <table class="is-narrow is-striped">
@@ -20,7 +21,7 @@
         <th>再生回数</th>
         <td>{{ video.views_count }}</td>
       </tr>
-      {% if not video.type == 'normal' %}
+      {% if video.type|is_in:"twitter,altwug" %}
         <tr>
           <th>動画タイプ</th>
           <td>{{ video.get_type_display }}</td>
