@@ -43,6 +43,10 @@
           &.is-altwug {
             background-color: $purple;
           }
+
+          &.is-updated {
+            background-color: $grey;
+          }
         }
       }
     }

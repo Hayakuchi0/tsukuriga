@@ -79,3 +79,8 @@ def safe_number_display(number, max_number):
     if int(number) >= int(max_number):
         return max_number + '+'
     return number
+
+
+@register.filter
+def is_in(value, strings):
+    return value in strings.split(',')

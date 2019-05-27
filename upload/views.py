@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.views.generic import FormView
 
 from upload.generic import VideoProfileUpdateView
 from .models import Video, VideoProfile
@@ -88,3 +90,27 @@ def detail(request, slug):
 @users_video_required
 def complete(request, slug):
     return render(request, 'upload/complete.html', {'process': get_process(3), 'video': request.video})
+
+
+class Update(FormView):
+    form_class = VideoFileUploadForm
+    template_name = 'upload/update.html'
+    extra_context = {'process': get_process(0)}
+
+    def form_valid(self, form):
+        video = self.request.video
+
+        pure_video = form.save(commit=False)
+        pure_video.video = video
+        pure_video.save()
+
+        video.data.delete()
+
+        video.published_at = timezone.now()
+        video.type = 'updated'
+        video.save()
+
+        return redirect(f'/upload/complete/{video.slug}')
+
+
+update = login_required(users_video_required(Update.as_view()))
