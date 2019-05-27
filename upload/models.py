@@ -44,6 +44,7 @@ class Video(models.Model):
     """
     VIDEO_TYPES = (
         ('normal', '通常投稿'),
+        ('updated', '再投稿'),
         ('twitter', 'ツイッターからインポート'),
         ('altwug', 'Altwugからインポート'),
     )
@@ -62,6 +63,7 @@ class Video(models.Model):
         icons = {
             'twitter': 'fab fa-twitter',
             'altwug': 'fas fa-frog',
+            'updated': 'fas fa-sync-alt',
         }
         return icons[self.type]
 
