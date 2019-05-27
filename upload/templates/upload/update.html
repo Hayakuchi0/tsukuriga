@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load render_bundle from webpack_loader %}
+{% load bulma_tags %}
+
+{% block page_title %}動画の再投稿{% endblock %}
+{% block ogp_title %}動画の再投稿{% endblock %}
+
+{% block head %}
+  {% render_bundle 'upload/steps' %}
+{% endblock %}
+
+{% block header %}
+  {% include 'upload/components/header.html' %}
+{% endblock %}
+
+{% block content %}
+  <div class="column is-10-desktop">
+    {% include 'upload/components/process-list.html' %}
+    <div class="columns">
+      <div class="column is-8">
+        <div class="box">
+          <form class="submit-form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|bulma }}
+            <button type="submit" class="button is-info">再投稿</button>
+          </form>
+          <div class="help">再投稿ではインポート機能は利用できません</div>
+        </div>
+        <div class="card">
+          <div class="card-content">
+            <div class="content">
+              <p>再投稿を行った場合は以下の変更が行われます</p>
+              <ul>
+                <li>元動画ファイルの削除(削除したファイルは元に戻せません)</li>
+                <li>新規動画ファイルの保存とエンコード処理</li>
+                <li>公開日の更新と新着順への再表示</li>
+                <li>動画タイプを「通常投稿」から「再投稿」に変更</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        {% include 'upload/components/common-message.html' %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
