@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'notify.apps.NotifyConfig',
     'account.apps.AccountConfig',
     'pages.apps.PagesConfig',
+    'tools.apps.ToolsConfig',
 ]
 
 MIDDLEWARE = [
