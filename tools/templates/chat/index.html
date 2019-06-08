@@ -15,7 +15,7 @@
         <div class="media">
           <div class="media-content">
             <div class="content">
-              <span class="is-pulled-right">{{ post.created_at|date:"H:m" }}</span>
+              <span class="is-pulled-right">{{ post.created_at|date:"H:i" }}</span>
               <p>
                 <strong>{{ post.name }}</strong>
                 {% if post.user.is_staff %}
