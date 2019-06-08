@@ -1,16 +1,37 @@
 {% extends 'base.html' %}
+{% load bulma_tags %}
+{% load core_tags %}
 
-{% block page_title %}{% endblock %}
-{% block ogp_page_title %}{% endblock %}
-{% block description %}{% endblock %}
-{% block ogp_description %}{% endblock %}
-{% block ogp_image %}{% endblock %}
-{% block ogp_twitter_creator %}{% endblock %}
+{% block page_title %}チャット{% endblock %}
+{% block ogp_page_title %}チャット{% endblock %}
 
 {% block header %}{% endblock %}
 
-{% block content %}
+{% block content_2col %}
   <div class="column">
-
+    <h1 class="title">チャットルーム</h1>
+    <div class="subtitle">ユーザー同士の交流の場です。ツクリガへの意見もどうぞ</div>
+    <div class="box">
+      {% for post in posts %}
+        <div class="media">
+          <div class="media-content">
+            <div class="content">
+              <span class="is-pulled-right">{{ post.created_at|date:"H:m" }}</span>
+              <p>
+                <strong>{{ post.name }}</strong>
+              </p>
+              {{ post.text|activate_url|safe }}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="box">
+      <form class="submit-form" method="post">
+        {% csrf_token %}
+        {{ form|bulma }}
+        <button type="submit" class="button is-info">送信</button>
+      </form>
+    </div>
   </div>
 {% endblock %}
