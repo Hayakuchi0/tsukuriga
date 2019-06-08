@@ -13,6 +13,8 @@ class Chat(CreateView):
     def form_valid(self, form):
         post = form.save(commit=False)
         post.ip = get_ip(self.request)
+        if self.request.user.is_authenticated:
+            post.user = self.request.user
         post.save()
         return redirect('/chat')
 
