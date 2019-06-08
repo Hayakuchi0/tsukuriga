@@ -91,6 +91,7 @@ class User(AbstractUser):
         return {
             'username': self.username,
             'name': self.name,
+            'is_staff': self.is_staff,
             'profile_icon_url': self.profile_icon_url,
             'profile_banner_url': self.profile_banner_url,
         }

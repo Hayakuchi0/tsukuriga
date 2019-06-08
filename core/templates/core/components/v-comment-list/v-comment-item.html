@@ -28,6 +28,7 @@
               <strong class="has-text-black">[[ comment.name ]]</strong>
               <small>@[[ comment.username ]]</small>
             </a>
+            <i class="fas fa-check-circle has-text-info" title="スタッフ" v-if="comment.is_staff"></i>
           </template>
           <small>[[ comment.createdAt ]]</small>
           <br>

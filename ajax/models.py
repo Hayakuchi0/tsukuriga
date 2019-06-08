@@ -39,6 +39,7 @@ class Comment(models.Model):
             'id': self.id,
             'name': self.user_name,
             'username': self.user_username,
+            'is_staff': self.user.is_staff,
             'profile_icon_url': self.user_profile_icon_url,
             'is_anonymous': self.is_anonymous,
             'is_mine': is_mine,
