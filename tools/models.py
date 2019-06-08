@@ -3,7 +3,8 @@ from core.utils import CustomModel
 
 
 class Post(CustomModel):
-    name = models.CharField('名前', max_length=20)
+    ip = models.GenericIPAddressField(null=True, blank=True)
+    name = models.CharField('名前', max_length=20, default='名無し')
     text = models.TextField('本文', max_length=140)
 
     def __str__(self):
