@@ -2,12 +2,10 @@
 {% load render_bundle from webpack_loader %}
 {% load core_tags %}
 
-{% block page_title %}{{ video.profile.title }} | [{{ video.profile.labels.first }}]のアニメーション{% endblock %}
-{% block ogp_page_title %}{{ video.profile.title }} | アニメーション{% endblock %}
-{% block description %}{{ video.profile.description|default:"動画説明はありません" }} [{{ video.profile.labels.all|join:"," }}
-  ]の自主制作アニメ、パラパラ漫画{% endblock %}
-{% block ogp_description %}{{ video.profile.description|default:"動画説明はありません" }} [{{ video.profile.labels.all|join:"," }}
-  ]の自主制作アニメ、パラパラ漫画{% endblock %}
+{% block page_title %}{{ video.profile.meta_title }}{% endblock %}
+{% block ogp_page_title %}{{ video.profile.meta_title }}{% endblock %}
+{% block description %}{{ video.profile.meta_description }}{% endblock %}
+{% block ogp_description %}{{ video.profile.meta_description }}{% endblock %}
 {% block ogp_image %}{{ video.data.thumbnail.url }}{% endblock %}
 {% block ogp_twitter_creator %}
   {% if video.user.has_twitter_auth %}
