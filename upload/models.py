@@ -203,15 +203,15 @@ class VideoProfile(CustomModel):
     @property
     def meta_description(self):
         labels_str = ",".join([l.title for l in self.labels.all()])
-        suffix = f' [{labels_str}]の自主制作アニメ、パラパラ漫画' if labels_str else ' 自主制作アニメ、パラパラ漫画'
+        suffix = f'[{labels_str}]の自主制作アニメ、パラパラ漫画' if labels_str else '自主制作アニメ、パラパラ漫画'
 
         if len(self.description) > 60:
-            return self.description[:60] + '...' + suffix
+            return self.description[:60] + ' ... ' + suffix
 
         if not self.description:
             return suffix
 
-        return self.description + suffix
+        return self.description + ' ' + suffix
 
     def __str__(self):
         return self.video.__str__() + 'のプロフィール'
