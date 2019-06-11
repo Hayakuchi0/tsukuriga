@@ -17,7 +17,7 @@
   <div class="column">
     {% include 'upload/components/process-list.html' %}
     <div class="box">
-      <form class="submit-form" method="post">
+      <form class="submit-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% include 'upload/components/label-select-form.html' %}
         {{ form|bulma }}

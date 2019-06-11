@@ -34,7 +34,7 @@ class VideoProfileForm(forms.ModelForm):
 
     class Meta:
         model = VideoProfile
-        fields = ('title', 'description', 'ordered_fps', 'is_loop', 'allows_anonymous_comment')
+        fields = ('title', 'description', 'file', 'ordered_fps', 'is_loop', 'allows_anonymous_comment')
 
 
 class LabelInline(InlineFormSetFactory):
