@@ -34,10 +34,6 @@ def thumbnail_upload_to(instance: 'VideoData', filename):
     return os.path.join('u', instance.video.user.username, 'videos', instance.video.slug, f'{uuid4().hex}.jpg')
 
 
-def get_temp_path(instance, filename):
-    return os.path.join(settings.MEDIA_ROOT, temp_upload_to(instance, filename))
-
-
 class Video(models.Model):
     """
     関連モデルを統括する基礎モデル
