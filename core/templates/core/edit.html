@@ -10,7 +10,7 @@
 {% block content %}
   <div class="column is-two-thirds">
     <div class="box">
-      <form class="submit-form" method="post">
+      <form class="submit-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% include 'upload/components/label-select-form.html' %}
         {{ form|bulma }}

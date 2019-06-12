@@ -6,20 +6,6 @@ import './styles.scss'
 
 ready(() => {
   /**
-   * ファイル入力フィールド用処理
-   *
-   */
-  const $fileField = docAll('input[type=file]')
-  $fileField.forEach($field => {
-    $field.addEventListener('change', () => {
-      const file = $field.files[0]
-      const $fieldName = $field.parentNode.querySelector('span.file-name')
-      $fieldName.textContent = file.name
-    })
-  })
-
-
-  /**
    * 2重サブミット対策
    *
    */

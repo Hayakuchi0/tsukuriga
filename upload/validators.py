@@ -1,11 +1,13 @@
 # https://gist.github.com/jrosebr1/2140738
 
 import mimetypes
+import zipfile
 import os
 
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import filesizeformat
 from django.utils.deconstruct import deconstructible
+from django.core.files import File
 from moviepy.editor import VideoFileClip
 
 from .utils import get_tempfile
@@ -97,3 +99,8 @@ def video_file_validator(file):
         clip.close()
     except:
         raise ValidationError('ファイル形式が不正です。動画ファイルとして読み込むことが出来ませんでした')
+
+
+def zip_validator(value: File):
+    if not zipfile.is_zipfile(value.file):
+        raise ValidationError('ファイル形式が不正です。zipではありません')

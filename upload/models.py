@@ -11,7 +11,7 @@ from django.utils.functional import cached_property
 from django.utils import timezone
 from moviepy.editor import VideoFileClip
 
-from .validators import FileValidator, video_file_validator
+from .validators import FileValidator, video_file_validator, zip_validator
 from .utils import get_tempfile
 from browse.models import Ranking, Label, VideoProfileLabelRelation
 from core.utils import CustomModel, gen_unique_slug
@@ -30,12 +30,12 @@ def temp_upload_to(instance: 'UploadedPureVideo', filename):
     return os.path.join('temp', f'{instance.video.slug}-{timezone.now().strftime("%Y%m%d%H%M%S")}.{file_extension}')
 
 
+def profile_upload_to(instance: 'VideoProfile', filename):
+    return os.path.join('u', instance.video.user.username, 'videos', instance.video.slug, f'{uuid4().hex}.zip')
+
+
 def thumbnail_upload_to(instance: 'VideoData', filename):
     return os.path.join('u', instance.video.user.username, 'videos', instance.video.slug, f'{uuid4().hex}.jpg')
-
-
-def get_temp_path(instance, filename):
-    return os.path.join(settings.MEDIA_ROOT, temp_upload_to(instance, filename))
 
 
 class Video(models.Model):
@@ -186,6 +186,13 @@ class VideoProfile(CustomModel):
     labels = models.ManyToManyField(Label, verbose_name='ラベル', blank=True, through=VideoProfileLabelRelation)
     title = models.CharField('タイトル', max_length=50)
     description = models.TextField('動画説明', default='', max_length=200, null=True, blank=True)
+
+    file_validator = FileValidator(allowed_extensions=['zip'], max_size=100 * 1024 * 1024)
+    file = models.FileField(
+        '添付ファイル', upload_to=profile_upload_to, validators=[file_validator, zip_validator], null=True, blank=True,
+        help_text='動画出力前のデータ(pclx, kwzなど)を配布したい方向け。zip形式のみ対応',
+    )
+
     ordered_fps = models.PositiveSmallIntegerField('fps', null=True, blank=True)
     is_loop = models.BooleanField('ループさせる', default=False, blank=True)
     allows_anonymous_comment = models.BooleanField('匿名コメントを許可', default=True, blank=True)
