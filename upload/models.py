@@ -11,7 +11,7 @@ from django.utils.functional import cached_property
 from django.utils import timezone
 from moviepy.editor import VideoFileClip
 
-from .validators import FileValidator, video_file_validator
+from .validators import FileValidator, video_file_validator, zip_validator
 from .utils import get_tempfile
 from browse.models import Ranking, Label, VideoProfileLabelRelation
 from core.utils import CustomModel, gen_unique_slug
@@ -189,7 +189,7 @@ class VideoProfile(CustomModel):
 
     file_validator = FileValidator(allowed_extensions=['zip'], max_size=100 * 1024 * 1024)
     file = models.FileField(
-        'ファイル', upload_to=profile_upload_to, validators=[file_validator], null=True, blank=True,
+        'ファイル', upload_to=profile_upload_to, validators=[file_validator, zip_validator], null=True, blank=True,
         help_text='動画出力前のデータ(pclx, kwzなど)を配布したい方向け。zip形式のみ対応',
     )
 
