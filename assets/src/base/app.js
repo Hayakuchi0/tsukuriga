@@ -28,6 +28,12 @@ ready(() => {
       doc('#' + modalId).classList.add('is-active')
     })
   })
+  const $modalBg = docAll('.modal-closer')
+  $modalBg.forEach($bg => {
+    $bg.addEventListener('click', e => {
+      $bg.parentNode.classList.remove('is-active')
+    })
+  })
 
   /**
    * ツイートボタン
