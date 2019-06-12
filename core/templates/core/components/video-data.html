@@ -55,6 +55,12 @@
           <td>{{ video.data.frames_count }}</td>
         </tr>
       {% endif %}
+      {% if video.profile.file %}
+        <tr>
+          <th>添付ファイル</th>
+          <td><a class="modal-opener" data-target="download-modal">ダウンロード</a></td>
+        </tr>
+      {% endif %}
       <tr>
         <th>公開日時</th>
         <td>{{ video.published_at|default_if_none:"未公開" }}</td>
@@ -63,3 +69,4 @@
     </table>
   </div>
 </div>
+{% include 'core/components/download-modal.html' %}
