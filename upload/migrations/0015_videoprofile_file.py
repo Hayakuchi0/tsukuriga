@@ -15,6 +15,7 @@ class Migration(migrations.Migration):
             model_name='videoprofile',
             name='file',
             field=models.FileField(blank=True, null=True, upload_to=upload.models.profile_upload_to, validators=[
-                upload.validators.FileValidator(allowed_extensions=['zip'], max_size=104857600)], verbose_name='ファイル'),
+                upload.validators.FileValidator(allowed_extensions=['zip'], max_size=104857600)],
+                                   verbose_name='添付ファイル'),
         ),
     ]

@@ -189,7 +189,7 @@ class VideoProfile(CustomModel):
 
     file_validator = FileValidator(allowed_extensions=['zip'], max_size=100 * 1024 * 1024)
     file = models.FileField(
-        'ファイル', upload_to=profile_upload_to, validators=[file_validator, zip_validator], null=True, blank=True,
+        '添付ファイル', upload_to=profile_upload_to, validators=[file_validator, zip_validator], null=True, blank=True,
         help_text='動画出力前のデータ(pclx, kwzなど)を配布したい方向け。zip形式のみ対応',
     )
 
