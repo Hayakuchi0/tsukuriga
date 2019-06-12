@@ -1,3 +1,5 @@
+import pathlib
+
 from django import template
 from django.contrib.sites.models import Site
 
@@ -84,3 +86,8 @@ def safe_number_display(number, max_number):
 @register.filter
 def is_in(value, strings):
     return value in strings.split(',')
+
+
+@register.filter
+def to_filename(value):
+    return pathlib.Path(value).name

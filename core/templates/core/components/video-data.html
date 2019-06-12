@@ -58,7 +58,7 @@
       {% if video.profile.file %}
         <tr>
           <th>添付ファイル</th>
-          <td><a class="modal-opener" data-target="download-modal">ダウンロード</a></td>
+          <td><a class="modal-opener" data-target="download-modal">{{ video.profile.file.name|to_filename }}</a></td>
         </tr>
       {% endif %}
       <tr>

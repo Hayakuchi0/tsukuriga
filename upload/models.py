@@ -31,7 +31,7 @@ def temp_upload_to(instance: 'UploadedPureVideo', filename):
 
 
 def profile_upload_to(instance: 'VideoProfile', filename):
-    return os.path.join('u', instance.video.user.username, 'videos', instance.video.slug, f'{uuid4().hex}.zip')
+    return os.path.join('u', instance.video.user.username, 'videos', instance.video.slug, filename)
 
 
 def thumbnail_upload_to(instance: 'VideoData', filename):
