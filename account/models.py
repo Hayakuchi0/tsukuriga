@@ -7,6 +7,7 @@ import os
 from uuid import uuid4
 from core.utils import CustomModel
 from .validators import UsernameValidator
+from .ranking import Contribution
 
 import twitter
 from social_django.models import UserSocialAuth
@@ -31,6 +32,8 @@ class User(AbstractUser):
     profile_banner = models.ImageField('プロフィール背景画像', upload_to=profile_image_upload_to, null=True, blank=True)
 
     is_accept_mail = models.BooleanField('メール配信の許可', default=True)
+
+    contribution_point = models.PositiveIntegerField('貢献ポイント', default=0, blank=True)
     objects = UserManager()
 
     @property
@@ -86,6 +89,14 @@ class User(AbstractUser):
     def date_uploadable(self):
         latest_video = self.video_set.last()
         return latest_video.profile.created_at + timezone.timedelta(minutes=UPLOAD_LIMIT_MINUTES)
+
+    @property
+    def contribution(self):
+        return Contribution(user=self)
+
+    def calculate_contrib(self):
+        self.contribution_point = self.contribution.point()
+        self.save()
 
     def json(self):
         return {
