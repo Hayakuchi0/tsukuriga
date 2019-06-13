@@ -23,3 +23,25 @@
     <li><a href="/pages">→ もっと見る</a></li>
   </ul>
 </aside>
+<aside class="box">
+  <p class="menu-label">ユーザーランキング</p>
+  {% for user in contrib_users %}
+    <article class="media">
+      <figure class="media-left">
+        <p class="image is-32x32">
+          <img src="{{ user.profile_icon_url }}">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="is-pulled-right">
+          <strong>{{ user.contribution_point }}</strong>
+          <span class="is-size-6 is-lowercase">pt</span>
+        </div>
+        <div class="content">
+          <strong><a href="/u/{{ user.username }}">{{ user.name }}</a></strong>
+          <small>@{{ user.username }}</small>
+        </div>
+      </div>
+    </article>
+  {% endfor %}
+</aside>
