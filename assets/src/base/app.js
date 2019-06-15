@@ -65,15 +65,32 @@ ready(() => {
     const gif = $thumb.dataset.gif
     const jpg = $thumb.dataset.thumbnail
     if (!gif) return
-    $wrapper.addEventListener('mouseover', e => {
-      if ($thumb.src !== gif) {
-        $thumb.src = gif
-      }
-    })
-    $wrapper.addEventListener('mouseout', e => {
-      if ($thumb.src !== jpg) {
-        $thumb.src = jpg
-      }
-    })
+    const isMobile = window.innerWidth < 769
+    if (isMobile) {
+      window.addEventListener('scroll', e => {
+        const centerOfView = window.innerHeight / 2
+        const wrapperRect = $wrapper.getBoundingClientRect()
+        if (wrapperRect.top < centerOfView && centerOfView < wrapperRect.bottom) {
+          if ($thumb.src !== gif) {
+            $thumb.src = gif
+          }
+        } else {
+          if ($thumb.src !== jpg) {
+            $thumb.src = jpg
+          }
+        }
+      })
+    } else {
+      $wrapper.addEventListener('mouseover', e => {
+        if ($thumb.src !== gif) {
+          $thumb.src = gif
+        }
+      })
+      $wrapper.addEventListener('mouseout', e => {
+        if ($thumb.src !== jpg) {
+          $thumb.src = jpg
+        }
+      })
+    }
   })
 })
