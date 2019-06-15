@@ -1,9 +1,10 @@
 from django.core.management.base import BaseCommand
+from django.db.models import Q
 
 from upload.models import VideoData
 
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        for video in VideoData.objects.filter(gif__isnull=True, duration__gte=3):
+        for video in VideoData.objects.filter(Q(gif__isnull=True) | Q(gif__exact=''), duration__gte=3):
             video.update_gif()
