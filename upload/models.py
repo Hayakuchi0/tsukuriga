@@ -38,6 +38,10 @@ def thumbnail_upload_to(instance: 'VideoData', filename):
     return os.path.join('u', instance.video.user.username, 'videos', instance.video.slug, f'{uuid4().hex}.jpg')
 
 
+def gif_upload_to(instance: 'VideoData', filename):
+    return os.path.join('u', instance.video.user.username, 'videos', instance.video.slug, f'{uuid4().hex}.gif')
+
+
 class Video(models.Model):
     """
     関連モデルを統括する基礎モデル
@@ -231,6 +235,7 @@ class VideoData(models.Model):
     """
     video = models.OneToOneField(Video, verbose_name='動画', on_delete=models.CASCADE, related_name='data')
     thumbnail = models.ImageField('サムネイル', upload_to=thumbnail_upload_to)
+    gif = models.FileField('gifサムネイル', upload_to=gif_upload_to, blank=True, null=True)
     file = models.FileField('動画ファイル', upload_to=video_upload_to)
     fps = models.PositiveIntegerField('FPS')
     duration = models.FloatField('動画時間')
@@ -247,6 +252,22 @@ class VideoData(models.Model):
 
         with open(next_thumbnail_path, 'rb') as f:
             self.thumbnail = File(f)
+            self.save()
+
+    def update_gif(self):
+        if self.duration < 3:
+            return
+        path = get_tempfile('.gif')
+
+        start = random.uniform(0, self.clip.duration - 3)
+        subclip = self.clip.subclip(start, start + 3).resize(0.3)
+
+        subclip.write_gif(path, fps=12)
+        subclip.close()
+        self.clip.close()
+
+        with open(path, 'rb') as f:
+            self.gif = File(f)
             self.save()
 
     def update_file(self):

@@ -7,6 +7,8 @@
           class="video-thumbnail-image"
           src="{{ video.data.thumbnail.url|default:"https://placehold.it/640x360" }}"
           alt="{{ video.profile.title }}"
+          data-thumbnail="{{ video.data.thumbnail.url }}"
+          data-gif="{% if video.data.gif %}{{ video.data.gif.url }}{% endif %}"
         >
       </figure>
       {% if video.type|is_in:"twitter,altwug" %}

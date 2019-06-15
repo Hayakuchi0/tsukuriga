@@ -56,4 +56,23 @@ ready(() => {
       placement: 'bottom',
     })
   })
+
+  /**
+   * サムネイルgif
+   */
+  docAll('.video-thumbnail-image').forEach($thumb => {
+    const gif = $thumb.dataset.gif
+    const jpg = $thumb.dataset.thumbnail
+    if (!gif) return
+    $thumb.addEventListener('mouseover', e => {
+      if ($thumb.src !== gif) {
+        $thumb.src = gif
+      }
+    })
+    $thumb.addEventListener('mouseout', e => {
+      if ($thumb.src !== jpg) {
+        $thumb.src = jpg
+      }
+    })
+  })
 })
