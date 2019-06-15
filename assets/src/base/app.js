@@ -60,16 +60,17 @@ ready(() => {
   /**
    * サムネイルgif
    */
-  docAll('.video-thumbnail-image').forEach($thumb => {
+  docAll('.video-thumbnail').forEach($wrapper => {
+    const $thumb = $wrapper.querySelector('.video-thumbnail-image')
     const gif = $thumb.dataset.gif
     const jpg = $thumb.dataset.thumbnail
     if (!gif) return
-    $thumb.addEventListener('mouseover', e => {
+    $wrapper.addEventListener('mouseover', e => {
       if ($thumb.src !== gif) {
         $thumb.src = gif
       }
     })
-    $thumb.addEventListener('mouseout', e => {
+    $wrapper.addEventListener('mouseout', e => {
       if ($thumb.src !== jpg) {
         $thumb.src = jpg
       }
