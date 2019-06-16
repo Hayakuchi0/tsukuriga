@@ -150,6 +150,7 @@ class Label(models.Model):
     color = models.CharField('色', max_length=10, choices=COLOR_SET)
     title = models.CharField('タイトル', max_length=50)
     description = models.TextField('説明')
+    is_active = models.BooleanField('アクティブ', default=True)
 
     @property
     def css_classes(self):
