@@ -2,7 +2,7 @@ from django import forms
 
 from extra_views import InlineFormSetFactory
 
-from browse.models import VideoProfileLabelRelation
+from browse.models import Label, VideoProfileLabelRelation
 from .models import UploadedPureVideo, VideoProfile
 
 
@@ -37,9 +37,18 @@ class VideoProfileForm(forms.ModelForm):
         fields = ('title', 'description', 'file', 'ordered_fps', 'is_loop', 'allows_anonymous_comment')
 
 
+class VideoProfileLabelRelationForm(forms.ModelForm):
+    label = forms.ModelChoiceField(queryset=Label.objects.filter(is_active=True), required=False)
+
+    class Meta:
+        model = VideoProfileLabelRelation
+        fields = ('label',)
+
+
 class LabelInline(InlineFormSetFactory):
     model = VideoProfileLabelRelation
-    fields = '__all__'
+    form_class = VideoProfileLabelRelationForm
+    fields = ('label',)
     factory_kwargs = {'can_delete': False, 'max_num': 3}
 
 
