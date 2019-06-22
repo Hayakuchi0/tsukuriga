@@ -10,12 +10,9 @@
 
 #notify-container {
   position: fixed;
-  top: 0;
   width: 100%;
   z-index: 2;
-  @include desktop() {
-    top: $navbar-height;
-  }
+  top: $navbar-height;
 }
 
 .markdownx-editor {
