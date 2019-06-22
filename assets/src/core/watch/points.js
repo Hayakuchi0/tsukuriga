@@ -22,10 +22,27 @@ ready(() => {
           result += point.count
         })
         return result
+      },
+      sortedPoints() {
+        let results = []
+        this.points.forEach(point => {
+          const key = point.user ? point.user.username : point.username
+          let hasKey = false
+          results.forEach(item => {
+            if (item.username === key) {
+              item.count += point.count
+              hasKey = true
+            }
+          })
+          if (!hasKey) {
+            results.push({username: key, user: point.user, count: point.count})
+          }
+        })
+        return results.sort((a, b) => a.count > b.count ? -1 : 1).slice(0, 5)
       }
     },
     mounted() {
-      this.updatePointSum()
+      this.updatePoints()
     },
     methods: {
       add(e) {
@@ -46,7 +63,7 @@ ready(() => {
       hideModal() {
         this.$refs.pointModal.classList.remove('is-active')
       },
-      updatePointSum() {
+      updatePoints() {
         const videoId = doc('video').dataset.videoId
         this.isLoading = true
         axios.get(`/ajax/points/list/${videoId}`)
@@ -62,6 +79,6 @@ ready(() => {
   ajaxForm('#point-form', () => {
     pointInput.hideModal()
     pointInput.pointInput = 1
-    pointInput.updatePointSum()
+    pointInput.updatePoints()
   })
 })

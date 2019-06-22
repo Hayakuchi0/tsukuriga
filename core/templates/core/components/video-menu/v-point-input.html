@@ -37,9 +37,30 @@
             <button type="button" class="button is-fullwidth" @click="minus">-1</button>
           </div>
         </div>
+        <div class="columns">
+          <div class="column">
+            <table class="table is-striped is-hoverable is-fullwidth">
+              <thead>
+              <th>ユーザー</th>
+              <th>pt</th>
+              </thead>
+              <tbody>
+              <tr v-for="point in sortedPoints">
+                <td>
+                  <template v-if="point.user">
+                    [[ point.user.name ]]@[[ point.user.username ]]
+                  </template>
+                  <template v-else>
+                    [[ point.username ]]
+                  </template>
+                </td>
+                <td>[[ point.count ]]</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
-      <footer class="modal-card-footer">
-      </footer>
     </div>
   </div>
 </div>
