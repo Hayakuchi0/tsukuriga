@@ -47,8 +47,7 @@
   {% block head %}{% endblock %}
   {% render_bundle 'base/app' %}
 </head>
-<body class="has-navbar-fixed-top has-navbar-fixed-bottom-touch" data-user="{{ user.json }}"
-      data-csrf="{{ csrf_token }}">
+<body class="has-navbar-fixed-top has-navbar-fixed-bottom-touch" data-csrf="{{ csrf_token }}">
   {% include 'base/components/navbar-top.html' %}
   {% include 'base/components/navbar-bottom.html' %}
   {% include 'base/components/v-notify-container.html' %}
@@ -70,6 +69,7 @@
       </div>
     </div>
   </footer>
+  {{ user.json|json_script:"userJson" }}
   {% block scripts %}{% endblock %}
 </body>
 </html>

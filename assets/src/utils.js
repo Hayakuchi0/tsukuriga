@@ -32,8 +32,8 @@ export const activateTweetButton = $button => {
 }
 
 export const user = () => {
-  const userJsonString = document.querySelector('body').dataset.user
-  return userJsonString ? JSON.parse(userJsonString.replace(/\'/g, '\"')) : {}
+  const jsonString = doc('#userJson').textContent
+  return jsonString ? JSON.parse(jsonString) : {}
 }
 
 export const csrf = () => {
