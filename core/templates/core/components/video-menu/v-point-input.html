@@ -1,0 +1,45 @@
+{% load bulma_tags %}
+<div id="v-point-input">
+  <button type="button" class="button is-warning modal-opener" data-target="point-modal">
+    <i class="fas fa-star with-text"></i>
+    <span id="v-point-text" v-cloak>
+      <template v-if="!isLoading">
+        [[ pointSum ]]
+        <span class="is-size-6 is-lowercase">pt</span>
+      </template>
+      <template v-else>
+        <i class="fas fa-spinner fa-spin"></i>
+      </template>
+    </span>
+  </button>
+
+  <div id="point-modal" class="modal" data-video-id="{{ video.slug }}" ref="pointModal" v-cloak>
+    <div class="modal-background" @click="hideModal"></div>
+    <div class="modal-card" style="width: 360px" @click="preventTouch">
+      <header class="modal-card-head">
+        <p class="modal-card-title">評価</p>
+      </header>
+      <section class="modal-card-body">
+        <div class="columns is-mobile">
+          <div class="column">
+            <div class="is-size-3 has-text-centered">
+              [[ pointInput ]]
+              <span class="is-size-4 is-lowercase">pt</span>
+            </div>
+            <form id="point-form" method="post" action="/ajax/points/add/{{ video.slug }}">
+              {% csrf_token %}
+              {{ modal_form|bulma }}
+              <button type="submit" class="button is-info is-fullwidth">送信</button>
+            </form>
+          </div>
+          <div class="column">
+            <button type="button" class="button is-primary is-fullwidth" @click="add">+1</button>
+            <button type="button" class="button is-fullwidth" @click="minus">-1</button>
+          </div>
+        </div>
+      </section>
+      <footer class="modal-card-footer">
+      </footer>
+    </div>
+  </div>
+</div>

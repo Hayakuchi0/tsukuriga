@@ -5,11 +5,12 @@ import { ready, ajaxForm, doc } from '../../utils'
 
 
 ready(() => {
-  const pointText = new Vue({
-    el: '#v-point-text',
+  const pointInput = new Vue({
+    el: '#v-point-input',
     delimiters: ['[[', ']]'],
     data() {
       return {
+        pointInput: 1,
         isLoading: false,
         points: [],
       }
@@ -25,28 +26,6 @@ ready(() => {
     },
     mounted() {
       this.updatePointSum()
-    },
-    methods: {
-      updatePointSum() {
-        const videoId = doc('video').dataset.videoId
-        this.isLoading = true
-        axios.get(`/ajax/points/list/${videoId}`)
-          .then(response => {
-            this.points = response.data.results
-          })
-          .finally(() => {
-            this.isLoading = false
-          })
-      }
-    }
-  })
-  const pointForm = new Vue({
-    el: '#v-point-modal',
-    delimiters: ['[[', ']]'],
-    data() {
-      return {
-        pointInput: 1
-      }
     },
     methods: {
       add(e) {
@@ -66,12 +45,23 @@ ready(() => {
       },
       hideModal() {
         this.$refs.pointModal.classList.remove('is-active')
+      },
+      updatePointSum() {
+        const videoId = doc('video').dataset.videoId
+        this.isLoading = true
+        axios.get(`/ajax/points/list/${videoId}`)
+          .then(response => {
+            this.points = response.data.results
+          })
+          .finally(() => {
+            this.isLoading = false
+          })
       }
     }
   })
   ajaxForm('#point-form', () => {
-    pointForm.hideModal()
-    pointForm.pointInput = 1
-    pointText.updatePointSum()
+    pointInput.hideModal()
+    pointInput.pointInput = 1
+    pointInput.updatePointSum()
   })
 })
