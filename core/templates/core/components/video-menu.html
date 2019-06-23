@@ -22,6 +22,12 @@
               動画ファイルの再投稿
             </a>
           {% endif %}
+          {% if user.is_staff %}
+            <a class="dropdown-item" href="/admin/upload/video/{{ video.id }}/change/">
+              <i class="fas fa-hammer with-text"></i>
+              管理画面へ
+            </a>
+          {% endif %}
         </div>
       </div>
     </div>
