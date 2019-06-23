@@ -1,6 +1,6 @@
 <div class="hero is-primary is-small has-margin-bottom">
   <div class="hero-body">
-    <a class="is-pulled-right" href="{{ href }}">もっと見る</a>
+    {% if href %}<a class="is-pulled-right" href="{{ href }}">もっと見る</a>{% endif %}
     <h3 class="title is-5">{{ title }}</h3>
   </div>
 </div>
