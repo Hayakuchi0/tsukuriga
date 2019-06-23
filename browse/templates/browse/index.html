@@ -31,6 +31,10 @@
       </div>
     </div>
     <section class="section">
+      {% include 'browse/components/section-title.html' with title="ピックアップ" %}
+      {% include 'browse/components/video-list.html' with videos=pickup_videos column_classes='is-one-third' %}
+    </section>
+    <section class="section">
       {% include 'browse/components/section-title.html' with title="ランダム新着" href="/recent" %}
       {% include 'browse/components/video-list.html' with videos=recent_videos %}
     </section>
