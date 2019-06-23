@@ -21,7 +21,7 @@ class VideoDataInline(ReadOnlyMixin, admin.StackedInline):
     model = models.VideoData
 
 
-class VideoAdmin(ReadOnlyMixin, admin.ModelAdmin):
+class VideoAdmin(admin.ModelAdmin):
     list_display_custom = [
         ('動画ID', 'slug', str),
         ('タイトル', 'profile__title', str),
