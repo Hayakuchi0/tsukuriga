@@ -55,6 +55,7 @@ class Video(models.Model):
     user = models.ForeignKey('account.User', verbose_name='投稿者', on_delete=models.CASCADE)
     slug = models.CharField('動画ID', max_length=5, default=default_video_slug, editable=False)
 
+    is_pickup = models.BooleanField('ピックアップ', default=False)
     is_active = models.BooleanField('公開', default=False)
     published_at = models.DateTimeField('公開時間', blank=True, null=True)
 
