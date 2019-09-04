@@ -9,3 +9,8 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('name', 'text')
+
+
+class GIFEncodingForm(forms.Form):
+    fps = forms.IntegerField(min_value=1)
+    text = forms.CharField()
