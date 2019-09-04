@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'django_cleanup',
     # django-maintenance-mode
     'maintenance_mode',
+    # django-cors-headers
+    'corsheaders',
     # original apps
     'core.apps.CoreConfig',
     'upload.apps.UploadConfig',
@@ -68,6 +70,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'unslashed.middleware.RemoveSlashMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -222,3 +225,10 @@ MAINTENANCE_MODE_STATE_BACKEND = 'core.utils.LocalFileBackend'
 ENCODE_OPTIONS = {
     'audio_codec': 'aac'
 }
+
+# django-cors-headers
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8080',
+]
+
+CORS_ALLOW_CREDENTIALS = True
