@@ -1,8 +1,8 @@
 import base64
 
 from django.views.generic import CreateView
-from django.shortcuts import redirect
-from django.views.decorators.http import require_POST
+from django.shortcuts import redirect, render
+from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.base import ContentFile
 from django.http.response import JsonResponse
@@ -44,7 +44,7 @@ class Chat(CreateView):
 
 @require_POST
 @csrf_exempt
-def gif_encoding(request):
+def para_encoding(request):
     form = GIFEncodingForm(request.POST)
     if form.is_valid():
         frames_base64 = form.cleaned_data['text'].split('@')
@@ -56,8 +56,22 @@ def gif_encoding(request):
             temp_file_list.append(temp_file)
 
         clip = ImageSequenceClip(temp_file_list, fps=form.cleaned_data['fps'])
-        result_path = get_tempfile('.gif')
-        clip.write_gif(result_path)
-        print(result_path)
+        gif_path = get_tempfile('.gif')
+        clip.write_gif(gif_path)
 
-    return JsonResponse({'result': 'success'})
+        with open(gif_path, 'rb') as f:
+            encoded_string = base64.b64encode(f.read())
+
+    return JsonResponse({'base64': 'data:image/gif;base64,' + encoded_string.decode('utf-8')})
+
+
+@require_GET
+def para_authentication(request):
+    return JsonResponse({
+        'loginUrl': 'http://' + request.get_host() + '/login/twitter/?next=/para/callback',
+        'isAuthenticated': request.user.is_authenticated
+    })
+
+
+def para_callback(request):
+    return render(request, 'para/callback.html')
