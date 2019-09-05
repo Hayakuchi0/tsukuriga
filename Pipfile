@@ -20,6 +20,7 @@ django-cleanup = "*"
 django-maintenance-mode = "*"
 pymdown-extensions = "*"
 django-extra-views = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 django-extensions = "*"
