@@ -14,3 +14,8 @@ class PostForm(forms.ModelForm):
 class GIFEncodingForm(forms.Form):
     fps = forms.IntegerField(min_value=1)
     text = forms.CharField()
+
+
+class GIFTweetForm(forms.Form):
+    text = forms.CharField(max_length=100)
+    media = forms.CharField()

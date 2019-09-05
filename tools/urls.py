@@ -6,4 +6,5 @@ urlpatterns = [
     path('para/encode', views.para_encoding),
     path('para/auth', views.para_authentication),
     path('para/callback', views.para_callback),
+    path('para/tweet', views.para_tweet),
 ]

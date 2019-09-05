@@ -4,6 +4,7 @@ from django.views.generic import CreateView
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 from django.http.response import JsonResponse
 
@@ -11,7 +12,7 @@ from moviepy.editor import ImageSequenceClip
 
 from ajax.utils import get_ip, get_anonymous_name
 from upload.utils import get_tempfile
-from .forms import PostForm, GIFEncodingForm
+from .forms import PostForm, GIFEncodingForm, GIFTweetForm
 from .models import Post
 
 
@@ -62,16 +63,30 @@ def para_encoding(request):
         with open(gif_path, 'rb') as f:
             encoded_string = base64.b64encode(f.read())
 
-    return JsonResponse({'base64': 'data:image/gif;base64,' + encoded_string.decode('utf-8')})
+    return JsonResponse({'base64': encoded_string.decode('utf-8')})
 
 
 @require_GET
 def para_authentication(request):
     return JsonResponse({
         'loginUrl': 'http://' + request.get_host() + '/login/twitter/?next=/para/callback',
-        'isAuthenticated': request.user.is_authenticated
+        'isAuthenticated': request.user.has_twitter_auth
     })
 
 
 def para_callback(request):
     return render(request, 'para/callback.html')
+
+
+@require_POST
+@csrf_exempt
+@login_required
+def para_tweet(request):
+    form = GIFTweetForm(request.POST)
+    if form.is_valid():
+        file = ContentFile(base64.b64decode(form.cleaned_data['media']))
+        media_path = get_tempfile('.gif', file)
+        with open(media_path, 'rb') as f:
+            request.user.api.PostUpdate(form.cleaned_data['text'], media=f)
+        return JsonResponse({'isTweeted': True})
+    return JsonResponse({'isTweeted': False})
