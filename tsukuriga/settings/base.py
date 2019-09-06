@@ -228,7 +228,7 @@ ENCODE_OPTIONS = {
 
 # django-cors-headers
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8080',
+    'https://para.tsukuriga.net',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
