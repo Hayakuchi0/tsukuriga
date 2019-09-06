@@ -17,5 +17,5 @@ class GIFEncodingForm(forms.Form):
 
 
 class GIFTweetForm(forms.Form):
-    text = forms.CharField(max_length=100)
+    text = forms.CharField(max_length=100, required=False)
     media = forms.CharField()
