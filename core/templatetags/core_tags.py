@@ -77,8 +77,14 @@ def to_attr_list(l: list, attr) -> list:
 
 
 @register.filter
-def safe_number_display(number: str, max_number: str):
-    if number.isdecimal() and max_number.isdecimal() and int(number) >= int(max_number):
+def safe_number_display(number, max_number):
+    if type(number) is str and not number.isdecimal():
+        return number
+
+    if type(max_number) is str and not number.isdecimal():
+        return number
+
+    if int(number) >= int(max_number):
         return max_number + '+'
     return number
 
