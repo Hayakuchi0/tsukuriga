@@ -69,8 +69,8 @@ def para_encoding(request):
 @require_GET
 def para_authentication(request):
     return JsonResponse({
-        'loginUrl': 'http://' + request.get_host() + '/login/twitter/?next=/para/callback',
-        'isAuthenticated': request.user.has_twitter_auth
+        'loginPath': '/login/twitter/?next=/para/callback',
+        'isAuthenticated': request.user.is_authenticated and request.user.has_twitter_auth
     })
 
 
