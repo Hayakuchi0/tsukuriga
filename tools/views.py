@@ -87,6 +87,9 @@ def para_tweet(request):
         file = ContentFile(base64.b64decode(form.cleaned_data['media']))
         media_path = get_tempfile('.gif', file)
         with open(media_path, 'rb') as f:
-            request.user.api.PostUpdate(form.cleaned_data['text'] + ' #tsukuriga', media=f)
+            request.user.api.PostUpdate(
+                form.cleaned_data['text'] + ' #tsukuriga' + ' https://para.tsukuriga.net',
+                media=f
+            )
         return JsonResponse({'isTweeted': True})
     return JsonResponse({'isTweeted': False})
