@@ -87,9 +87,14 @@ def para_tweet(request):
         file = ContentFile(base64.b64decode(form.cleaned_data['media']))
         media_path = get_tempfile('.gif', file)
         with open(media_path, 'rb') as f:
-            request.user.api.PostUpdate(
-                form.cleaned_data['text'] + ' #tsukuriga' + ' https://para.tsukuriga.net',
-                media=f
-            )
-        return JsonResponse({'isTweeted': True})
-    return JsonResponse({'isTweeted': False})
+            try:
+                request.user.api.PostUpdate(form.cleaned_data['text'], media=f)
+            except:
+                return JsonResponse({
+                    'isTweeted': False,
+                    'message': 'ツイートに失敗しました。ツクリガからログアウトしてから再度試してみてください。'
+                })
+
+        return JsonResponse({'isTweeted': True, 'message': 'ツイートに成功しました'})
+
+    return JsonResponse({'isTweeted': False, 'message': 'ツイートに失敗しました。送信情報が不正です。'})
