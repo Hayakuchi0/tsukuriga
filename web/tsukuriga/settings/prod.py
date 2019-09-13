@@ -16,10 +16,11 @@ if not DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'tsukuriga',
-            'USER': env('DATABASE_USER'),
-            'PASSWORD': env('DATABASE_PASSWORD'),
-            'HOST': 'localhost',
+            'NAME': 'django',
+            'USER': 'root',
+            'PASSWORD': env('MYSQL_ROOT_PASSWORD'),
+            'HOST': 'db',
+            'PORT': '3306',
             'OPTIONS': {
                 'charset': 'utf8mb4',
                 'sql_mode': 'TRADITIONAL,NO_AUTO_VALUE_ON_ZERO,ONLY_FULL_GROUP_BY',

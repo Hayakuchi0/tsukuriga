@@ -19,8 +19,6 @@ BASE_DIR = str(environ.Path(__file__) - 3)
 ENV_PATH = os.path.join(BASE_DIR, '.env')
 
 env = environ.Env()
-if os.path.isfile(ENV_PATH):
-    env.read_env(ENV_PATH)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -155,7 +153,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "assets"),
 )
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'tsukuriga', 'assets')
+STATIC_ROOT = '/assets'
 
 SITE_ID = 1
 
