@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import environ
+import pymysql
+from django.db.backends.mysql.schema import DatabaseSchemaEditor
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = str(environ.Path(__file__) - 3)
@@ -106,12 +108,24 @@ WSGI_APPLICATION = 'tsukuriga.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# 設定参考
+# https://qiita.com/shirakiya/items/71861325b2c8988979a2
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django',
+        'USER': 'root',
+        'PASSWORD': env('MYSQL_ROOT_PASSWORD'),
+        'HOST': 'db',
+        'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'sql_mode': 'TRADITIONAL,NO_AUTO_VALUE_ON_ZERO,ONLY_FULL_GROUP_BY',
+        },
     }
 }
+pymysql.install_as_MySQLdb()
+DatabaseSchemaEditor.sql_create_table += " ROW_FORMAT=DYNAMIC"
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
