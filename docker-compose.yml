@@ -8,8 +8,7 @@ volumes:
 services:
   nginx:
     image: nginx
-    ports:
-      - "8000:8000"
+    env_file: .env
     volumes:
       - ./nginx/conf:/etc/nginx/conf.d
       - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
@@ -17,6 +16,7 @@ services:
       - ./nginx/assets:/assets
     depends_on:
       - web
+    restart: always
 
   db:
     image: mysql:5.7
@@ -26,6 +26,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
       - ./db:/docker-entrypoint-initdb.d
+    restart: always
 
   web:
     build: ./web
@@ -43,6 +44,7 @@ services:
       - "8001"
     depends_on:
       - db
+    restart: always
 
   node:
     image: node:11.14
@@ -52,3 +54,9 @@ services:
       - ./node:/code
       - ./web/assets:/code/assets
     working_dir: /code
+    restart: always
+
+networks:
+  default:
+    external:
+      name: shared
