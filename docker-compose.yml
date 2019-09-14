@@ -50,6 +50,5 @@ services:
     volumes:
       - node_modules:/code/node_modules
       - ./node:/code
-      - ./web/webpack-stats.json:/code/webpack-stats.json
       - ./web/assets:/code/assets
     working_dir: /code

@@ -44,7 +44,7 @@ module.exports = {
     poll: 500
   },
   plugins: [
-    new BundleTracker({filename: './webpack-stats.json'}),
+    new BundleTracker({filename: './assets/webpack-stats.json'}),
     new ExtractTextPlugin('[name]-[hash].css'),
   ]
 }
