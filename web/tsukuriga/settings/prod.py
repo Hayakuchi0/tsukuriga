@@ -26,7 +26,7 @@ CSRF_COOKIE_HTTPONLY = True
 # security.W019
 X_FRAME_OPTIONS = 'DENY'
 # security.W021
-SECURE_HSTS_PRELOAD = True
+# SECURE_HSTS_PRELOAD = True
 
 # django-storage-swift
 DEFAULT_FILE_STORAGE = 'swift.storage.SwiftStorage'
