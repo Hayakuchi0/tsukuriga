@@ -1,25 +1,62 @@
 version: '3'
 
+volumes:
+  db_data:
+  venv:
+  node_modules:
+
 services:
-  web:
-    build: .
-    command: bash -c "python manage_dev.py migrate && python manage_dev.py runserver_plus 0.0.0.0:8000"
-    dns:
-      - "8.8.8.8"
+  nginx:
+    image: nginx
+    env_file: .env
     volumes:
-      - .:/code
-    ports:
-      - "8000:8000"
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
+      - ./nginx/log:/var/log/nginx
+      - ./nginx/assets:/assets
     depends_on:
-      - node
+      - web
+    restart: always
+
+  db:
+    image: mysql:5.7
+    expose:
+      - "3306"
+    env_file: .env
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d
+    restart: always
+
+  web:
+    build: ./web
+    env_file: .env
+    entrypoint: pipenv run
+    command: start
+    volumes:
+      - ./web:/code
+      - venv:/code/.venv
+      - ./nginx/assets:/assets
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    expose:
+      - "8001"
+    depends_on:
+      - db
+    restart: always
+
   node:
     image: node:11.14
     command: bash -c "yarn && yarn run dev"
     volumes:
-      - ./.babelrc:/code/.babelrc
-      - ./package.json:/code/package.json
-      - ./yarn.lock:/code/yarn.lock
-      - ./webpack.config.js:/code/webpack.config.js
-      - ./webpack-stats.json:/code/webpack-stats.json
-      - ./assets:/code/assets
+      - node_modules:/code/node_modules
+      - ./node:/code
+      - ./web/assets:/code/assets
     working_dir: /code
+    restart: always
+
+networks:
+  default:
+    external:
+      name: shared

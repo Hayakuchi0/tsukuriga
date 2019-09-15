@@ -6,7 +6,7 @@ const glob = require('glob')
 
 function getEntries() {
   let entries = {}
-  glob.sync(`./assets/src/*/*.js`).forEach(filepath => {
+  glob.sync(`./src/*/*.js`).forEach(filepath => {
     const file = filepath.split('/')
     const folder = file.slice(-2, -1)[0]
     const filename = file.slice(-1)[0]
@@ -44,7 +44,7 @@ module.exports = {
     poll: 500
   },
   plugins: [
-    new BundleTracker({filename: './webpack-stats.json'}),
+    new BundleTracker({filename: './assets/webpack-stats.json'}),
     new ExtractTextPlugin('[name]-[hash].css'),
   ]
 }

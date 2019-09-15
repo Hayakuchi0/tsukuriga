@@ -21,6 +21,7 @@ django-maintenance-mode = "*"
 pymdown-extensions = "*"
 django-extra-views = "*"
 django-cors-headers = "*"
+uwsgi = "*"
 
 [dev-packages]
 django-extensions = "*"
@@ -29,3 +30,7 @@ django-debug-toolbar = "*"
 
 [requires]
 python_version = "3.7"
+
+[scripts]
+start = "uwsgi --ini /code/uwsgi.ini"
+dev = "python manage.py runserver_plus 0.0.0.0:8080"

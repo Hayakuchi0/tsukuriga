@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import environ
+import pymysql
+from django.db.backends.mysql.schema import DatabaseSchemaEditor
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = str(environ.Path(__file__) - 3)
@@ -19,8 +21,6 @@ BASE_DIR = str(environ.Path(__file__) - 3)
 ENV_PATH = os.path.join(BASE_DIR, '.env')
 
 env = environ.Env()
-if os.path.isfile(ENV_PATH):
-    env.read_env(ENV_PATH)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -108,12 +108,24 @@ WSGI_APPLICATION = 'tsukuriga.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# 設定参考
+# https://qiita.com/shirakiya/items/71861325b2c8988979a2
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django',
+        'USER': 'root',
+        'PASSWORD': env('MYSQL_ROOT_PASSWORD'),
+        'HOST': 'db',
+        'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'sql_mode': 'TRADITIONAL,NO_AUTO_VALUE_ON_ZERO,ONLY_FULL_GROUP_BY',
+        },
     }
 }
+pymysql.install_as_MySQLdb()
+DatabaseSchemaEditor.sql_create_table += " ROW_FORMAT=DYNAMIC"
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -155,7 +167,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "assets"),
 )
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'tsukuriga', 'assets')
+STATIC_ROOT = '/assets'
 
 SITE_ID = 1
 
@@ -200,7 +212,7 @@ AUTH_USER_MODEL = 'account.User'
 WEBPACK_LOADER = {
     'DEFAULT': {
         'BUNDLE_DIR_NAME': 'bundles/',
-        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+        'STATS_FILE': os.path.join(BASE_DIR, 'assets', 'webpack-stats.json'),
         'POLL_INTERVAL': 0.1,
         'TIMEOUT': None,
         'IGNORE': [r'.+\.hot-update.js', r'.+\.map']
