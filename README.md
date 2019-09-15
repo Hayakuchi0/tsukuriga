@@ -1,4 +1,4 @@
-![ツクリガ](assets/images/ogp.png)
+<img src="web/assets/images/ogp.png" width="400" height="auto"/>
 
 # Tsukuriga
 [Altwug.net](https://altwug.net)を継承する自主制作動画専用の投稿サイト  
@@ -9,67 +9,40 @@
 
 ## 開発
 必要なもの
-* bash
-* python(3.7, もしくは3.6)
-* pip
-* pipenv
-* yarn(npm)
-* ffmpeg
+* docker
+* docker-compose
 
 ### セットアップ
-```bash
-$ pipenv install --dev
-$ pipenv shell
-(.venv)$ python manage_dev.py migrate
 
-# ログインに必要なTWITTER_KEY, TWITTER_SECRETのみ変更
+```bash
+# 必要に応じて環境変数を変更
 $ mv .env.example .env
 $ vim .env
-# 最初にログインしたユーザーをスーパーユーザー化する
-(.venv)$ python manage_dev.py setsuperuser
 
-# もしくは、スーパーユーザーの作成(localhost:8000/admin/でのみログイン可能)
-(.venv)$ python manage_dev.py createsuperuser
-```
-
-### 開発サーバーの起動
-下記2つのコマンドを別々のターミナルで実行
-```bash
-(.venv)$ python manage_dev.py runserver_plus
-```
-```bash
-$ yarn run dev
-```
-
-### アップロード動画のサムネイル作成とエンコード処理
-```bash
-(.venv)$ python manage_dev.py encode
-```
-
-### Dockerを用いる場合
-
-#### セットアップ
-
-```bash
 # Dockerイメージの作成
-$ sudo docker-compose build
+$ docker-compose build web
 
-# ログインに必要なTWITTER_KEY, TWITTER_SECRETのみ変更
-$ mv .env.example .env
-$ vim .env
-
-# スーパーユーザーの作成
-$ sudo docker-compose run web python manage_dev.py createsuperuser
+# パッケージのインストールとデータベースのマイグレーション
+$ docker-compose run web pipenv install --dev
+$ docker-compose run web python manage.py migrate
 ```
 
 #### 開発サーバーの起動
 ```bash
-$ sudo docker-compose up -d
+# Pipfileのdevコマンドで開発サーバーを起動
+$ docker-compose run -p 8080:8080 web dev
 ```
 
-#### アップロード動画のサムネイル作成とエンコード処理
+#### コマンド一覧
 ```bash
-$ sudo docker-compose run web python manage_dev.py encode
+# 静止画サムネイル生成と動画のエンコード
+$ docker-compose run web python manage.py encode
+# gifサムネイル生成
+$ docker-compose run web python manage.py gif
+# 動画ランキング生成
+$ docker-compose run web python manage.py ranking
+# ユーザーランキング生成
+$ docker-compose run web python manage.py contrib
 ```
 
 ## Author
