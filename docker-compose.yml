@@ -47,7 +47,7 @@ services:
     restart: always
 
   node:
-    image: node:11.14
+    image: node
     env_file: .env
     command: python3 entrypoint.py
     volumes:
