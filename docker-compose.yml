@@ -3,6 +3,7 @@ version: '3'
 volumes:
   db_data:
   venv:
+  sock:
   node_modules:
 
 services:
@@ -14,7 +15,7 @@ services:
       - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
       - ./nginx/log:/var/log/nginx
       - ./nginx/assets:/assets
-      - ./nginx/sock:/sock
+      - sock:/sock
     depends_on:
       - web
     restart: always
@@ -38,7 +39,7 @@ services:
       - ./web:/code
       - venv:/code/.venv
       - ./nginx/assets:/assets
-      - ./nginx/sock:/sock
+      - sock:/sock
     dns:
       - 8.8.8.8
       - 8.8.4.4
