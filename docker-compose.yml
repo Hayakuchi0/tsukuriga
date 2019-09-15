@@ -48,13 +48,13 @@ services:
 
   node:
     image: node:11.14
-    command: bash -c "yarn && yarn run dev"
+    env_file: .env
+    command: python3 entrypoint.py
     volumes:
       - node_modules:/code/node_modules
       - ./node:/code
       - ./web/assets:/code/assets
     working_dir: /code
-    restart: always
 
 networks:
   default:
