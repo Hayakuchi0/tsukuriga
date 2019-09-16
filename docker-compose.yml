@@ -19,6 +19,9 @@ services:
     depends_on:
       - web
     restart: always
+    networks:
+      - shared
+      - backend
 
   db:
     image: mysql:5.7
@@ -29,6 +32,8 @@ services:
       - db_data:/var/lib/mysql
       - ./db:/docker-entrypoint-initdb.d
     restart: always
+    networks:
+      - backend
 
   web:
     build: ./web
@@ -46,7 +51,9 @@ services:
     depends_on:
       - db
     restart: always
-
+    networks:
+      - backend
+ 
   node:
     image: node
     env_file: .env
@@ -56,8 +63,12 @@ services:
       - ./node:/code
       - ./web/assets:/code/assets
     working_dir: /code
+    networks:
+      - backend
 
 networks:
-  default:
-    external:
-      name: shared
+  shared:
+    external: true
+  backend:
+    driver: bridge
+
