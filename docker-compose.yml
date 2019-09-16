@@ -43,8 +43,6 @@ services:
     dns:
       - 8.8.8.8
       - 8.8.4.4
-    expose:
-      - "8001"
     depends_on:
       - db
     restart: always
