@@ -56,7 +56,6 @@ class Video(models.Model):
     slug = models.CharField('動画ID', max_length=5, default=default_video_slug, editable=False)
 
     is_pickup = models.BooleanField('ピックアップ', default=False)
-    is_active = models.BooleanField('公開', default=False)
     published_at = models.DateTimeField('公開時間', blank=True, null=True)
 
     views_count = models.PositiveIntegerField('再生回数', default=0)
@@ -108,12 +107,6 @@ class Video(models.Model):
                 ranking = self.ranking_set.create(day=ranking_day, type=ranking_type)
                 ranking.calculate()
                 ranking.save()
-
-    def publish_and_save(self):
-        self.is_active = True
-        if self.published_at is None:
-            self.published_at = timezone.now()
-        self.save()
 
     def __str__(self):
         return self.profile.title + f'(id:{self.slug})'
@@ -187,6 +180,13 @@ class VideoProfile(CustomModel):
     アップロード直後に情報が保持されるモデル
     基本的にユーザーが編集可
     """
+    RELEASE_TYPES = (
+        ('published', '公開'),
+        ('limited', '限定公開'),
+        ('unpublished', '未公開'),
+    )
+    release_type = models.CharField('公開状態', max_length=20, choices=RELEASE_TYPES, default=RELEASE_TYPES[-1][0])
+
     video = models.OneToOneField(Video, verbose_name='動画', on_delete=models.CASCADE, related_name='profile')
     labels = models.ManyToManyField(Label, verbose_name='ラベル', blank=True, through=VideoProfileLabelRelation)
     title = models.CharField('タイトル', max_length=50)

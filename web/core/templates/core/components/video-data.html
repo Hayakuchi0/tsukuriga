@@ -62,8 +62,12 @@
         </tr>
       {% endif %}
       <tr>
+        <th>公開状態</th>
+        <td>{{ video.profile.get_release_type_display }}</td>
+      </tr>
+      <tr>
         <th>公開日時</th>
-        <td>{{ video.published_at|default_if_none:"未公開" }}</td>
+        <td>{{ video.published_at|default_if_none:"-" }}</td>
       </tr>
       </tbody>
     </table>

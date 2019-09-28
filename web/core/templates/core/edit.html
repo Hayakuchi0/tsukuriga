@@ -14,13 +14,7 @@
         {% csrf_token %}
         {% include 'upload/components/label-select-form.html' %}
         {{ form|bulma }}
-        <button type="submit" class="button is-info">
-          {% if video.is_active == False %}
-            保存して公開
-          {% else %}
-            更新
-          {% endif %}
-        </button>
+        <button type="submit" class="button is-info">更新</button>
         <a href="/thumbnail/{{ video.slug }}" class="button is-primary">サムネイル編集</a>
         <button
           type="button"
