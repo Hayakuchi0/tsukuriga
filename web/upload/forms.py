@@ -31,10 +31,14 @@ class VideoProfileForm(forms.ModelForm):
         label='匿名のコメントを許可する', required=False,
         help_text='拒否設定にした時点で追加されていたコメントは全て匿名設定がオフになります'
     )
+    release_type = forms.ChoiceField(
+        label='公開状態', choices=VideoProfile.RELEASE_TYPES[:-1],
+        help_text='限定公開は新着順など一部ページに表示されなくなります'
+    )
 
     class Meta:
         model = VideoProfile
-        fields = ('title', 'description', 'file', 'ordered_fps', 'is_loop', 'allows_anonymous_comment')
+        fields = ('title', 'description', 'file', 'ordered_fps', 'is_loop', 'allows_anonymous_comment', 'release_type')
 
 
 class VideoProfileLabelRelationForm(forms.ModelForm):

@@ -1,5 +1,6 @@
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.utils import timezone
 
 from extra_views import UpdateWithInlinesView
 
@@ -27,19 +28,20 @@ class VideoProfileUpdateView(UpdateWithInlinesView):
         return self.request.video.profile
 
     def forms_valid(self, form, inlines):
-        video = self.request.video
+        old_profile: VideoProfile = self.request.video.profile
         form.save()
         for formset in inlines:
             formset.save()
 
-        if not video.profile.allows_anonymous_comment:
-            comments = Comment.objects.filter(video=video, is_anonymous=True)
+        if not old_profile.allows_anonymous_comment:
+            comments = Comment.objects.filter(video=self.request.video, is_anonymous=True)
             for comment in comments:
                 comment.is_anonymous = False
                 comment.save()
 
-        if not video.is_active:
-            video.publish_and_save()
+        if not old_profile.release_type == 'published' and self.request.video.published_at is None:
+            self.request.video.published_at = timezone.now()
+            self.request.video.save()
 
         messages.success(self.request, '保存されました')
         return redirect(self.get_success_url())

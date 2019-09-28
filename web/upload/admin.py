@@ -26,7 +26,7 @@ class VideoAdmin(admin.ModelAdmin):
         ('動画ID', 'slug', str),
         ('タイトル', 'profile__title', str),
         ('再生回数', 'views_count', int),
-        ('公開', 'is_active', bool),
+        ('公開状態', 'profile__get_release_type_display', str),
         ('作成日', 'profile__created_at', None)
     ]
     inlines = (VideoProfileInline, VideoDataInline)

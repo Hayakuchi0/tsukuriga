@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.http import require_POST
+from django.http.response import Http404
 from django.db.models import Q
 
 import functools
@@ -12,26 +13,30 @@ from ajax.forms import CommentForm, AddPointForm
 from upload.models import Video
 from upload.decorators import users_video_required
 from upload.generic import VideoProfileUpdateView
+from browse.utils import safe_videos
+
 from .forms import ThumbnailForm, DeleteVideoForm
 
 
 def watch(request, slug):
     video = get_object_or_404(Video, slug=slug)
 
+    if not video.user == request.user and video.profile.release_type == 'unpublished':
+        raise Http404
+
     label_videos = []
     labels = video.profile.labels.all()
     if labels.exists():
-        label_videos = Video.objects.filter(
+        label_videos = safe_videos().filter(
             functools.reduce(operator.or_, (Q(profile__labels=label) for label in labels))
         ).order_by('?')[:10]
     # 不足分をランダムで補填
-    random_videos = Video.objects.all().order_by('?')[:10 - len(label_videos)]
-
+    random_videos = safe_videos().order_by('?')[:10 - len(label_videos)]
     related_videos = list(label_videos) + list(random_videos)
 
-    if video.is_active:
-        video.views_count += 1
-        video.save()
+    video.views_count += 1
+    video.save()
+
     if video.is_failed and video.user == request.user:
         messages.error(request, 'エンコード処理が正常に終了しませんでした。しばらく時間をおいてから、動画を削除して再投稿してみてください')
 
