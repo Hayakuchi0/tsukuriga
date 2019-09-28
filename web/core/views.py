@@ -13,23 +13,25 @@ from ajax.forms import CommentForm, AddPointForm
 from upload.models import Video
 from upload.decorators import users_video_required
 from upload.generic import VideoProfileUpdateView
+from browse.utils import safe_videos
+
 from .forms import ThumbnailForm, DeleteVideoForm
 
 
 def watch(request, slug):
     video = get_object_or_404(Video, slug=slug)
 
-    if not video.user == request.user and not video.profile.release_type == 'published':
+    if not video.user == request.user and video.profile.release_type == 'unpublished':
         raise Http404
 
     label_videos = []
     labels = video.profile.labels.all()
     if labels.exists():
-        label_videos = Video.objects.filter(
+        label_videos = safe_videos().filter(
             functools.reduce(operator.or_, (Q(profile__labels=label) for label in labels))
         ).order_by('?')[:10]
     # 不足分をランダムで補填
-    random_videos = Video.objects.all().order_by('?')[:10 - len(label_videos)]
+    random_videos = safe_videos().order_by('?')[:10 - len(label_videos)]
     related_videos = list(label_videos) + list(random_videos)
 
     video.views_count += 1
