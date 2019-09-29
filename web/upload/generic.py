@@ -28,20 +28,21 @@ class VideoProfileUpdateView(UpdateWithInlinesView):
         return self.request.video.profile
 
     def forms_valid(self, form, inlines):
-        old_profile: VideoProfile = self.request.video.profile
+        video: Video = self.request.video
+
         form.save()
         for formset in inlines:
             formset.save()
 
-        if not old_profile.allows_anonymous_comment:
-            comments = Comment.objects.filter(video=self.request.video, is_anonymous=True)
+        if not video.profile.allows_anonymous_comment:
+            comments = Comment.objects.filter(video=video, is_anonymous=True)
             for comment in comments:
                 comment.is_anonymous = False
                 comment.save()
 
-        if not old_profile.release_type == 'published' and self.request.video.published_at is None:
-            self.request.video.published_at = timezone.now()
-            self.request.video.save()
+        if not video.profile.release_type == 'unpublished' and self.request.video.published_at is None:
+            video.published_at = timezone.now()
+            video.save()
 
         messages.success(self.request, '保存されました')
         return redirect(self.get_success_url())
