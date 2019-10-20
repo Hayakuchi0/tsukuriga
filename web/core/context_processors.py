@@ -1,3 +1,5 @@
+import urllib.parse
+
 from django.conf import settings
 
 
@@ -6,7 +8,7 @@ def query_resolver(request):
     queries = '?'
     for k, v in dict(request.GET).items():
         if not k == 'page':
-            queries += f'{k}={v[0]}&'
+            queries += f'{k}={urllib.parse.quote(v[0])}&'
     return {'queries': queries}
 
 
