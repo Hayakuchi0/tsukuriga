@@ -98,6 +98,12 @@ class Video(models.Model):
         return sum([point.count for point in points])
 
     @property
+    def point_users_count(self):
+        users_count = self.point_set.filter(user__isnull=False).values('user').distinct().count()
+        anonymous_count = self.point_set.filter(user__isnull=True).values('ip').distinct().count()
+        return users_count + anonymous_count
+
+    @property
     def favorites_count(self):
         return len(self.favorite_set.all())
 
@@ -107,6 +113,10 @@ class Video(models.Model):
                 ranking = self.ranking_set.create(day=ranking_day, type=ranking_type)
                 ranking.calculate()
                 ranking.save()
+
+    @property
+    def published_at_str(self):
+        return self.published_at.strftime('%Y-%m-%d_%H:%M:%S')
 
     def __str__(self):
         return self.profile.title + f'(id:{self.slug})'
