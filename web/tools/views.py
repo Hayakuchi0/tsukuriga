@@ -1,3 +1,6 @@
+import csv
+import operator
+import functools
 import base64
 
 from django.views.generic import CreateView
@@ -5,13 +8,16 @@ from django.shortcuts import redirect, render
 from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.core.files.base import ContentFile
-from django.http.response import JsonResponse
+from django.http.response import HttpResponse, JsonResponse
+from django.db.models import Q
 
 from moviepy.editor import ImageSequenceClip
 
 from ajax.utils import get_ip, get_anonymous_name
 from upload.utils import get_tempfile
+from browse.utils import safe_videos
 from .forms import PostForm, GIFEncodingForm, GIFTweetForm
 from .models import Post
 
@@ -98,3 +104,48 @@ def para_tweet(request):
         return JsonResponse({'isTweeted': True, 'message': 'ツイートに成功しました'})
 
     return JsonResponse({'isTweeted': False, 'message': 'ツイートに失敗しました。送信情報が不正です。'})
+
+
+@staff_member_required
+def statistics_csv(request):
+    response = HttpResponse(content_type='text/csv', charset='utf-8_sig')
+    response['Content-Disposition'] = 'attachment; filename=dump.csv'
+
+    writer = csv.writer(response)
+    columns = {
+        '動画名': 'profile.title',
+        '動画ID': 'slug',
+        '投稿者名': 'user.name',
+        '投稿者ID': 'user.username',
+        '再生回数': 'views_count',
+        '総スター数': 'points_count',
+        '総スター人数': 'point_users_count',
+        '総いいね数': 'favorites_count',
+        '投稿日': 'published_at_str'
+    }
+    writer.writerow(columns.keys())
+
+    q = request.GET.get('q')
+    if not q:
+        videos = safe_videos()
+    else:
+        q_list = q.split(',')
+
+        videos = safe_videos().filter(
+            functools.reduce(operator.and_, (Q(profile__title__contains=item) for item in q_list)) |
+            functools.reduce(operator.and_, (Q(profile__description__contains=item) for item in q_list))
+        ).order_by('-published_at')
+
+    label = request.GET.get('label')
+    if label:
+        videos = videos.filter(profile__labels__slug__contains=label)
+
+    for video in videos:
+        row = []
+        for k, v in columns.items():
+            data = operator.attrgetter(v)(video)
+            row.append(str(data).replace(',', ' '))
+
+        writer.writerow(row)
+
+    return response

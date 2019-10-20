@@ -7,4 +7,5 @@ urlpatterns = [
     path('para/auth', views.para_authentication),
     path('para/callback', views.para_callback),
     path('para/tweet', views.para_tweet),
+    path('statistics/csv', views.statistics_csv),
 ]
