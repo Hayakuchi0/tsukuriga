@@ -132,13 +132,16 @@ def statistics_csv(request):
         q_list = q.split(',')
 
         videos = safe_videos().filter(
-            functools.reduce(operator.and_, (Q(profile__title__contains=item) for item in q_list)) |
-            functools.reduce(operator.and_, (Q(profile__description__contains=item) for item in q_list))
+            functools.reduce(operator.or_, (Q(profile__title__contains=item) for item in q_list)) |
+            functools.reduce(operator.or_, (Q(profile__description__contains=item) for item in q_list))
         ).order_by('-published_at')
 
-    label = request.GET.get('label')
-    if label:
-        videos = videos.filter(profile__labels__slug__contains=label)
+    labels = request.GET.get('labels')
+    if labels:
+        label_list = labels.split(',')
+        videos = videos.filter(
+            functools.reduce(operator.or_, (Q(profile__labels__slug__contains=item) for item in label_list))
+        ).order_by('-published_at')
 
     for video in videos:
         row = []
