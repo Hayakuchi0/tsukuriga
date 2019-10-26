@@ -120,6 +120,7 @@ def statistics_csv(request):
         '再生回数': 'views_count',
         '総スター数': 'points_count',
         '総スター人数': 'point_users_count',
+        '総コメント人数': 'commentators_count',
         '総いいね数': 'favorites_count',
         '投稿日': 'published_at_str'
     }

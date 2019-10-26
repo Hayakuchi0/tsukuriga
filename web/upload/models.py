@@ -107,6 +107,10 @@ class Video(models.Model):
     def favorites_count(self):
         return len(self.favorite_set.all())
 
+    @property
+    def commentators_count(self):
+        return self.comment_set.exclude(user=self.user).values('user').distinct().count()
+
     def calculate_rankings(self):
         for ranking_day, i in Ranking.DAYS:
             for ranking_type, j in Ranking.TYPES:
