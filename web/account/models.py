@@ -59,13 +59,13 @@ class User(AbstractUser):
     @property
     def twitter_info(self):
         if self.has_twitter_auth:
-            extra_data = self.social_auth.get(provider='twitter').extra_data
+            extra_data = self.social_auth.filter(provider='twitter').last().extra_data
             return extra_data['access_token']
         raise Exception('ツイッターの認証情報がありません')
 
     @property
     def api(self):
-        social_auth_obj = UserSocialAuth.objects.get(user=self)
+        social_auth_obj = UserSocialAuth.objects.filter(user=self).last()
         api = twitter.Api(consumer_key=settings.SOCIAL_AUTH_TWITTER_KEY,
                           consumer_secret=settings.SOCIAL_AUTH_TWITTER_SECRET,
                           access_token_key=social_auth_obj.extra_data['access_token']['oauth_token'],
