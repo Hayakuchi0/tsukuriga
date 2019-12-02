@@ -11,7 +11,7 @@ $tabs-link-active-border-bottom-color: #000;
 $purple: #8200ff;
 $link: $purple;
 $box-radius: 0;
-$navbar-height: 4rem;
+$navbar-height: 3.0rem;
 $navbar-item-color: white;
 $navbar-item-hover-color: darken(white, 20%);
 
@@ -40,7 +40,6 @@ $addColors: (
 $colors: map-merge($colors, $addColors);
 
 @import "~bulma/bulma";
-
 
 @import "~bulmaswatch/lux/overrides";
 @import "~bulma-switch/dist/css/bulma-switch";
