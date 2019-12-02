@@ -257,6 +257,7 @@ PWA_APP_THEME_COLOR = '#4a4a4a'
 PWA_APP_BACKGROUND_COLOR = '#ffffff'
 PWA_APP_DISPLAY = 'standalone'
 PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
 PWA_APP_START_URL = '/?pwa'
 PWA_APP_ICONS = [
     {
@@ -265,4 +266,6 @@ PWA_APP_ICONS = [
     }
 ]
 PWA_APP_SPLASH_SCREEN = []
+PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'ja'
+PWA_SERVICE_WORKER_PATH = '/assets/sw.js'
