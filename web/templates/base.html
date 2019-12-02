@@ -1,4 +1,5 @@
 {% load render_bundle from webpack_loader %}
+{% load pwa %}
 {% load core_tags %}
 <!DOCTYPE html>
 <html lang="ja">
@@ -46,6 +47,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
   {% block head %}{% endblock %}
   {% render_bundle 'base/app' %}
+  {% progressive_web_app_meta %}
 </head>
 <body class="has-navbar-fixed-top has-navbar-fixed-bottom-touch" data-csrf="{{ csrf_token }}">
   {% include 'base/components/navbar-top.html' %}

@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     'maintenance_mode',
     # django-cors-headers
     'corsheaders',
+    # django-pwa
+    'pwa',
     # original apps
     'core.apps.CoreConfig',
     'upload.apps.UploadConfig',
@@ -247,3 +249,20 @@ CORS_ORIGIN_WHITELIST = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+# django-pwa
+PWA_APP_NAME = 'Tsukuriga'
+PWA_APP_DESCRIPTION = '自作アニメーション動画の投稿、閲覧アプリ'
+PWA_APP_THEME_COLOR = '#4a4a4a'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_START_URL = '/?pwa'
+PWA_APP_ICONS = [
+    {
+        'src': '/assets/images/icon-192x192.png',
+        'sizes': '192x192'
+    }
+]
+PWA_APP_SPLASH_SCREEN = []
+PWA_APP_LANG = 'ja'
