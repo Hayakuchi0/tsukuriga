@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "656c863cff70a70c201eed0a91ffa1af5d9cf10b6007ccfd29af2eb2d6d86fa5"
+            "sha256": "ae3deac42eb89fbf2086ef8b43c51c85db52f2a19f622da6f2e66ccc8e650f40"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -107,6 +107,14 @@
             ],
             "index": "pypi",
             "version": "==2.0.28"
+        },
+        "django-pwa": {
+            "hashes": [
+                "sha256:50384d068e16e9b1c45c591603cbf5cb8e9fc01cb70147a6ada2858c733d60be",
+                "sha256:ef093fda3028bdc99853cdd09844914fc223e64b0a98be4d4da2f44ba72b2761"
+            ],
+            "index": "pypi",
+            "version": "==1.0.5"
         },
         "django-storage-swift": {
             "git": "https://github.com/Compeito/django-storage-swift",
