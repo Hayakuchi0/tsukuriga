@@ -50,10 +50,11 @@ services:
       - 8.8.4.4
     depends_on:
       - db
+      - node
     restart: always
     networks:
       - backend
- 
+
   node:
     image: node
     env_file: .env
