@@ -8,6 +8,7 @@ class Post(CustomModel):
     ip = models.GenericIPAddressField(null=True, blank=True)
     name = models.CharField('名前', max_length=20, default='名無し')
     text = models.TextField('本文', max_length=140)
+    ua = models.CharField('動作環境', max_length=200, null=True, blank=True)
 
     def created_at_str(self):
         if (timezone.now() - self.created_at).days < 3:
