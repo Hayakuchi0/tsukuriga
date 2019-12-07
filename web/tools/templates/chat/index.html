@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load bulma_tags %}
 {% load core_tags %}
+{% load render_bundle from webpack_loader %}
 
 {% block page_title %}チャット{% endblock %}
 {% block ogp_page_title %}チャット{% endblock %}
@@ -36,4 +37,8 @@
       </form>
     </div>
   </div>
+{% endblock %}
+
+{% block scripts %}
+  {% render_bundle 'tools/chat' %}
 {% endblock %}
