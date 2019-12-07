@@ -6,6 +6,7 @@ from django.contrib.sites.models import Site
 from bulma.templatetags.bulma_tags import is_input
 
 from core.utils import created_at2str, activate_url_from
+from pages.utils import markdownify
 
 register = template.Library()
 
