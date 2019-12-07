@@ -268,4 +268,4 @@ PWA_APP_ICONS = [
 PWA_APP_SPLASH_SCREEN = []
 PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'ja'
-PWA_SERVICE_WORKER_PATH = '/assets/sw.js'
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'assets', 'sw.js')
