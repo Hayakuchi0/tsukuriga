@@ -22,4 +22,6 @@ WORKDIR /code
 RUN ln -s /usr/bin/python3.7 /usr/bin/python
 RUN curl -kL https://bootstrap.pypa.io/get-pip.py | python
 RUN pip install pipenv
-RUN pipenv install --system --deploy --ignore-pipfile --dev
+
+ENV PIPENV_VENV_IN_PROJECT 1
+RUN pipenv install --ignore-pipfile --dev
