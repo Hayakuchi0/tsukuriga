@@ -15,7 +15,7 @@ class PostForm(forms.ModelForm):
     )
     ua = forms.CharField(
         label='動作環境', widget=forms.TextInput(attrs={'readonly': True}),
-        help_text="* 他のユーザーには見えません",
+        help_text="* チャットには表示されません",
     )
 
     class Meta:
