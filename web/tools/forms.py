@@ -11,7 +11,7 @@ class PostForm(forms.ModelForm):
         ),
         help_text='<a data-action="insert-template" data-template-id="suggestion" href="#suggestion">提案用テンプレート</a>'
                   ' / '
-                  '<a data-action="insert-template" data-template-id="issue" href="#issue">不具合報告用テンプレート</a>'
+                  '<a data-action="insert-template" data-template-id="bugreport" href="#bugreport">不具合報告用テンプレート</a>'
     )
     ua = forms.CharField(
         label='動作環境', widget=forms.TextInput(attrs={'readonly': True}),

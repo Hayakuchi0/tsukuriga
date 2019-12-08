@@ -10,7 +10,7 @@ const templates = {
 (提案内容によって解決できる現状の問題、提案内容によって得られる嬉しいこと など詳しく)
 
 `,
-  issue: `[不具合報告]
+  bugreport: `[不具合報告]
 * 不具合が発生するページ
 (URLを貼ってください)
 
@@ -30,15 +30,17 @@ ready(() => {
   $uaInput.value = JSON.stringify(browser())
 
   const $textInput = doc('#id_text')
-  let templateId = location.hash.substring(1)
-  if (templateId) {
-    $textInput.value = templates[templateId]
+  const updateInput = text => {
+    if (text) $textInput.value = text
   }
+
+  let templateId = location.hash.substring(1)
+  updateInput(templates[templateId])
 
   docAll('[data-action=insert-template]').forEach($anchor => {
     $anchor.addEventListener('click', e => {
       templateId = $anchor.dataset.templateId
-      $textInput.value = templates[templateId]
+      updateInput(templates[templateId])
     })
   })
 })
