@@ -28,7 +28,6 @@ const templates = {
 ready(() => {
   const $uaInput = doc('#id_ua')
   $uaInput.value = JSON.stringify(browser())
-  $uaInput.style = 'background-color: #b5b5b5 !important'
 
   const $textInput = doc('#id_text')
   let templateId = location.hash.substring(1)
