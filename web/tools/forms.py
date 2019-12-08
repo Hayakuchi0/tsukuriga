@@ -20,7 +20,7 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('name', 'text')
+        fields = ('name', 'text', 'ua')
 
 
 class GIFEncodingForm(forms.Form):

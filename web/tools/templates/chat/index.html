@@ -24,6 +24,12 @@
                 {% endif %}
               </p>
               {{ post.text|activate_url|safe }}
+              {% if user.is_staff %}
+                <details>
+                  <summary>動作環境</summary>
+                  <p><code>{{ post.ua|default_if_none:"無し" }}</code></p>
+                </details>
+              {% endif %}
             </div>
           </div>
         </div>
