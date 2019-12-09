@@ -1,3 +1,5 @@
+import traceback
+
 from django.shortcuts import redirect, render
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import login
@@ -33,6 +35,14 @@ def social_auth_complete(request, backend):
             messages.error(request, 'すでに使用済みのアカウントです')
         else:
             messages.error(request, '予期せぬエラーが発生しました')
+            if not settings.DEBUG:
+                send_mail(
+                    subject='ソーシャルログインのエラー通知',
+                    message=traceback.format_exc(),
+                    from_email=settings.SERVER_EMAIL,
+                    recipient_list=[email for name, email in settings.ADMINS]
+                )
+
         return redirect('/account/login')
 
 
