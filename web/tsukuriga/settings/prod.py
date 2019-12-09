@@ -28,6 +28,9 @@ X_FRAME_OPTIONS = 'DENY'
 # security.W021
 # SECURE_HSTS_PRELOAD = True
 
+# https://github.com/python-social-auth/social-core/issues/250#issuecomment-436832460
+SESSION_COOKIE_SAMESITE = None
+
 # django-storage-swift
 DEFAULT_FILE_STORAGE = 'swift.storage.SwiftStorage'
 SWIFT_AUTH_URL = 'https://identity.tyo1.conoha.io/v2.0'
@@ -48,3 +51,7 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='')
 EMAIL_PORT = 465
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'Tsukuriga <mail@tsukuriga.net>'
+
+# django-social-auth
+# https://stackoverflow.com/a/51503408
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
