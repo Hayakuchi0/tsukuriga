@@ -5,6 +5,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import login
 from django.contrib import messages
 from django.conf import settings
+from django.core.mail import send_mail
 
 from social_django.views import complete
 from social_core import exceptions as social_exceptions
