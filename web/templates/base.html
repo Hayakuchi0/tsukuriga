@@ -35,7 +35,7 @@
     <meta property="og:url" content="{{ request.build_absolute_uri }}"/>
     <meta
       property="og:image"
-      content="{% block ogp_image %}{{ '/assets/images/ogp.png'|to_absolute_path }}{% endblock %}"
+            content="{% block ogp_image %}{{ '/assets/images/ogp.png'|to_absolute_path }}{% endblock %}"
     />
     <meta name="twitter:card" content="{% block ogp_twitter_card %}summary_large_image{% endblock %}"/>
     <meta name="twitter:site" content="{% block ogp_twitter_site %}@ugo_compeito{% endblock %}"/>
@@ -45,9 +45,11 @@
     <link rel="canonical" href="{{ request.path|add:queries|slice:":-1"|to_absolute_path }}">
   {% endif %}
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+  {% if not is_ios %}
+    {% progressive_web_app_meta %}
+  {% endif %}
   {% block head %}{% endblock %}
   {% render_bundle 'base/app' %}
-  {% progressive_web_app_meta %}
 </head>
 <body class="has-navbar-fixed-top has-navbar-fixed-bottom-touch" data-csrf="{{ csrf_token }}">
   {% include 'base/components/navbar-top.html' %}
