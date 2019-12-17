@@ -40,12 +40,14 @@ class Command(BaseCommand):
         for name_prefix, data in dataset.items():
             json = []
             for name_key, value in data.items():
-                name = f"custom.statistics.{name_prefix}.{name_key}"
+                name = f"{name_prefix}.{name_key}"
                 json.append({
-                    'hostId': settings.MACKEREL_HOST_ID,
                     'name': name,
                     'time': time,
                     'value': value
                 })
-            response = requests.post('https://mackerel.io/api/v0/tsdb', json=json, headers=headers)
+            print(json)
+            response = requests.post(
+                'https://api.mackerelio.com/api/v0/services/tsukuriga-statistics/tsdb', json=json, headers=headers
+            )
             response.raise_for_status()
