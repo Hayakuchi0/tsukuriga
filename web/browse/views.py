@@ -118,4 +118,5 @@ class LabelIndex(AltPaginationListView):
         context = super().get_context_data(*args, **kwargs)
         return context
 
+
 label_index = LabelIndex.as_view()
