@@ -97,3 +97,25 @@ class LabelList(AltPaginationListView):
 
 
 label = LabelList.as_view()
+
+
+class LabelIndex(AltPaginationListView):
+    template_name = "browse/label_index.html"
+    context_object_name = "labels"
+    paginate_by = 10
+    labels = None
+
+    def get(self, request, *args, **kwargs):
+        self.labels = Label.objects.all().order_by('id')
+        for label in self.labels:
+            label.videos = safe_videos().filter(profile__labels=label).order_by('-published_at')[:3]
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return self.labels
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        return context
+
+label_index = LabelIndex.as_view()
