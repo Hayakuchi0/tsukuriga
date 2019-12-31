@@ -106,7 +106,7 @@ class LabelIndex(AltPaginationListView):
     labels = None
 
     def get(self, request, *args, **kwargs):
-        self.labels = Label.objects.all().order_by('id')
+        self.labels = Label.objects.all().order_by('-id')
         for label in self.labels:
             label.videos = safe_videos().filter(profile__labels=label).order_by('-published_at')[:3]
         return super().get(request, *args, **kwargs)

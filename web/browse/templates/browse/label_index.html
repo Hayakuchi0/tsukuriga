@@ -15,7 +15,8 @@
         </a>
         <div class="subtitle">{{ label.description|activate_url|safe }}</div>
       </div>
-      {% include 'browse/components/video-list.html' with videos=label.videos column_classes='is-one-third' %}
+      {% include 'browse/components/video-list.html' with videos=label.videos column_classes='is-one-third' page_obj=videos %}
     {% endfor %}
+  {% include 'base/components/pagination.html' %}
   </div>
 {% endblock %}
